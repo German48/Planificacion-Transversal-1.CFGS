@@ -10,15 +10,13 @@ Sistema de planificación y seguimiento de proyectos transversales para el ciclo
 https://german48.github.io/Planificacion-Transversal-1.CFGS/Planificacion-Alumnado.html
 ```
 
-### 🧑‍🏫 Para Docentes (Protegido)
+### 🧑‍🏫 Para Docentes
 **URL para Docentes:**
 ```
 https://german48.github.io/Planificacion-Transversal-1.CFGS/Planificacion-Docente.html
 ```
 
-**Contraseña de acceso:** `docente2026`
-
-> ⚠️ **Nota de Seguridad:** Para cambiar la contraseña, edita el archivo `Planificacion-Docente.html` en la línea que dice `const TEACHER_PASSWORD = "docente2026";`
+> 💡 **Recomendación:** Usa las restricciones de acceso de Moodle (por rol) para que solo los docentes vean este enlace.
 
 ## 📚 Características
 

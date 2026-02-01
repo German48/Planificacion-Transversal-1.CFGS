@@ -31,23 +31,22 @@ https://german48.github.io/Planificacion-Transversal-1.CFGS/Planificacion-Alumna
 
 ---
 
-### 🧑‍🏫 ENLACE PARA DOCENTES (Protegido con contraseña)
+### 🧑‍🏫 ENLACE PARA DOCENTES
 
 ```
 https://german48.github.io/Planificacion-Transversal-1.CFGS/Planificacion-Docente.html
 ```
 
-**Contraseña de acceso:** `docente2026`
+**Cómo compartirlo con el equipo docente en Moodle:**
+1. En tu curso de Moodle, activa "Edición"
+2. Añade una actividad o recurso → **URL**
+3. Nombre: "🧑‍🏫 Planificación del Proyecto - Panel Docente"
+4. URL externa: pega el enlace de arriba
+5. **IMPORTANTE:** En "Restricciones de acceso" → Añadir restricción → **Perfil de usuario** → Rol = "Profesor" o "Profesor sin permiso de edición"
+6. Esto hará que solo los docentes vean este enlace
+7. Guardar y mostrar
 
-**Cómo compartirlo con el equipo docente:**
-1. Envía el enlace por correo interno o Teams
-2. Incluye la contraseña de forma segura (no en el mismo mensaje)
-3. Opcional: Añádelo en Moodle en una sección **oculta para alumnos** o con **restricción de acceso por rol**
-
-**Cambiar la contraseña:**
-- Edita el archivo `Planificacion-Docente.html` (línea 35)
-- Cambia `const TEACHER_PASSWORD = "docente2026";` por tu nueva clave
-- Haz commit y push a GitHub
+**Alternativa:** Comparte el enlace directamente por correo interno o Teams con tu equipo docente.
 
 ---
 
@@ -77,14 +76,15 @@ Ambas vistas (Docente y Alumnado) comparten el mismo archivo de datos: `data/mas
 ## 🛡️ SEGURIDAD Y PRIVACIDAD
 
 ### ✅ Lo que SÍ está protegido:
-- El panel docente tiene contraseña (básica, pero efectiva para el aula)
+- El acceso docente se controla mediante **restricciones de Moodle** (por rol de usuario)
 - Los datos de progreso de cada usuario están en SU navegador (no se comparten)
-- El repositorio es público, pero nadie puede editarlo sin tu permiso
+- El repositorio es público, pero nadie puede editarlo sin tu permiso de GitHub
 
 ### ⚠️ Lo que NO está protegido:
-- El código fuente es visible (es un proyecto educativo, no un banco)
-- Un alumno técnico podría ver el código y encontrar la contraseña
-- **Solución:** Si esto te preocupa, podemos implementar autenticación con Google o Microsoft (más complejo)
+- El código fuente es visible (es un proyecto educativo, no un sistema bancario)
+- Si un alumno conoce la URL del panel docente, podría accederla directamente
+- **Solución:** Usa las restricciones de acceso de Moodle para que solo los docentes vean el enlace
+- **Alternativa:** Si necesitas mayor seguridad, podemos implementar autenticación con Google/Microsoft (más complejo)
 
 ---
 

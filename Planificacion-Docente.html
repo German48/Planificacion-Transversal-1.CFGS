@@ -29,29 +29,8 @@
     <link rel="stylesheet" href="css/settings-modal.css">
 </head>
 
+
 <body class="mode-docente">
-    <!-- ============ PROTECCIÓN DE ACCESO DOCENTE ============ -->
-    <script>
-        (function () {
-            const TEACHER_PASSWORD = "docente2026"; // Cambia esta contraseña
-            const ACCESS_KEY = "teacher_access_granted";
-
-            // Verificar si ya tiene acceso
-            const hasAccess = sessionStorage.getItem(ACCESS_KEY);
-
-            if (!hasAccess) {
-                const userPassword = prompt("🔐 Acceso Docente\n\nIntroduce la contraseña:");
-
-                if (userPassword !== TEACHER_PASSWORD) {
-                    alert("❌ Acceso denegado. Redirigiendo a la vista de alumnado...");
-                    window.location.href = "Planificacion-Alumnado.html";
-                } else {
-                    sessionStorage.setItem(ACCESS_KEY, "true");
-                }
-            }
-        })();
-    </script>
-
     <!-- ============ BANNER DE COORDINACIÓN DOCENTE ============ -->
     <div class="coordination-banner" id="coordination-banner">
         <span class="banner-icon">🧑‍🏫</span>
