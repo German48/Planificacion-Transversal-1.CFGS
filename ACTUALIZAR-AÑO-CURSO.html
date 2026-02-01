@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Año del Curso</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #555;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box p {
+            color: #1976d2;
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .warning-box p {
+            color: #856404;
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .result {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .result.error {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        .result h3 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+
+        .result.error h3 {
+            color: #721c24;
+        }
+
+        .result pre {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .progress {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📅 Actualizar Año del Curso</h1>
+        <p class="subtitle">Actualiza automáticamente todas las fechas del MASTER_PLAN</p>
+
+        <div class="warning-box">
+            <p><strong>⚠️ Importante:</strong> Este script actualizará las fechas en memoria. Deberás copiar el
+                resultado y pegarlo en <code>data/master-plan.js</code></p>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Configuración</h2>
+
+            <div class="input-group">
+                <label for="currentYear">Año Actual del Curso</label>
+                <input type="text" id="currentYear" value="2025-2026" placeholder="2025-2026">
+            </div>
+
+            <div class="input-group">
+                <label for="newYear">Nuevo Año del Curso</label>
+                <input type="text" id="newYear" value="2026-2027" placeholder="2026-2027">
+            </div>
+
+            <div class="input-group">
+                <label for="yearsToAdd">Años a Sumar a las Fechas</label>
+                <select id="yearsToAdd">
+                    <option value="1" selected>+1 año</option>
+                    <option value="2">+2 años</option>
+                    <option value="3">+3 años</option>
+                    <option value="4">+4 años</option>
+                    <option value="5">+5 años</option>
+                </select>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="preserveWeekdays" checked>
+                <label for="preserveWeekdays">Preservar días de la semana (recomendado)</label>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="updateDays" checked>
+                <label for="updateDays">Actualizar también el objeto "days"</label>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <p><strong>💡 Cómo funciona:</strong></p>
+            <p>1. El script cargará el MASTER_PLAN actual</p>
+            <p>2. Actualizará el año en la configuración</p>
+            <p>3. Sumará los años especificados a todas las fechas</p>
+            <p>4. Si marcas "Preservar días de la semana", ajustará las fechas para mantener el mismo día (ej: si era
+                lunes, seguirá siendo lunes)</p>
+        </div>
+
+        <button class="btn btn-primary" onclick="updateYear()">
+            🚀 Actualizar Año del Curso
+        </button>
+
+        <button class="btn btn-secondary" onclick="downloadJSON()">
+            💾 Descargar JSON Actualizado
+        </button>
+
+        <div class="progress" id="progress">
+            <div class="progress-bar" id="progressBar">0%</div>
+        </div>
+
+        <div class="result" id="result">
+            <h3 id="resultTitle">✅ Actualización Completada</h3>
+            <p id="resultMessage"></p>
+            <pre id="resultCode"></pre>
+        </div>
+    </div>
+
+    <script>
+        let updatedPlan = null;
+
+        function updateYear() {
+            const currentYear = document.getElementById('currentYear').value.trim();
+            const newYear = document.getElementById('newYear').value.trim();
+            const yearsToAdd = parseInt(document.getElementById('yearsToAdd').value);
+            const preserveWeekdays = document.getElementById('preserveWeekdays').checked;
+            const updateDays = document.getElementById('updateDays').checked;
+
+            // Validar inputs
+            if (!currentYear || !newYear) {
+                showError('Por favor, completa todos los campos');
+                return;
+            }
+
+            if (!/^\d{4}-\d{4}$/.test(currentYear) || !/^\d{4}-\d{4}$/.test(newYear)) {
+                showError('El formato del año debe ser YYYY-YYYY (ej: 2025-2026)');
+                return;
+            }
+
+            // Verificar que MASTER_PLAN existe
+            if (!window.MASTER_PLAN) {
+                showError('MASTER_PLAN no está cargado. Asegúrate de abrir esta página desde la misma carpeta que Planificacion-Docente.html');
+                return;
+            }
+
+            // Mostrar progreso
+            showProgress();
+
+            // Clonar MASTER_PLAN
+            try {
+                updatedPlan = JSON.parse(JSON.stringify(window.MASTER_PLAN));
+                updateProgress(10, 'Clonando MASTER_PLAN...');
+
+                // Actualizar año en config
+                if (updatedPlan.config) {
+                    updatedPlan.config.year = newYear;
+                }
+                updateProgress(20, 'Actualizando configuración...');
+
+                // Actualizar fechas de semanas
+                if (updatedPlan.weeks && Array.isArray(updatedPlan.weeks)) {
+                    updateProgress(30, `Actualizando ${updatedPlan.weeks.length} semanas...`);
+
+                    updatedPlan.weeks = updatedPlan.weeks.map((week, index) => {
+                        const newWeek = { ...week };
+
+                        if (week.date_from) {
+                            newWeek.date_from = updateDate(week.date_from, yearsToAdd, preserveWeekdays);
+                        }
+
+                        if (week.date_to) {
+                            newWeek.date_to = updateDate(week.date_to, yearsToAdd, preserveWeekdays);
+                        }
+
+                        updateProgress(30 + (index / updatedPlan.weeks.length) * 40,
+                            `Actualizando semana ${index + 1}/${updatedPlan.weeks.length}...`);
+
+                        return newWeek;
+                    });
+                }
+
+                // Actualizar fechas en days
+                if (updateDays && updatedPlan.days) {
+                    updateProgress(70, 'Actualizando días...');
+                    const newDays = {};
+
+                    Object.entries(updatedPlan.days).forEach(([dateStr, dayData]) => {
+                        const newDate = updateDate(dateStr, yearsToAdd, preserveWeekdays);
+                        newDays[newDate] = dayData;
+                    });
+
+                    updatedPlan.days = newDays;
+                }
+
+                updateProgress(90, 'Finalizando...');
+
+                // Restaurar funciones
+                updatedPlan.getWeek = function (weekId) { return this.weeks.find(w => w.week_id === weekId); };
+                updatedPlan.getPhase = function (phaseId) { return this.phases[phaseId]; };
+                updatedPlan.getModule = function (moduleId) { return this.modules[moduleId.toUpperCase()]; };
+
+                updateProgress(100, '¡Completado!');
+
+                // Mostrar resultado
+                showSuccess(currentYear, newYear, yearsToAdd);
+
+            } catch (error) {
+                showError('Error al procesar: ' + error.message);
+                console.error(error);
+            }
+        }
+
+        function updateDate(dateStr, yearsToAdd, preserveWeekdays) {
+            const date = new Date(dateStr + 'T00:00:00');
+
+            if (preserveWeekdays) {
+                // Sumar años
+                date.setFullYear(date.getFullYear() + yearsToAdd);
+
+                // Ajustar para mantener el mismo día de la semana
+                const originalWeekday = new Date(dateStr + 'T00:00:00').getDay();
+                const newWeekday = date.getDay();
+                const diff = originalWeekday - newWeekday;
+
+                if (diff !== 0) {
+                    date.setDate(date.getDate() + diff);
+                }
+            } else {
+                // Solo sumar años
+                date.setFullYear(date.getFullYear() + yearsToAdd);
+            }
+
+            return date.toISOString().split('T')[0];
+        }
+
+        function showProgress() {
+            document.getElementById('progress').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+        }
+
+        function updateProgress(percent, message) {
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = percent + '%';
+            progressBar.textContent = message;
+        }
+
+        function showSuccess(currentYear, newYear, yearsToAdd) {
+            const result = document.getElementById('result');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultMessage = document.getElementById('resultMessage');
+            const resultCode = document.getElementById('resultCode');
+
+            result.className = 'result';
+            result.style.display = 'block';
+
+            resultTitle.textContent = '✅ Actualización Completada';
+            resultMessage.innerHTML = `
+                <strong>Cambios realizados:</strong><br>
+                • Año actualizado: ${currentYear} → ${newYear}<br>
+                • Fechas actualizadas: +${yearsToAdd} año(s)<br>
+                • Semanas procesadas: ${updatedPlan.weeks.length}<br>
+                • Días procesados: ${Object.keys(updatedPlan.days || {}).length}<br><br>
+                <strong>📋 Próximos pasos:</strong><br>
+                1. Copia el código de abajo<br>
+                2. Abre <code>data/master-plan.js</code><br>
+                3. Reemplaza <code>window.MASTER_PLAN = { ... }</code> con el código copiado<br>
+                4. Guarda el archivo<br>
+                5. Recarga la aplicación
+            `;
+
+            const code = `window.MASTER_PLAN = ${JSON.stringify(updatedPlan, null, 2)};
+
+// Restaurar funciones
+window.MASTER_PLAN.getWeek = function(weekId) { return this.weeks.find(w => w.week_id === weekId); };
+window.MASTER_PLAN.getPhase = function(phaseId) { return this.phases[phaseId]; };
+window.MASTER_PLAN.getModule = function(moduleId) { return this.modules[moduleId.toUpperCase()]; };
+
+console.log('✅ MASTER_PLAN cargado con Motor de Fichas Dinámico');`;
+
+            resultCode.textContent = code;
+
+            // Ocultar progreso
+            setTimeout(() => {
+                document.getElementById('progress').style.display = 'none';
+            }, 500);
+        }
+
+        function showError(message) {
+            const result = document.getElementById('result');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultMessage = document.getElementById('resultMessage');
+            const resultCode = document.getElementById('resultCode');
+
+            result.className = 'result error';
+            result.style.display = 'block';
+
+            resultTitle.textContent = '❌ Error';
+            resultMessage.textContent = message;
+            resultCode.textContent = '';
+
+            document.getElementById('progress').style.display = 'none';
+        }
+
+        function downloadJSON() {
+            if (!updatedPlan) {
+                alert('Primero debes actualizar el año del curso');
+                return;
+            }
+
+            const dataStr = JSON.stringify(updatedPlan, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `master-plan-${updatedPlan.config.year}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+
+            alert(`✅ Archivo descargado: master-plan-${updatedPlan.config.year}.json`);
+        }
+
+        // Cargar MASTER_PLAN si está disponible
+        window.addEventListener('load', () => {
+            if (window.MASTER_PLAN) {
+                console.log('✅ MASTER_PLAN detectado');
+                console.log('📊 Semanas disponibles:', window.MASTER_PLAN.weeks?.length);
+                console.log('📅 Año actual:', window.MASTER_PLAN.config?.year);
+            } else {
+                console.warn('⚠️ MASTER_PLAN no detectado. Abre esta página desde la carpeta de la aplicación.');
+            }
+        });
+    </script>
+</body>
+
+</html>

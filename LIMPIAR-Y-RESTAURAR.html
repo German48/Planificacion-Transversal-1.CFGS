@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limpiando y Restaurando...</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 60px 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            margin: 30px auto;
+            animation: spin 1s linear infinite;
+        }
+
+        .status {
+            font-size: 1rem;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .success {
+            color: #4ade80;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔧 Restaurando Aplicación</h1>
+        <p>Limpiando datos temporales y restaurando configuración...</p>
+        <div class="spinner"></div>
+        <div class="status" id="status">Iniciando proceso...</div>
+    </div>
+
+    <script>
+        // Función para actualizar el estado
+        function updateStatus(message, isSuccess = false) {
+            const statusEl = document.getElementById('status');
+            statusEl.textContent = message;
+            if (isSuccess) {
+                statusEl.classList.add('success');
+            }
+        }
+
+        // Proceso de limpieza y restauración
+        async function cleanAndRestore() {
+            try {
+                // Paso 1: Limpiar localStorage
+                updateStatus('🗑️ Limpiando datos temporales...');
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                localStorage.clear();
+                updateStatus('✅ Datos temporales eliminados');
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                // Paso 2: Limpiar sessionStorage
+                updateStatus('🗑️ Limpiando sesión...');
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                sessionStorage.clear();
+                updateStatus('✅ Sesión limpiada');
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                // Paso 3: Preparar redirección
+                updateStatus('🔄 Preparando redirección...', true);
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Paso 4: Redirigir
+                updateStatus('✅ ¡Listo! Redirigiendo...', true);
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Redirigir a la página principal
+                window.location.href = 'Planificacion-Docente.html';
+
+            } catch (error) {
+                updateStatus('❌ Error: ' + error.message);
+                console.error('Error durante la limpieza:', error);
+
+                // Intentar redirección de todos modos después de 3 segundos
+                setTimeout(() => {
+                    window.location.href = 'Planificacion-Docente.html';
+                }, 3000);
+            }
+        }
+
+        // Iniciar el proceso automáticamente
+        window.addEventListener('load', cleanAndRestore);
+    </script>
+</body>
+
+</html>
