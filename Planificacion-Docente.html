@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="css/academic-year-selector.css">
 
     <!-- PWA Support -->
-    <link rel="manifest" href="./manifest-docente.json"><link rel="icon" type="image/png" href="./favicon.png">
+    <link rel="manifest" href="./manifest-docente.json">
+    <link rel="icon" type="image/png" href="./favicon.png">
     <meta name="theme-color" content="#34495e">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -29,6 +30,28 @@
 </head>
 
 <body class="mode-docente">
+    <!-- ============ PROTECCIÓN DE ACCESO DOCENTE ============ -->
+    <script>
+        (function () {
+            const TEACHER_PASSWORD = "docente2026"; // Cambia esta contraseña
+            const ACCESS_KEY = "teacher_access_granted";
+
+            // Verificar si ya tiene acceso
+            const hasAccess = sessionStorage.getItem(ACCESS_KEY);
+
+            if (!hasAccess) {
+                const userPassword = prompt("🔐 Acceso Docente\n\nIntroduce la contraseña:");
+
+                if (userPassword !== TEACHER_PASSWORD) {
+                    alert("❌ Acceso denegado. Redirigiendo a la vista de alumnado...");
+                    window.location.href = "Planificacion-Alumnado.html";
+                } else {
+                    sessionStorage.setItem(ACCESS_KEY, "true");
+                }
+            }
+        })();
+    </script>
+
     <!-- ============ BANNER DE COORDINACIÓN DOCENTE ============ -->
     <div class="coordination-banner" id="coordination-banner">
         <span class="banner-icon">🧑‍🏫</span>
@@ -47,7 +70,7 @@
     <header class="main-header">
         <div class="header-content">
             <div class="header-title">
-                <h1>📐 Planificación Transversal 1.º CFGS Diseño y Amueblamiento</h1>              
+                <h1>📐 Planificación Transversal 1.º CFGS Diseño y Amueblamiento</h1>
             </div>
 
             <!-- Widget de Progreso Compacto (Diseño Premium) -->
@@ -115,7 +138,7 @@
             <div class="week-selector">
                 <select id="weekSelector" onchange="onWeekChange(this.value)">
                     <option value="">📅 Seleccionar semana...</option>
-</select>
+                </select>
             </div>
 
         </div>
@@ -129,7 +152,7 @@
         <!-- ============ BLOQUES DE SIMETRÍA PEDAGÓGICA ============ -->
         <!-- ============ NIVEL 1: RADAR MENSUAL ============ -->
         <div id="view-level-1" class="view-container">
-<div class="radar-section-header">
+            <div class="radar-section-header">
                 <h2>📆 Radar Mensual de Coordinación</h2>
                 <p>Vista global del curso • Haz clic en cualquier día para ver/editar su ficha</p>
             </div>
@@ -292,49 +315,49 @@
                     <span class="collapsible-chevron">▾</span>
                 </button>
                 <div class="collapsible-content">
-<div class="pedagogical-layer" id="pedagogical-layer">
-            <!-- Bloque 1: Sentido del Proyecto (Común) -->
-            <div class="pedagogical-block block-sense" id="collapse-sense">
-                <div class="pedagogical-title" onclick="togglePedagogicalCollapse('collapse-sense')">
-                    <span>🎯 Sentido del Proyecto</span>
-                </div>
-                <div class="pedagogical-content" id="layer-sense-content">
-                    <div class="pedagogical-item">
-                        <span class="pedagogical-item-label">Objetivo Real</span>
-                        <div class="pedagogical-item-text" id="sense-objective">-</div>
-                    </div>
-                    <div class="pedagogical-item">
-                        <span class="pedagogical-item-label">Producto Final</span>
-                        <div class="pedagogical-item-text" id="sense-product">-</div>
-                    </div>
-                    <div class="pedagogical-item">
-                        <span class="pedagogical-item-label">Perfil Profesional</span>
-                        <div class="pedagogical-item-text" id="sense-profile">-</div>
-                    </div>
-                </div>
-            </div>
+                    <div class="pedagogical-layer" id="pedagogical-layer">
+                        <!-- Bloque 1: Sentido del Proyecto (Común) -->
+                        <div class="pedagogical-block block-sense" id="collapse-sense">
+                            <div class="pedagogical-title" onclick="togglePedagogicalCollapse('collapse-sense')">
+                                <span>🎯 Sentido del Proyecto</span>
+                            </div>
+                            <div class="pedagogical-content" id="layer-sense-content">
+                                <div class="pedagogical-item">
+                                    <span class="pedagogical-item-label">Objetivo Real</span>
+                                    <div class="pedagogical-item-text" id="sense-objective">-</div>
+                                </div>
+                                <div class="pedagogical-item">
+                                    <span class="pedagogical-item-label">Producto Final</span>
+                                    <div class="pedagogical-item-text" id="sense-product">-</div>
+                                </div>
+                                <div class="pedagogical-item">
+                                    <span class="pedagogical-item-label">Perfil Profesional</span>
+                                    <div class="pedagogical-item-text" id="sense-profile">-</div>
+                                </div>
+                            </div>
+                        </div>
 
-            <!-- Bloque 2: Intencionalidad (Solo Docente) -->
-            <div class="pedagogical-block block-intent" id="collapse-intent">
-                <div class="pedagogical-title" onclick="togglePedagogicalCollapse('collapse-intent')">
-                    <span>🧠 Intencionalidad Pedagógica</span>
-                </div>
-                <div class="pedagogical-content" id="layer-intent-content">
-                    <div class="pedagogical-item">
-                        <span class="pedagogical-item-label">RA Prioritarios</span>
-                        <div class="pedagogical-item-text" id="intent-ras">-</div>
+                        <!-- Bloque 2: Intencionalidad (Solo Docente) -->
+                        <div class="pedagogical-block block-intent" id="collapse-intent">
+                            <div class="pedagogical-title" onclick="togglePedagogicalCollapse('collapse-intent')">
+                                <span>🧠 Intencionalidad Pedagógica</span>
+                            </div>
+                            <div class="pedagogical-content" id="layer-intent-content">
+                                <div class="pedagogical-item">
+                                    <span class="pedagogical-item-label">RA Prioritarios</span>
+                                    <div class="pedagogical-item-text" id="intent-ras">-</div>
+                                </div>
+                                <div class="pedagogical-item">
+                                    <span class="pedagogical-item-label">Competencias</span>
+                                    <div class="pedagogical-item-text" id="intent-competencies">-</div>
+                                </div>
+                                <div class="pedagogical-item pedagogical-risk">
+                                    <span class="pedagogical-item-label">Riesgos Didácticos</span>
+                                    <div class="pedagogical-item-text" id="intent-risks">-</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="pedagogical-item">
-                        <span class="pedagogical-item-label">Competencias</span>
-                        <div class="pedagogical-item-text" id="intent-competencies">-</div>
-                    </div>
-                    <div class="pedagogical-item pedagogical-risk">
-                        <span class="pedagogical-item-label">Riesgos Didácticos</span>
-                        <div class="pedagogical-item-text" id="intent-risks">-</div>
-                    </div>
-                </div>
-            </div>
-        </div>
                 </div>
             </section>
 
@@ -344,31 +367,31 @@
                     <span class="collapsible-chevron">▾</span>
                 </button>
                 <div class="collapsible-content">
-<!-- Mensaje contextual para alumnado -->
-            <div class="student-focus-message" id="student-focus-radar">
-                <div class="student-focus-header">
-                    <span class="student-focus-icon">🎯</span>
-                    <span class="student-focus-title">Hoy solo necesitas mirar:</span>
-                </div>
-                <div class="student-focus-list" id="student-focus-items">
-                    <div class="student-focus-item">📋 La Ficha diaria/semanal</div>
-                    <div class="student-focus-item">👤 Quién es el líder de semana</div>
-                    <div class="student-focus-item">✅ Los DoD de la semana</div>
-                </div>
-            </div>
+                    <!-- Mensaje contextual para alumnado -->
+                    <div class="student-focus-message" id="student-focus-radar">
+                        <div class="student-focus-header">
+                            <span class="student-focus-icon">🎯</span>
+                            <span class="student-focus-title">Hoy solo necesitas mirar:</span>
+                        </div>
+                        <div class="student-focus-list" id="student-focus-items">
+                            <div class="student-focus-item">📋 La Ficha diaria/semanal</div>
+                            <div class="student-focus-item">👤 Quién es el líder de semana</div>
+                            <div class="student-focus-item">✅ Los DoD de la semana</div>
+                        </div>
+                    </div>
 
-            <!-- Mensaje contextual para docentes -->
-            <div class="teacher-focus-message" id="teacher-focus-radar">
-                <div class="teacher-focus-header">
-                    <span class="teacher-focus-icon">🧭</span>
-                    <span class="teacher-focus-title">Hoy como docente:</span>
-                </div>
-                <div class="teacher-focus-list" id="teacher-focus-items">
-                    <div class="teacher-focus-item">📌 Alinea el foco del día</div>
-                    <div class="teacher-focus-item">👥 Coordina el líder de semana</div>
-                    <div class="teacher-focus-item">🧾 Revisa evidencias clave</div>
-                </div>
-            </div>
+                    <!-- Mensaje contextual para docentes -->
+                    <div class="teacher-focus-message" id="teacher-focus-radar">
+                        <div class="teacher-focus-header">
+                            <span class="teacher-focus-icon">🧭</span>
+                            <span class="teacher-focus-title">Hoy como docente:</span>
+                        </div>
+                        <div class="teacher-focus-list" id="teacher-focus-items">
+                            <div class="teacher-focus-item">📌 Alinea el foco del día</div>
+                            <div class="teacher-focus-item">👥 Coordina el líder de semana</div>
+                            <div class="teacher-focus-item">🧾 Revisa evidencias clave</div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -507,7 +530,8 @@
 
     <!-- ============ FOOTER ============ -->
     <footer class="main-footer">
-        <p>🧑‍🏫 Panel de Coordinación Docente v2.0 • Proyecto Transversal 1º CFGS • IES Ana Luisa Benítez • <span data-academic-year>2025-2026</span>
+        <p>🧑‍🏫 Panel de Coordinación Docente v2.0 • Proyecto Transversal 1º CFGS • IES Ana Luisa Benítez • <span
+                data-academic-year>2025-2026</span>
         </p>
     </footer>
 
