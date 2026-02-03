@@ -2343,7 +2343,8 @@
         // ============ REGISTRO DE SERVICE WORKER (PWA) ============
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
+                // Añadimos parámetro de versión para forzar actualización del SW
+                navigator.serviceWorker.register('./sw.js?v=2.2')
                     .then(reg => console.log('✅ Service Worker registrado con éxito:', reg.scope))
                     .catch(err => console.error('❌ Error al registrar Service Worker:', err));
             });

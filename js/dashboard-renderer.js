@@ -754,6 +754,13 @@ const DashboardRenderer = {
      * Gráfico de Progreso Global (Doughnut)
      */
     renderProgressChart(stats) {
+        // Verificar que Chart.js esté disponible
+        if (typeof Chart === 'undefined') {
+            console.warn('⚠️ Chart.js no está disponible aún, reintentando...');
+            setTimeout(() => this.renderProgressChart(stats), 100);
+            return;
+        }
+
         const ctx = document.getElementById('progressChart')?.getContext('2d');
         if (!ctx) return;
 
@@ -788,6 +795,13 @@ const DashboardRenderer = {
      * Gráfico de Módulos (Barra Horizontal)
      */
     renderModulesChart(stats) {
+        // Verificar que Chart.js esté disponible
+        if (typeof Chart === 'undefined') {
+            console.warn('⚠️ Chart.js no está disponible aún, reintentando...');
+            setTimeout(() => this.renderModulesChart(stats), 100);
+            return;
+        }
+
         const ctx = document.getElementById('modulesChart')?.getContext('2d');
         if (!ctx) return;
 
@@ -835,6 +849,13 @@ const DashboardRenderer = {
      * Gráfico de Competencias (Radar)
      */
     renderCompetenciesChart(stats) {
+        // Verificar que Chart.js esté disponible
+        if (typeof Chart === 'undefined') {
+            console.warn('⚠️ Chart.js no está disponible aún, reintentando...');
+            setTimeout(() => this.renderCompetenciesChart(stats), 100);
+            return;
+        }
+
         const ctx = document.getElementById('competenciesChart')?.getContext('2d');
         if (!ctx) return;
 
@@ -880,6 +901,13 @@ const DashboardRenderer = {
      * Gráfico de Evaluaciones (Línea/Barras)
      */
     renderEvaluationsChart(stats) {
+        // Verificar que Chart.js esté disponible
+        if (typeof Chart === 'undefined') {
+            console.warn('⚠️ Chart.js no está disponible aún, reintentando...');
+            setTimeout(() => this.renderEvaluationsChart(stats), 100);
+            return;
+        }
+
         const ctx = document.getElementById('evaluationsChart')?.getContext('2d');
         if (!ctx) return;
 
