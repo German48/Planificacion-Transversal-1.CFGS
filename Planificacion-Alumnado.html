@@ -18,8 +18,15 @@
     <link rel="stylesheet" href="css/gantt.css">
     <link rel="stylesheet" href="css/academic-year-selector.css">
 
-    <!-- PWA Support -->
-    <link rel="manifest" href="./manifest-alumnado.json">
+    <!-- PWA Support (Dynamic to avoid CORS on file://) -->
+    <script>
+        if (window.location.protocol !== 'file:') {
+            const link = document.createElement('link');
+            link.rel = 'manifest';
+            link.href = './manifest-alumnado.json';
+            document.head.appendChild(link);
+        }
+    </script>
     <link rel="icon" type="image/png" href="./favicon.png">
     <meta name="theme-color" content="#34495e">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -2305,6 +2312,18 @@
             applySettingsToUI(event.detail);
             updateProgressWidget();
             updateStudentFocusMessage();
+
+            // Refrescar vistas que dependen de nombres de proyectos
+            if (currentView === 1 && typeof renderRadar === 'function') renderRadar();
+            if (currentView === 2 && typeof renderTimeline === 'function') renderTimeline();
+            if (currentView === 3 && window.fichasRenderer) {
+                const currentDate = document.getElementById('selectedDate')?.value;
+                if (currentDate) window.fichasRenderer.renderDailyFicha(currentDate);
+                const currentWeek = document.getElementById('week-selector')?.value;
+                if (currentWeek) window.fichasRenderer.renderWeeklyFicha(currentWeek);
+            }
+            if (currentView === 4 && typeof renderRADashboard === 'function') renderRADashboard();
+            if (currentView === 6 && window.GanttRenderer) window.GanttRenderer.render();
         });
 
         // Actualizar también al cambiar de vista (por si se completaron tareas)
@@ -2384,11 +2403,11 @@
         if (!navigator.onLine) updateConnectionStatus();
 
         // ============ REGISTRO DE SERVICE WORKER (PWA) ============
-        if ('serviceWorker' in navigator) {
+        if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
             window.addEventListener('load', () => {
                 // Añadimos parámetro de versión para forzar actualización del SW
-                navigator.serviceWorker.register('./sw.js?v=2.2')
-                    .then(reg => console.log('✅ Service Worker registrado con éxito:', reg.scope))
+                navigator.serviceWorker.register('./sw.js?v=2.6')
+                    .then(reg => console.log('✅ Service Worker v2.6 registrado:', reg.scope))
                     .catch(err => console.error('❌ Error al registrar Service Worker:', err));
             });
         }

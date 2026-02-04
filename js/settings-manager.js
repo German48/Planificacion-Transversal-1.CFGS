@@ -77,6 +77,11 @@ class SettingsManager {
                 rubricTemplates: [], // Plantillas de rúbricas personalizadas
                 holidays: [], // Fechas festivas personalizadas ['2025-12-06', ...]
                 showInstitutionalPanel: false, // Mostrar panel institucional
+                projectNames: {
+                    E1: window.MASTER_PLAN?.pedagogical_context?.E1?.title || "Proyecto Estantería",
+                    E2: window.MASTER_PLAN?.pedagogical_context?.E2?.title || "Proyecto Taburete",
+                    E3: window.MASTER_PLAN?.pedagogical_context?.E3?.title || "Proyecto Mobiliario"
+                },
                 customContext: {}, // Overrides de Sentido/Intencionalidad por evaluación
                 fichasOverrides: { // Overrides de fichas diarias/semanales
                     daily: {},
@@ -443,12 +448,90 @@ class SettingsManager {
     }
 
     /**
+     * Aplicar nombres de proyectos personalizados
+     */
+    applyProjectNames() {
+        const names = this.settings.pedagogical.projectNames;
+        if (!names || !window.MASTER_PLAN) return;
+
+        // Actualizar pedagogical_context
+        if (window.MASTER_PLAN.pedagogical_context) {
+            if (names.E1 && window.MASTER_PLAN.pedagogical_context.E1) {
+                window.MASTER_PLAN.pedagogical_context.E1.title = names.E1;
+            }
+            if (names.E2 && window.MASTER_PLAN.pedagogical_context.E2) {
+                window.MASTER_PLAN.pedagogical_context.E2.title = names.E2;
+            }
+            if (names.E3 && window.MASTER_PLAN.pedagogical_context.E3) {
+                window.MASTER_PLAN.pedagogical_context.E3.title = names.E3;
+            }
+        }
+
+        // Actualizar timeline (si existe en MASTER_PLAN)
+        if (window.MASTER_PLAN.timeline) {
+            const e1Timeline = window.MASTER_PLAN.timeline.find(t => t.eval === 'E1');
+            if (e1Timeline && names.E1) e1Timeline.title = names.E1;
+
+            const e2Timeline = window.MASTER_PLAN.timeline.find(t => t.eval === 'E2');
+            if (e2Timeline && names.E2) e2Timeline.title = names.E2;
+
+            const e3Timeline = window.MASTER_PLAN.timeline.find(t => t.eval === 'E3');
+            if (e3Timeline && names.E3) e3Timeline.title = names.E3;
+        }
+
+        // Actualizar academic
+        if (window.MASTER_PLAN.academic) {
+            const e1Academic = window.MASTER_PLAN.academic.find(a => a.id.toUpperCase() === 'E1');
+            if (e1Academic && names.E1) {
+                e1Academic.title = names.E1;
+                e1Academic.project = names.E1;
+            }
+
+            const e2Academic = window.MASTER_PLAN.academic.find(a => a.id.toUpperCase() === 'E2');
+            if (e2Academic && names.E2) {
+                e2Academic.title = names.E2;
+                e2Academic.project = names.E2;
+            }
+
+            const e3Academic = window.MASTER_PLAN.academic.find(a => a.id.toUpperCase() === 'E3');
+            if (e3Academic && names.E3) {
+                e3Academic.title = names.E3;
+                e3Academic.project = names.E3;
+            }
+        }
+
+        // Actualizar weeks
+        if (window.MASTER_PLAN.weeks) {
+            window.MASTER_PLAN.weeks.forEach(w => {
+                if (w.eval === 'E1' && names.E1) w.project = names.E1;
+                if (w.eval === 'E2' && names.E2) w.project = names.E2;
+                if (w.eval === 'E3' && names.E3) w.project = names.E3;
+            });
+        }
+
+        // Actualizar days
+        if (window.MASTER_PLAN.days) {
+            window.MASTER_PLAN.days.forEach(d => {
+                if (d.eval === 'E1' && names.E1) d.project = names.E1;
+                if (d.eval === 'E2' && names.E2) d.project = names.E2;
+                if (d.eval === 'E3' && names.E3) d.project = names.E3;
+            });
+        }
+
+        // Si existe el GanttRenderer, forzar actualización
+        if (window.GanttRenderer && typeof window.GanttRenderer.render === 'function') {
+            window.GanttRenderer.render();
+        }
+    }
+
+    /**
      * Aplicar todas las configuraciones visuales
      */
     applyAll() {
         this.applyTheme();
         this.applyDensity();
         this.applyFontSize();
+        this.applyProjectNames();
         this.applyProgressWidget();
         this.applyTrackingMode();
         this.applyTeamsConfig();

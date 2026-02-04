@@ -280,9 +280,9 @@ window.GanttRenderer = (function () {
                         <label>📅 Evaluación:</label>
                         <select id="gantt-filter-eval" onchange="GanttRenderer.setFilter('eval', this.value)">
                             <option value="all" ${state.filterEval === 'all' ? 'selected' : ''}>Todas</option>
-                            <option value="E1" ${state.filterEval === 'E1' ? 'selected' : ''}>E1 - Estantería</option>
-                            <option value="E2" ${state.filterEval === 'E2' ? 'selected' : ''}>E2 - Taburete</option>
-                            <option value="E3" ${state.filterEval === 'E3' ? 'selected' : ''}>E3 - Mobiliario</option>
+                            <option value="E1" ${state.filterEval === 'E1' ? 'selected' : ''}>E1 - ${window.SettingsManager?.settings?.pedagogical?.projectNames?.E1 || 'Estantería'}</option>
+                            <option value="E2" ${state.filterEval === 'E2' ? 'selected' : ''}>E2 - ${window.SettingsManager?.settings?.pedagogical?.projectNames?.E2 || 'Taburete'}</option>
+                            <option value="E3" ${state.filterEval === 'E3' ? 'selected' : ''}>E3 - ${window.SettingsManager?.settings?.pedagogical?.projectNames?.E3 || 'Mobiliario'}</option>
                         </select>
                     </div>
                     ${isStudent ? '' : `
@@ -324,7 +324,7 @@ window.GanttRenderer = (function () {
                 <div class="gantt-eval-header ${evalId.toLowerCase()} ${isCollapsed ? 'collapsed' : ''}" 
                      onclick="GanttRenderer.toggleEvaluation('${evalId}')">
                     <div class="gantt-eval-title">
-                        <h3>${evalId}: ${config.evalNames[evalId]}</h3>
+                        <h3>${evalId}: ${window.SettingsManager?.settings?.pedagogical?.projectNames?.[evalId] || config.evalNames[evalId]}</h3>
                         <span class="gantt-eval-badge ${evalId.toLowerCase()}">${weeks.length} semanas</span>
                     </div>
                     <div class="gantt-eval-meta">

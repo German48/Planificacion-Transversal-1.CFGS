@@ -263,6 +263,22 @@ const SettingsUI = {
                 </div>
                 
                 <div class="settings-section">
+                    <label class="settings-label">Nombres de Proyectos Personalizados</label>
+                    <div class="settings-subsection">
+                        <label>E1 (Proyecto Estantería):</label>
+                        <input type="text" class="settings-input" id="setting-project-e1" value="${pedagogical.projectNames?.E1 || ''}" placeholder="Nombre del proyecto E1">
+                    </div>
+                    <div class="settings-subsection">
+                        <label>E2 (Proyecto Taburete):</label>
+                        <input type="text" class="settings-input" id="setting-project-e2" value="${pedagogical.projectNames?.E2 || ''}" placeholder="Nombre del proyecto E2">
+                    </div>
+                    <div class="settings-subsection">
+                        <label>E3 (Proyecto Mobiliario):</label>
+                        <input type="text" class="settings-input" id="setting-project-e3" value="${pedagogical.projectNames?.E3 || ''}" placeholder="Nombre del proyecto E3">
+                    </div>
+                </div>
+
+                <div class="settings-section">
                     <label class="settings-label">Fechas Festivas Personalizadas</label>
                     <textarea class="settings-textarea" id="setting-holidays" placeholder="Introduce fechas en formato DD/MM/AAAA, una por línea&#10;Ejemplo:&#10;06/12/2025&#10;25/12/2025">${holidayLines}</textarea>
                     <small class="settings-hint">Estas fechas se marcaran en el calendario y no contaran para alertas de retraso</small>
@@ -802,6 +818,17 @@ const SettingsUI = {
         // Pedagogical
         settings.pedagogical.allowEditPedagogicalBlocks = document.getElementById('setting-allowEditPedagogical').checked;
         settings.pedagogical.showInstitutionalPanel = document.getElementById('setting-showInstitutional').checked;
+
+        // Project Names
+        const projectE1Name = document.getElementById('setting-project-e1')?.value;
+        const projectE2Name = document.getElementById('setting-project-e2')?.value;
+        const projectE3Name = document.getElementById('setting-project-e3')?.value;
+        settings.pedagogical.projectNames = {
+            E1: projectE1Name || (window.MASTER_PLAN?.pedagogical_context?.E1?.title || "Proyecto E1"),
+            E2: projectE2Name || (window.MASTER_PLAN?.pedagogical_context?.E2?.title || "Proyecto E2"),
+            E3: projectE3Name || (window.MASTER_PLAN?.pedagogical_context?.E3?.title || "Proyecto E3")
+        };
+
         const holidaysText = document.getElementById('setting-holidays').value;
         settings.pedagogical.holidays = holidaysText
             .split('\n')
