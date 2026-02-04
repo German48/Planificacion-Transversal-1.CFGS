@@ -1,4 +1,4 @@
-const VERSION = '2.7';
+const VERSION = '2.8';
 console.log(`SW: Cargando versión ${VERSION} (BORRANDO CACHÉS ANTIGUOS)`);
 const CACHE_NAME = `edutrack-cache-v${VERSION}`;
 const ASSETS = [
