@@ -2363,8 +2363,8 @@
         if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
             window.addEventListener('load', () => {
                 // Añadimos parámetro de versión para forzar actualización del SW
-                navigator.serviceWorker.register('./sw.js?v=2.6')
-                    .then(reg => console.log('✅ Service Worker v2.6 registrado:', reg.scope))
+                navigator.serviceWorker.register('./sw.js?v=2.7')
+                    .then(reg => console.log('✅ Service Worker v2.7 registrado:', reg.scope))
                     .catch(err => console.error('❌ Error al registrar Service Worker:', err));
             });
         }
