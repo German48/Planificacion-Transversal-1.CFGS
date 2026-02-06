@@ -1,7 +1,7 @@
 /**
  * ============================================
  * MASTER PLAN - Datos Separados de la UI
- * Sistema de Planificación Transversal 1º CFGS
+ * Sistema de Planificación Transversal 1º CFGM
  * ============================================
  * 
  * ESTRUCTURA:
@@ -13,16 +13,17 @@
  * - academic: Estructura RA/CE por evaluación
  */
 
-window.MASTER_PLAN = {
+const MASTER_PLAN = {
 
     // ============================================
     // CONFIGURACIÓN GENERAL
     // ============================================
     config: {
-        course: "1º CFGS Diseño y Amueblamiento",
+        course_id: "1cfgm",
+        course: "1º CFGM Carpintería y Mueble",
         year: "2025-2026",
         academic_year: "2025-2026",
-        defaultDate: "2026-01-21",
+        defaultDate: "2025-09-15",
         repoBaseUrl: "https://moodle.example.com/mod/folder/",
         evaluations: ["E1", "E2", "E3"],
         defaultView: "daily" // daily, radar, timeline, academic
@@ -33,105 +34,113 @@ window.MASTER_PLAN = {
     // ============================================
     pedagogical_context: {
         E1: {
-            title: "Proyecto Estantería",
+            title: "Proyecto Inicial",
             sense: {
-                objective: "Diseñar y fabricar una estantería modular técnica funcional para el taller.",
-                product: "Estantería modular de madera con uniones mecánicas/encoladas.",
-                profile: "Competencia en mecanizado manual y uso de maquinaria básica."
+                objective: "Familiarización con el taller y herramientas básicas.",
+                product: "Pequeños objetos de madera.",
+                profile: "Seguridad y manejo de herramientas manuales."
             },
             intent: {
-                ras: "RA1 (Representación), RA4 (Fabricación a medida).",
-                competencies: "Trabajo en equipo, interpretación de planos, precisión técnica.",
-                risks: "Sobrecarga en FAT, falta de coordinación en despiece (RRC-FAT)."
+                ras: "RA básicos de seguridad y mecanizado.",
+                competencies: "Orden, limpieza y seguridad.",
+                risks: "Accidentes por desconocimiento."
             }
         },
         E2: {
-            title: "Proyecto Taburete",
+            title: "Proyecto Intermedio",
             sense: {
-                objective: "Desarrollar un taburete ergonómico integrando diseño CAD y fabricación industrializable.",
-                product: "Taburete ergonómico con documentación técnica CAD completa.",
-                profile: "Diseño paramétrico y optimización de procesos industriales."
+                objective: "Construcción de estructuras sencillas.",
+                product: "Mobiliario auxiliar.",
+                profile: "Uso de maquinaria portátil."
             },
             intent: {
-                ras: "RA2 (Diseño), RA3 (Procesos), RA4 (Fabricación).",
-                competencies: "Ergonomía, modelado 3D, gestión de rutas de producción.",
-                risks: "Desfase entre modelo digital y realidad física, dependencia del módulo RRC."
+                ras: "RA de mecanizado y ensamblaje.",
+                competencies: "Precisión y acabado.",
+                risks: "Errores dimensionales."
             }
         },
         E3: {
-            title: "Proyecto Mobiliario",
+            title: "Proyecto Final",
             sense: {
-                objective: "Producción de mobiliario industrial complejo con enfoque en calidad y sostenibilidad.",
-                product: "Mueble de oficina/taller de alta complejidad y acabado premium.",
-                profile: "Gestión de proyectos complejos y control de calidad profesional."
+                objective: "Proyecto integral de carpintería.",
+                product: "Mueble completo con acabado.",
+                profile: "Autonomía en el taller."
             },
             intent: {
-                ras: "Todos los RA del curso (Integración Transversal).",
-                competencies: "Liderazgo, resolución de problemas técnicos complejos.",
-                risks: "Retraso en entrega final, falta de tiempo para acabados, dependencia de materiales externos."
+                ras: "Integración de todos los módulos.",
+                competencies: "Planificación y ejecución autónoma.",
+                risks: "Gestión del tiempo."
             }
-        }
+        },
     },
 
     // ============================================
     // MÓDULOS CON ICONOS Y COLORES
     // ============================================
     modules: {
-        DJK: {
-            name: "Digitalización y Sostenibilidad",
-            short: "DJK",
-            icon: "💻",
-            color: "var(--col-djk)",
+        CDA: {
+            name: "Control de Almacén",
+            short: "CDA",
+            icon: "📦",
+            color: "#e74c3c",
             pattern: "stripes-blue",
-            role: "Infraestructura digital y trazabilidad"
+            role: "Logística y Almacén"
         },
-        DRP: {
-            name: "Desarrollo de Producto",
-            short: "DRP",
-            icon: "🎨",
-            color: "var(--col-drp)",
-            pattern: "dots-green",
-            role: "Diseño, decisiones técnicas y viabilidad"
+        DHI: {
+            name: "Digitalización Aplicada I",
+            short: "DHI",
+            icon: "📱",
+            color: "#3498db",
+            pattern: "dots-blue",
+            role: "Transformación Digital"
         },
-        RRC: {
-            name: "Representación en Carpintería",
-            short: "RRC",
-            icon: "📐",
-            color: "var(--col-rrc)",
+        MRN: {
+            name: "Materiales en Carpintería y Mueble",
+            short: "MRN",
+            icon: "🌲",
+            color: "#f1c40f",
             pattern: "lines-orange",
-            role: "Planos, documentación gráfica"
+            role: "Maderas y Transformación"
         },
-        FAT: {
-            name: "Fabricación a Medida",
-            short: "FAT",
+        OAA: {
+            name: "Operaciones Básicas de Mobiliario",
+            short: "OAA",
+            icon: "🪑",
+            color: "#9b59b6",
+            pattern: "cross-purple",
+            role: "Fabricación de Muebles"
+        },
+        OPP: {
+            name: "Operaciones Básicas de Carpintería",
+            short: "OPP",
             icon: "🪚",
-            color: "var(--col-fat)",
-            pattern: "cross-red",
-            role: "Producción y mecanizado"
+            color: "#2ecc71",
+            pattern: "waves-green",
+            role: "Carpintería de Armar"
         },
-        PMB: {
-            name: "Prototipos en Carpintería",
-            short: "PMB",
-            icon: "🧪",
-            color: "var(--col-pmb)",
-            pattern: "waves-yellow",
-            role: "Ensayos y prototipos"
-        },
-        PUB: {
-            name: "Procesos en Industrias",
-            short: "PUB",
-            icon: "🏭",
-            color: "var(--col-pub)",
-            pattern: "grid-purple",
-            role: "Rutas, materiales, procesos"
+        SOV: {
+            name: "Soluciones Constructivas",
+            short: "SOV",
+            icon: "📐",
+            color: "#e67e22",
+            pattern: "grid-orange",
+            role: "Diseño y Planos"
         },
         ALL: {
-            name: "All",
+            name: "Transversal",
             short: "ALL",
             icon: "🤝",
-            color: "var(--col-all)",
+            color: "#95a5a6",
             pattern: "solid",
-            role: "Entrega y defensa transversal"
+            role: "Proyecto Integrador"
+        },
+        IPE: {
+            name: "Itinerario Personal Empleabilidad I",
+            short: "IPE",
+            icon: "💼",
+            color: "#7f8c8d",
+            pattern: "diagonal-gray",
+            role: "Orientación Laboral"
         }
     },
 
@@ -2796,192 +2805,137 @@ window.MASTER_PLAN = {
     academic: [
         {
             id: "e1",
-            title: "1.ª Evaluación (Proyecto Básico: Estantería)",
-            project: "Estantería modular",
+            title: "1.ª Evaluación (Iniciación y Materiales)",
+            project: "Reto 1: Elemento básico ensamblado",
             flow: [
-                { f: "F0/F1", l: "DRP", c: "var(--col-drp)" },
-                { f: "F2", l: "RRC", c: "var(--col-rrc)" },
-                { f: "F3/F4", l: "FAT", c: "var(--col-fat)" },
-                { f: "F5", l: "DJK", c: "var(--col-djk)" }
+                { f: "F1", l: "MRN", c: "var(--col-mrn)" },
+                { f: "F2", l: "SOV", c: "var(--col-sov)" },
+                { f: "F3/F4", l: "OPP", c: "var(--col-opp)" }
             ],
             modules: [
                 {
-                    id: "drp", name: "DRP — Desarrollo", focus: "Análisis y bocetado.",
+                    id: "mrn", name: "MRN — Materiales", focus: "Identificación y transformación.",
                     ras: [
-                        { t: "RA1: Información y tendencias", ce: "CE a-f: Estilos, historia, antropometría." },
-                        { t: "RA2: Propuestas carpintería", ce: "CE a-f: Bocetos, croquis, justificación." }
+                        { t: "RA1: Identificación de maderas", ce: "CE a-i: Características y aplicaciones." },
+                        { t: "RA2: Productos derivados", ce: "CE a-e: Selección de tableros." },
+                        { t: "RA3: Transformación", ce: "CE a-g: Procesos de aserrado." },
+                        { t: "RA6: Normativa ambiental", ce: "CE a-e: Gestión de residuos." }
                     ],
-                    ev: { proc: "Encargo, Moodboard, 3 Alternativas con Matriz de decisión y Ficha producto" }
+                    ev: { proc: "Ficha técnica de material y registro ambiental" }
                 },
                 {
-                    id: "rrc", name: "RRC — Representación", focus: "Planos manuales.",
+                    id: "sov", name: "SOV — Soluciones Constructivas", focus: "Representación gráfica.",
                     ras: [
-                        { t: "RA1: Croquis mano alzada", ce: "CE a-k: Proporción, acotación, detalles." },
-                        { t: "RA2: Vistas sobre tablero", ce: "CE a-j: Escalas, normalización." },
-                        { t: "RA3: Inicio CAD 2D", ce: "CE a-d: Interfaz y dibujo básico." }
+                        { t: "RA1: Croquis y bocetos", ce: "CE a-i: Trazado a mano alzada." },
+                        { t: "RA2: Definición de soluciones", ce: "CE a-f: Detalles constructivos básicos." }
                     ],
-                    ev: { proc: "Lámina de conjunto acotada con detalle de unión" }
+                    ev: { proc: "Dossier de croquis y bocetos técnicos" }
                 },
                 {
-                    id: "pub", name: "PUB — Procesos", focus: "Materiales base y estructura sector.",
+                    id: "opp", name: "OPP — Op. Básicas Carpintería", focus: "Mecanizado manual y seguridad.",
                     ras: [
-                        { t: "RA1: Estructura del sector", ce: "CE a-g: Tipos de industrias y flujo." },
-                        { t: "RA2: Maderas naturales", ce: "CE a-h: Propiedades físicas, defectos." },
-                        { t: "RA3: Tableros derivados", ce: "CE a-i: Aglomerado, MDF, contrachapado." }
+                        { t: "RA1: Sistemas de unión", ce: "CE a-f: Ensambles básicos técnicos." },
+                        { t: "RA2: Selección de madera", ce: "CE a-h: Acopio para fabricación." },
+                        { t: "RA3: Trazado y marcado", ce: "CE a-e: Traslado de medidas a madera." },
+                        { t: "RA4: Herramientas manuales", ce: "CE a-i: Uso y mantenimiento de útiles manuales." },
+                        { t: "RA8: PRL y ambiental", ce: "CE a-g: Seguridad específica en taller." }
                     ],
-                    ev: { proc: "Ficha comparativa de materiales (2-3 opciones) con selección justificada" }
-                },
-                {
-                    id: "fat", name: "FAT — Fabricación", focus: "Trazado y uniones.",
-                    ras: [
-                        { t: "RA1: Sistemas de unión", ce: "CE a-f: Tipos, resistencia y adhesivos." },
-                        { t: "RA2: Selección material y plantillas", ce: "CE a-i: Defectos, optimización." },
-                        { t: "RA3: Marcado y trazado", ce: "CE a-e: Cara/canto, útiles." }
-                    ],
-                    ev: { proc: "Piezas trazadas, probeta de unión y hoja de proceso" }
-                },
-                {
-                    id: "pmb", name: "PMB — Prototipos", focus: "Planificación y montaje manual.",
-                    ras: [
-                        { t: "RA1: Planificación prototipo", ce: "CE a-f: Elementos, plantillas, útiles." },
-                        { t: "RA3: Elaboración piezas (Manual)", ce: "CE a-h: Seguridad, preparación." },
-                        { t: "RA4: Montaje prototipo", ce: "CE a-e: Adhesivos, prensado, herrajes." }
-                    ],
-                    ev: { proc: "Prototipo/maqueta funcional con hoja de proceso" }
-                },
-                {
-                    id: "djk", name: "DJK — Digitalización", focus: "Conceptos base y gestión archivos.",
-                    ras: [
-                        { t: "RA1: Concepto digitalización", ce: "CE a-g: Diferencia IT/OT, conexión." },
-                        { t: "RA2: Tecnologías habilitadoras", ce: "CE a-g: Identificación THD y sostenibilidad." }
-                    ],
-                    ev: { proc: "Repositorio digital, dossier PDF y mapa IT/OT del taller" }
+                    ev: { proc: "Piezas mecanizadas y ensamble final terminado" }
                 }
             ]
         },
         {
             id: "e2",
-            title: "2.ª Evaluación (Proyecto Intermedio: Taburete)",
-            project: "Taburete ergonómico",
+            title: "2.ª Evaluación (Mueble Sencillo)",
+            project: "Reto 2: Mueble pieza a pieza",
             flow: [
-                { f: "F0/F1", l: "DRP", c: "var(--col-drp)" },
-                { f: "F2", l: "RRC", c: "var(--col-rrc)" },
-                { f: "F3/F4", l: "FAT", c: "var(--col-fat)" },
-                { f: "F4", l: "PUB", c: "var(--col-pub)" },
-                { f: "F5", l: "DJK", c: "var(--col-djk)" }
+                { f: "F1/F2", l: "SOV", c: "var(--col-sov)" },
+                { f: "F3", l: "CDA", c: "var(--col-cda)" },
+                { f: "F4", l: "OAA", c: "var(--col-oaa)" }
             ],
             modules: [
                 {
-                    id: "drp", name: "DRP — Desarrollo", focus: "Ergonomía y viabilidad.",
+                    id: "sov", name: "SOV — Soluciones Constructivas", focus: "Documentación técnica.",
                     ras: [
-                        { t: "RA4: Propuestas de desarrollo", ce: "CE a-f: Ergonomía, materiales y viabilidad." },
-                        { t: "RA5: Especificaciones y optimización", ce: "CE a-h: Parámetros críticos." }
+                        { t: "RA2: Definición técnica", ce: "CE a-f: Requisitos de mobiliario." },
+                        { t: "RA3: Planos normalizados", ce: "CE a-h: CAD y normalización básica." },
+                        { t: "RA4: Lista de materiales", ce: "CE a-g: Elaboración de despieces." },
+                        { t: "RA5: Plantillas", ce: "CE a-f: Diseño y construcción de plantillas." }
                     ],
-                    ev: { proc: "Ficha técnica completa con diagrama de proceso" }
+                    ev: { proc: "Paquete técnico: Planos, despiece y plantilla" }
                 },
                 {
-                    id: "rrc", name: "RRC — Representación", focus: "Planos CAD.",
+                    id: "oaa", name: "OAA — Op. Básicas Mobiliario", focus: "Mecanizado portátil y montaje.",
                     ras: [
-                        { t: "RA3: Documentación gráfica CAD", ce: "CE a-i: Plantas, alzados, cortes." },
-                        { t: "RA4: Planos para fabricación", ce: "CE a-i: Tolerancias, cajetines." }
+                        { t: "RA1: Selección materiales", ce: "CE a-f: Control de componentes." },
+                        { t: "RA3: Mecanizado portátil", ce: "CE a-i: Herramientas eléctricas de mano." },
+                        { t: "RA4: Mecanizado convencional", ce: "CE a-l: Máquinas auxiliares." },
+                        { t: "RA5: Montaje del mueble", ce: "CE a-h: Técnicas de armado y encolado." },
+                        { t: "RA7: PRL específica", ce: "CE a-g: Prevención en montaje." }
                     ],
-                    ev: { proc: "Juego de planos CAD completo con despiece" }
+                    ev: { proc: "Mueble montado y registro de calidad" }
                 },
                 {
-                    id: "fat", name: "FAT — Fabricación", focus: "Maquinaria portátil.",
+                    id: "cda", name: "CDA — Control de Almacén", focus: "Organización y pedidos.",
                     ras: [
-                        { t: "RA4: Prep. máquinas portátiles", ce: "CE a-i: Corte, puesta a punto." },
-                        { t: "RA5: Obtención piezas y calidad", ce: "CE a-j: Tiempos, verificación." },
-                        { t: "RA6: Conjuntos y tolerancias", ce: "CE a-i: Adhesivos, herrajes, QC." }
+                        { t: "RA1: Recepción", ce: "CE a-g: Documentación de entrada." },
+                        { t: "RA2: Almacenamiento", ce: "CE a-g: Ubicación y stock." },
+                        { t: "RA4: Pedidos internos", ce: "CE a-f: Suministro a producción." }
                     ],
-                    ev: { proc: "Serie fabricada con hoja de control de calidad" }
+                    ev: { proc: "Hoja de registro de almacén y pedido interno" }
                 },
                 {
-                    id: "pmb", name: "PMB — Prototipos", focus: "Programación y ensayos.",
+                    id: "dhi", name: "DHI — Digitalización", focus: "Industria 4.0 básica.",
                     ras: [
-                        { t: "RA2: Programación de fabricación", ce: "CE a-h: Material, ensayos, seguridad." },
-                        { t: "RA3-4: Mecanizado y Montaje", ce: "Precisión y ensamblado." }
+                        { t: "RA1: Economía circular", ce: "CE a-f: Sostenibilidad." },
+                        { t: "RA2: Industria 4.0", ce: "CE a-i: Conceptos digitales." },
+                        { t: "RA4: Sistemas digitales", ce: "CE a-g: Comparativa clásica/digital." }
                     ],
-                    ev: { proc: "Ensayo previo de unión con plan de fabricación" }
-                },
-                {
-                    id: "pub", name: "PUB — Procesos", focus: "Transformación y recubrimientos.",
-                    ras: [
-                        { t: "RA4: Materiales recubrimiento", ce: "Selección y propiedades." },
-                        { t: "RA5: Procesos transformación", ce: "CE a-j: Secuencia, subproductos." }
-                    ],
-                    ev: { proc: "Análisis de transformación con control de recubrimientos" }
-                },
-                {
-                    id: "djk", name: "DJK — Digitalización", focus: "Cloud y Seg. de datos.",
-                    ras: [
-                        { t: "RA3: Cloud/nube", ce: "CE a-e: Niveles, edge/fog, ventajas." },
-                        { t: "RA5: Datos y ciberseguridad", ce: "CE a-i: Big Data, seguridad." }
-                    ],
-                    ev: { proc: "Protocolo de backup con matriz de riesgos de ciberseguridad" }
+                    ev: { proc: "Informe de digitalización aplicada" }
                 }
             ]
         },
         {
             id: "e3",
-            title: "3.ª Evaluación (Proyecto Avanzado: Mobiliario Industrial)",
-            project: "Mobiliario industrial",
+            title: "3.ª Evaluación (Producto Integrador)",
+            project: "Reto 3: Mueble final y DUAL",
             flow: [
-                { f: "F0", l: "DJK", c: "var(--col-djk)" },
-                { f: "F2", l: "RRC", c: "var(--col-rrc)" },
-                { f: "F3", l: "PUB", c: "var(--col-pub)" },
-                { f: "F4", l: "FAT", c: "var(--col-fat)" },
-                { f: "F5", l: "ALL", c: "var(--col-all)" }
+                { f: "F1/F2", l: "SOV", c: "var(--col-sov)" },
+                { f: "F4", l: "OAA", c: "var(--col-oaa)" },
+                { f: "F5", l: "IPE", c: "var(--col-ipe)" }
             ],
             modules: [
                 {
-                    id: "drp", name: "DRP — Desarrollo", focus: "Gestión documental.",
+                    id: "oaa", name: "OAA — Op. Básicas Mobiliario", focus: "Calidad y mantenimiento.",
                     ras: [
-                        { t: "RA3: Especificaciones nuevos productos", ce: "CE a-h: Optimización, instalación." },
-                        { t: "RA6: Gestión documental", ce: "CE a-k: Memoria, escandallos, costes." }
+                        { t: "Consolidación RA", ce: "Mecanizado y montaje autónomo." },
+                        { t: "Mantenimiento operativo", ce: "Cuidado de herramientas y maquinaria." },
+                        { t: "PRL autónoma", ce: "Aplicación rígida de normativa." }
                     ],
-                    ev: { proc: "Dossier técnico completo (memoria, presupuesto y escandallos)" }
+                    ev: { proc: "Producto final con herrajes y control de calidad" }
                 },
                 {
-                    id: "rrc", name: "RRC — Representación", focus: "Planos industriales.",
+                    id: "cda", name: "CDA — Control de Almacén", focus: "Expedición.",
                     ras: [
-                        { t: "RA4 (Avanzado): Tolerancias", ce: "Normalización industrial." },
-                        { t: "RA5: Gestión documental CAD", ce: "CE a-h: Backups, exportación." }
+                        { t: "RA3: Medios transporte", ce: "CE a-e: Manipulación de cargas." },
+                        { t: "RA5: Expedición", ce: "CE a-g: Embalaje y salida." }
                     ],
-                    ev: { proc: "Planos 'As-Built' corregidos con estructura digital" }
+                    ev: { proc: "Registro de expedición y embalaje" }
                 },
                 {
-                    id: "pub", name: "PUB — Procesos", focus: "Líneas de producción.",
+                    id: "dhi", name: "DHI — Digitalización", focus: "Plan de transformación.",
                     ras: [
-                        { t: "RA5: Procesos y líneas", ce: "CE h-j: Automatización, informática." },
-                        { t: "RA7: PRL en procesos", ce: "Aplicada a procesos industriales." }
+                        { t: "RA5: Plan digital básico", ce: "CE a-g: Aplicación operativa." }
                     ],
-                    ev: { proc: "Diseño teórico de línea automatizada con mapa de riesgos PRL" }
+                    ev: { proc: "Propuesta de mejora digital" }
                 },
                 {
-                    id: "fat", name: "FAT — Fabricación", focus: "Maquinaria fija y acabados.",
+                    id: "ipe", name: "IPE — Itinerario Personal", focus: "Preparación Empresa.",
                     ras: [
-                        { t: "RA4-5-6: Eje industrial", ce: "Mecanizado fijo + montaje." },
-                        { t: "RA7: Tintado y acabados", ce: "CE a-k: Mezclas, aplicación, curado." },
-                        { t: "RA8: PRL transversal", ce: "Acceso a máquina." }
+                        { t: "Actitud profesional", ce: "Responsabilidad y organización." },
+                        { t: "Preparación DUAL", ce: "Documentación para la empresa." }
                     ],
-                    ev: { proc: "Producto industrial acabado con informe de tintado" }
-                },
-                {
-                    id: "pmb", name: "PMB — Prototipos", focus: "Normativa y evaluación.",
-                    ras: [
-                        { t: "RA5: Evaluación de prototipos", ce: "CE a-j: Ensayos, normativa, mejoras." },
-                        { t: "RA6: Trazabilidad y PRL", ce: "Control normativo." }
-                    ],
-                    ev: { proc: "Informe de evaluación de cumplimiento normativo" }
-                },
-                {
-                    id: "djk", name: "DJK — Digitalización", focus: "Transformación digital.",
-                    ras: [
-                        { t: "RA6: Proyecto transformación", ce: "CE a-k: Alineación negocio, tecnologías." },
-                        { t: "RA4: IA en el sector", ce: "Uso de IA en procesos madera." }
-                    ],
-                    ev: { proc: "Proyecto de digitalización aplicado al taller/empresa" }
+                    ev: { proc: "Dossier de preparación para DUAL" }
                 }
             ]
         }
@@ -2992,99 +2946,46 @@ window.MASTER_PLAN = {
     // ============================================
     timeline: [
         {
-            eval: "E1", title: "Proyecto Básico: Estantería", weeks: [
-                { num: 1, id: "E1-S01", dates: "15-19 Sep", goal: "F0: Encargo + PRL", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Encargo firmado", "PRL APTO", "Repositorio creado"] },
-                { num: 2, id: "E1-S02", dates: "22-26 Sep", goal: "F1: Investigación y alternativas", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["2-3 alternativas", "Matriz decisión", "Elección razonada"] },
-                { num: 3, id: "E1-S03", dates: "29 Sep-03 Oct", goal: "F1 cierre: Propuesta final", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Design Freeze", "Medidas definitivas", "Punto crítico"] },
-                { num: 4, id: "E1-S04", dates: "06-10 Oct", goal: "F2: Planos v01", leader: "RRC", leaderColor: "var(--col-rrc)", dod: ["Plano conjunto", "Despiece", "Revisión FAT"] },
-                { num: 5, id: "E1-S05", dates: "13-17 Oct", goal: "F2: Planos v02", leader: "RRC", leaderColor: "var(--col-rrc)", dod: ["Planos corregidos", "Despiece final", "Pase a proceso"] },
-                { num: 6, id: "E1-S06", dates: "20-24 Oct", goal: "F2: Punto de Decisión", leader: "RRC", leaderColor: "var(--col-rrc)", dod: ["Aprobación F2", "Listo fabricar", "FAT autorizado"] },
-                { num: 7, id: "E1-S07", dates: "27-31 Oct", goal: "F3: Hoja de proceso", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["Secuencia operaciones", "Lista herramientas", "PRL operación"] },
-                { num: 8, id: "E1-S08", dates: "03-07 Nov", goal: "F3: Probeta de unión", leader: "PMB", leaderColor: "var(--col-pmb)", dod: ["Probeta fabricada", "Resistencia OK", "Actualización plano"] },
-                { num: 9, id: "E1-S09", dates: "10-14 Nov", goal: "F4: Inicio fabricación", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["Material preparado", "Piezas trazadas", "Control dimensional"] },
-                { num: 10, id: "E1-S10", dates: "17-21 Nov", goal: "F4: Montaje", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["Piezas fabricadas", "Montaje OK", "Escuadra verificada"] },
-                { num: 11, id: "E1-S11", dates: "24-28 Nov", goal: "F4: Control de calidad", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["QC dimensional", "Estabilidad OK", "Correcciones hechas"] },
-                { num: 12, id: "E1-S12", dates: "01-04 Dic", goal: "F5: Dossier final", leader: "DJK", leaderColor: "var(--col-djk)", dod: ["Memoria redactada", "Planos finales", "Anexos taller"] },
-                { num: 13, id: "E1-S13", dates: "08-12 Dic", goal: "F5: Entrega E1", leader: "DJK", leaderColor: "var(--col-djk)", dod: ["Dossier PDF", "Presentación", "Lecciones aprendidas"] }
+            eval: "E1", title: "Reto 1: Elemento Básico Ensamblado", weeks: [
+                { num: 1, id: "E1-S01", dates: "15-26 Sep", goal: "Identificación de maderas", leader: "MRN", leaderColor: "var(--col-mrn)", dod: ["Ficha de material", "PRL Taller"] },
+                { num: 2, id: "E1-S02", dates: "22-03 Oct", goal: "Bocetos y Croquis", leader: "SOV", leaderColor: "var(--col-sov)", dod: ["Croquis a mano", "Matriz decisión"] },
+                { num: 3, id: "E1-S03", dates: "29-10 Oct", goal: "Selección de ensamble", leader: "OPP", leaderColor: "var(--col-opp)", dod: ["Boceto técnico", "Selección madera"] },
+                { num: 4, id: "E1-S04", dates: "06-24 Oct", goal: "Trazado de piezas", leader: "OPP", leaderColor: "var(--col-opp)", dod: ["Piezas marcadas", "Control trazado"] },
+                { num: 5, id: "E1-S05", dates: "20-14 Nov", goal: "Mecanizado manual", leader: "OPP", leaderColor: "var(--col-opp)", dod: ["Piezas mecanizadas", "Ajuste uniones"] },
+                { num: 6, id: "E1-S06", dates: "10-05 Dic", goal: "Ensamblaje final", leader: "OPP", leaderColor: "var(--col-opp)", dod: ["Elemento montado", "Acabado básico"] },
+                { num: 7, id: "E1-S07", dates: "09-12 Dic", goal: "Cierre E1", leader: "ALL", leaderColor: "var(--col-all)", dod: ["Carpeta E1 cerrada", "Presentación"] }
             ]
         },
         {
-            eval: "E2", title: "Proyecto Intermedio: Taburete", weeks: [
-                { num: 1, id: "E2-S01", dates: "08-09 Ene", goal: "F0: Arranque encargo", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Encargo ergonomía", "Checklist PRL", "Repositorio E2"] },
-                { num: 2, id: "E2-S02", dates: "12-16 Ene", goal: "F1: Investigación y alternativas", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["2-3 alternativas", "Matriz decisión", "Propuesta seleccionada"] },
-                { num: 3, id: "E2-S03", dates: "19-23 Ene", goal: "F2: CAD y documentación", leader: "RRC", leaderColor: "var(--col-rrc)", dod: ["Planos CAD", "Despiece+BOM", "Paquete fabricación"] },
-                { num: 4, id: "E2-S04", dates: "26-30 Ene", goal: "F3: Planificación proceso", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["Hoja proceso", "Plan QC", "Útiles/plantillas"] },
-                { num: 5, id: "E2-S05", dates: "02-06 Feb", goal: "F4: Prototipo", leader: "PMB", leaderColor: "var(--col-pmb)", dod: ["1ª unidad", "Validación", "Cambios aplicados"] },
-                { num: 6, id: "E2-S06", dates: "09-13 Feb", goal: "F4: Pre-serie", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["2-3 unidades", "Proceso estabilizado", "QC correcciones"] },
-                { num: 7, id: "E2-S07", dates: "16-20 Feb", goal: "F4: Producción", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["Lote completo", "Control QC", "Evidencias taller"] },
-                { num: 8, id: "E2-S08", dates: "23-27 Feb", goal: "F4-F5: Control final", leader: "PUB", leaderColor: "var(--col-pub)", dod: ["Inspección final", "Preparación entrega", "Paquete documental"] },
-                { num: 9, id: "E2-S09", dates: "02-06 Mar", goal: "F5: Dossier y repositorio", leader: "DJK", leaderColor: "var(--col-djk)", dod: ["Memoria técnica", "Planos finales", "Repositorio limpio"] },
-                { num: 10, id: "E2-S10", dates: "09-13 Mar", goal: "F5: Cierre y entrega", leader: "ALL", leaderColor: "var(--col-all)", dod: ["Presentación", "Producto entregado", "Lecciones aprendidas"] }
+            eval: "E2", title: "Reto 2: Mueble Sencillo Completo", weeks: [
+                { num: 1, id: "E2-S01", dates: "15-09 Ene", goal: "Bocetos y propuesta", leader: "SOV", leaderColor: "var(--col-sov)", dod: ["Boceto técnico", "Definición"] },
+                { num: 2, id: "E2-S02", dates: "08-30 Ene", goal: "Plano y despiece", leader: "SOV", leaderColor: "var(--col-sov)", dod: ["Plano + lista", "Ficha técnica"] },
+                { num: 3, id: "E2-S03", dates: "26-06 Feb", goal: "Plantillas", leader: "SOV", leaderColor: "var(--col-sov)", dod: ["Plantilla escala", "Útiles"] },
+                { num: 4, id: "E2-S04", dates: "02-06 Feb", goal: "Recepción material", leader: "CDA", leaderColor: "var(--col-cda)", dod: ["Hoja almacén", "Control stock"] },
+                { num: 5, id: "E2-S05", dates: "09-06 Mar", goal: "Mecanizado piezas", leader: "OAA", leaderColor: "var(--col-oaa)", dod: ["Piezas mecanizadas", "Seguridad"] },
+                { num: 6, id: "E2-S06", dates: "02-13 Mar", goal: "Montaje mueble", leader: "OAA", leaderColor: "var(--col-oaa)", dod: ["Mueble montado", "Producto E2"] }
             ]
         },
         {
-            eval: "E3", title: "Proyecto Avanzado: Mobiliario Industrial", weeks: [
-                { num: 1, id: "E3-S01", dates: "16-20 Mar", goal: "F0: Lanzamiento + PRL", leader: "DJK", leaderColor: "var(--col-djk)", dod: ["Requisitos cerrados", "PRL maquinaria fija", "IT/OT mapa"] },
-                { num: 2, id: "E3-S02", dates: "23-27 Mar", goal: "F1: Investigación y propuestas", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Alternativas", "Decisión razonada", "Propuesta final"] },
-                { num: 3, id: "E3-S03", dates: "06-10 Abr", goal: "F2-F3: Proceso Cerrado", leader: "RRC", leaderColor: "var(--col-rrc)", dod: ["Planos definitivos", "Hoja proceso", "Plan QC"] },
-                { num: 4, id: "E3-S04", dates: "13-17 Abr", goal: "F4: Primera Unidad", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["Primera pieza", "Inspección OK", "Correcciones"] },
-                { num: 5, id: "E3-S05", dates: "20-24 Abr", goal: "F4: Fabricación definitiva", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["Componentes OK", "Montaje controlado", "Tolerancias"] },
-                { num: 6, id: "E3-S06", dates: "27 Abr-01 May", goal: "F4: Calidad final", leader: "PMB", leaderColor: "var(--col-pmb)", dod: ["Evaluación prototipo", "Correcciones", "As-built"] },
-                { num: 7, id: "E3-S07", dates: "05-08 May", goal: "F5: Industrialización", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Dossier técnico", "Planos export", "Proceso industrial"] },
-                { num: 8, id: "E3-S08", dates: "11 May", goal: "F5: Cierre y defensa", leader: "ALL", leaderColor: "var(--col-all)", dod: ["Presentación", "Repositorio cerrado", "Proyecto RA6 DJK"] }
-            ]
-        }
-    ],
-
-    // ============================================
-    // TIMELINE SIMPLIFICADO (para vista general)
-    // ============================================
-    timeline: [
-        {
-            eval: "E1", title: "Proyecto Básico: Estantería", weeks: [
-                { num: 1, id: "E1-S01", dates: "15-19 Sep", goal: "F0: Encargo + PRL", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Encargo firmado", "PRL APTO", "Repositorio creado"] },
-                { num: 2, id: "E1-S02", dates: "22-26 Sep", goal: "F1: Investigación y alternativas", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["2-3 alternativas", "Matriz decisión", "Elección razonada"] },
-                { num: 3, id: "E1-S03", dates: "29 Sep-03 Oct", goal: "F1 cierre: Propuesta final", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Design Freeze", "Medidas definitivas", "Punto crítico"] },
-                { num: 4, id: "E1-S04", dates: "06-10 Oct", goal: "F2: Planos v01", leader: "RRC", leaderColor: "var(--col-rrc)", dod: ["Plano conjunto", "Despiece", "Revisión FAT"] },
-                { num: 5, id: "E1-S05", dates: "13-17 Oct", goal: "F2: Planos v02", leader: "RRC", leaderColor: "var(--col-rrc)", dod: ["Planos corregidos", "Despiece final", "Pase a proceso"] },
-                { num: 6, id: "E1-S06", dates: "20-24 Oct", goal: "F2: Punto de Decisión", leader: "RRC", leaderColor: "var(--col-rrc)", dod: ["Aprobación F2", "Listo fabricar", "FAT autorizado"] },
-                { num: 7, id: "E1-S07", dates: "27-31 Oct", goal: "F3: Hoja de proceso", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["Secuencia operaciones", "Lista herramientas", "PRL operación"] },
-                { num: 8, id: "E1-S08", dates: "03-07 Nov", goal: "F3: Probeta de unión", leader: "PMB", leaderColor: "var(--col-pmb)", dod: ["Probeta fabricada", "Resistencia OK", "Actualización plano"] },
-                { num: 9, id: "E1-S09", dates: "10-14 Nov", goal: "F4: Inicio fabricación", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["Material preparado", "Piezas trazadas", "Control dimensional"] },
-                { num: 10, id: "E1-S10", dates: "17-21 Nov", goal: "F4: Montaje", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["Piezas fabricadas", "Montaje OK", "Escuadra verificada"] },
-                { num: 11, id: "E1-S11", dates: "24-28 Nov", goal: "F4: Control de calidad", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["QC dimensional", "Estabilidad OK", "Correcciones hechas"] },
-                { num: 12, id: "E1-S12", dates: "01-04 Dic", goal: "F5: Dossier final", leader: "DJK", leaderColor: "var(--col-djk)", dod: ["Memoria redactada", "Planos finales", "Anexos taller"] },
-                { num: 13, id: "E1-S13", dates: "08-12 Dic", goal: "F5: Entrega E1", leader: "DJK", leaderColor: "var(--col-djk)", dod: ["Dossier PDF", "Presentación", "Lecciones aprendidas"] }
+            eval: "E3", title: "Reto 3: Producto Integrador + DUAL", weeks: [
+                { num: 1, id: "E3-S01", dates: "16-27 Mar", goal: "Diseño final", leader: "SOV", leaderColor: "var(--col-sov)", dod: ["Croquis + plano", "Lista materiales"] },
+                { num: 2, id: "E3-S02", dates: "23-27 Mar", goal: "Control materiales", leader: "CDA", leaderColor: "var(--col-cda)", dod: ["Registro almacén", "Acopio"] },
+                { num: 3, id: "E3-S03", dates: "30-24 Abr", goal: "Fabricación completa", leader: "OAA", leaderColor: "var(--col-oaa)", dod: ["Piezas y subconjuntos", "Mantenimiento"] },
+                { num: 4, id: "E3-S04", dates: "20-08 May", goal: "Montaje final", leader: "OAA", leaderColor: "var(--col-oaa)", dod: ["Producto terminado", "QC Final"] },
+                { num: 5, id: "E3-S05", dates: "27-08 May", goal: "Preparación DUAL", leader: "IPE", leaderColor: "var(--col-ipe)", dod: ["Dossier empresa", "Carpeta final"] }
             ]
         },
         {
-            eval: "E2", title: "Proyecto Intermedio: Taburete", weeks: [
-                { num: 1, id: "E2-S01", dates: "08-09 Ene", goal: "F0: Arranque encargo", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Encargo ergonomía", "Checklist PRL", "Repositorio E2"] },
-                { num: 2, id: "E2-S02", dates: "12-16 Ene", goal: "F1: Investigación y alternativas", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["2-3 alternativas", "Matriz decisión", "Propuesta seleccionada"] },
-                { num: 3, id: "E2-S03", dates: "19-23 Ene", goal: "F2: CAD y documentación", leader: "RRC", leaderColor: "var(--col-rrc)", dod: ["Planos CAD", "Despiece+BOM", "Paquete fabricación"] },
-                { num: 4, id: "E2-S04", dates: "26-30 Ene", goal: "F3: Planificación proceso", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["Hoja proceso", "Plan QC", "Útiles/plantillas"] },
-                { num: 5, id: "E2-S05", dates: "02-06 Feb", goal: "F4: Prototipo", leader: "PMB", leaderColor: "var(--col-pmb)", dod: ["1ª unidad", "Validación", "Cambios aplicados"] },
-                { num: 6, id: "E2-S06", dates: "09-13 Feb", goal: "F4: Pre-serie", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["2-3 unidades", "Proceso estabilizado", "QC correcciones"] },
-                { num: 7, id: "E2-S07", dates: "16-20 Feb", goal: "F4: Producción", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["Lote completo", "Control QC", "Evidencias taller"] },
-                { num: 8, id: "E2-S08", dates: "23-27 Feb", goal: "F4-F5: Control final", leader: "PUB", leaderColor: "var(--col-pub)", dod: ["Inspección final", "Preparación entrega", "Paquete documental"] },
-                { num: 9, id: "E2-S09", dates: "02-06 Mar", goal: "F5: Dossier y repositorio", leader: "DJK", leaderColor: "var(--col-djk)", dod: ["Memoria técnica", "Planos finales", "Repositorio limpio"] },
-                { num: 10, id: "E2-S10", dates: "09-13 Mar", goal: "F5: Cierre y entrega", leader: "ALL", leaderColor: "var(--col-all)", dod: ["Presentación", "Producto entregado", "Lecciones aprendidas"] }
-            ]
-        },
-        {
-            eval: "E3", title: "Proyecto Avanzado: Mobiliario Industrial", weeks: [
-                { num: 1, id: "E3-S01", dates: "16-20 Mar", goal: "F0: Lanzamiento + PRL", leader: "DJK", leaderColor: "var(--col-djk)", dod: ["Requisitos cerrados", "PRL maquinaria fija", "IT/OT mapa"] },
-                { num: 2, id: "E3-S02", dates: "23-27 Mar", goal: "F1: Investigación y propuestas", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Alternativas", "Decisión razonada", "Propuesta final"] },
-                { num: 3, id: "E3-S03", dates: "06-10 Abr", goal: "F2-F3: Proceso Cerrado", leader: "RRC", leaderColor: "var(--col-rrc)", dod: ["Planos definitivos", "Hoja proceso", "Plan QC"] },
-                { num: 4, id: "E3-S04", dates: "13-17 Abr", goal: "F4: Primera Unidad", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["Primera pieza", "Inspección OK", "Correcciones"] },
-                { num: 5, id: "E3-S05", dates: "20-24 Abr", goal: "F4: Fabricación definitiva", leader: "FAT", leaderColor: "var(--col-fat)", dod: ["Componentes OK", "Montaje controlado", "Tolerancias"] },
-                { num: 6, id: "E3-S06", dates: "27 Abr-01 May", goal: "F4: Calidad final", leader: "PMB", leaderColor: "var(--col-pmb)", dod: ["Evaluación prototipo", "Correcciones", "As-built"] },
-                { num: 7, id: "E3-S07", dates: "05-08 May", goal: "F5: Industrialización", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Dossier técnico", "Planos export", "Proceso industrial"] },
-                { num: 8, id: "E3-S08", dates: "11 May", goal: "F5: Cierre y defensa", leader: "ALL", leaderColor: "var(--col-all)", dod: ["Presentación", "Repositorio cerrado", "Proyecto RA6 DJK"] }
+            eval: "DUAL", title: "Formación DUAL en Empresa", weeks: [
+                { num: 1, id: "DUAL-S01", dates: "12-19 May", goal: "Hito 1: Seguimiento", leader: "IPE", leaderColor: "var(--col-ipe)", dod: ["Parte semanal", "Foto evidencia"] },
+                { num: 2, id: "DUAL-S02", dates: "19-26 May", goal: "Hito 2: Almacén/Tareas", leader: "CDA", leaderColor: "var(--col-cda)", dod: ["Registro tareas", "Validación"] },
+                { num: 3, id: "DUAL-S03", dates: "26-02 Jun", goal: "Hito 3: PRL Empresa", leader: "OPP", leaderColor: "var(--col-opp)", dod: ["Evidencia PRL", "Checklist"] },
+                { num: 4, id: "DUAL-S04", dates: "02-11 Jun", goal: "Hito 4: Cierre DUAL", leader: "IPE", leaderColor: "var(--col-ipe)", dod: ["Informe empresa", "Memoria final"] }
             ]
         }
     ]
 };
+window.MASTER_PLAN = MASTER_PLAN;
 
 // Funciones helper para acceder a los datos
 // ============ MOTOR DE GENERACIÓN DINÁMICA DE FICHAS ============
@@ -3127,7 +3028,7 @@ window.MASTER_PLAN.getDay = function (dateStr) {
     // Ignorar fines de semana, días sin clase o festivos
     if (!rhythm || rhythm.focus === "---" || rhythm.focus.toLowerCase().includes("festivo")) return null;
 
-    const leader = officialLeader || "DRP";
+    const leader = officialLeader || "SOV";
 
     // Construcción del objeto de día dinámico
     return {
@@ -3209,6 +3110,7 @@ window.MASTER_PLAN.getPhase = function (phaseId) {
 };
 
 window.MASTER_PLAN.getModule = function (moduleId) {
+    if (!moduleId) return null;
     return this.modules[moduleId.toUpperCase()];
 };
 

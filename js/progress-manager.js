@@ -21,7 +21,8 @@ class ProgressManager {
 
     buildStorageKey(baseKey) {
         const year = this.getCurrentYear();
-        return `${baseKey}_${year}`;
+        const courseId = window.MASTER_PLAN?.config?.course_id || '1cfgm';
+        return `${courseId}_${baseKey}_${year}`;
     }
 
     getLegacyStorageKey(baseKey) {
@@ -593,3 +594,4 @@ window.updatePedagogicalLayer = function (evalId) {
 };
 
 console.log('✅ Progress Manager & Pedagogical Coordinator loaded');
+

@@ -7,9 +7,9 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>📚 Planificación del Proyecto Transversal - Alumnado 1º CFGS</title>
+    <title>📚 Planificación del Proyecto Transversal - Alumnado 1º CFGM</title>
     <meta name="description"
-        content="Panel de Coordinación Docente para el Proyecto Transversal de 1º CFGS. Sistema de planificación, seguimiento de evidencias RA-CE y fichas de trabajo coordinado.">
+        content="Panel de Coordinación Docente para el Proyecto Transversal de 1º CFGM. Sistema de planificación, seguimiento de evidencias RA-CE y fichas de trabajo coordinado.">
 
     <!-- Estilos externos -->
     <link rel="stylesheet" href="css/ra-tracker.css">
@@ -37,6 +37,121 @@
     <link rel="stylesheet" href="css/planificacion-alumnado.css">
 
     <link rel="stylesheet" href="css/settings-modal.css">
+
+    <link rel="stylesheet" href="css/premium-mobile.css">
+    <style>
+        /* Estilos detallados de Fases en RA Dashboard */
+        .ra-phases-section {
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px dashed #cbd5e0;
+        }
+
+        .ra-phases-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ra-phases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .ra-phase-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s;
+        }
+
+        .ra-phase-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .ra-phase-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--bg-body);
+        }
+
+        .ra-phase-icon {
+            font-size: 1.5rem;
+            background: var(--bg-body);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        .ra-phase-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ra-phase-id {
+            font-weight: 800;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .ra-phase-name {
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .ra-gate-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--col-all);
+            margin-bottom: 8px;
+        }
+
+        .ra-gate-conditions {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 12px 0;
+            font-size: 0.85rem;
+        }
+
+        .ra-gate-conditions li {
+            padding: 4px 0;
+            padding-left: 18px;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .ra-gate-conditions li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .ra-gate-evidence {
+            font-size: 0.8rem;
+            padding-top: 10px;
+            border-top: 1px solid var(--bg-body);
+            color: var(--text-main);
+        }
+    </style>
 </head>
 
 <body class="mode-alumnado">
@@ -58,7 +173,7 @@
     <header class="main-header">
         <div class="header-content">
             <div class="header-title">
-                <h1>📚 Planificación Transversal 1.º CFGS Diseño y Amueblamiento</h1>
+                <h1>📚 Planificación Transversal 1.º CFGM Carpintería y Mueble</h1>
             </div>
             <!-- Widget de Progreso Compacto (Diseño Premium) -->
             <div class="progress-widget-compact" id="progress-widget">
@@ -85,6 +200,9 @@
                 <button class="nav-level-btn" data-view="6" onclick="switchView(6)">
                     <span>📊</span> Gantt
                 </button>
+                <button class="nav-level-btn" data-view="5" onclick="switchView(5)">
+                    <span>📈</span> Dashboard
+                </button>
             </nav>
 
             <div class="header-controls">
@@ -95,9 +213,10 @@
                         style="background: #e74c3c; color: white; border-color: #c0392b; border-radius: 8px; padding: 5px 10px; border: 1px solid;">
                         🗑️
                     </button>
+                    <button class="header-btn presentation-btn" onclick="togglePresentationMode()"
+                        title="Modo Presentación" style="margin-left: 5px;">📺</button>
                 </div>
             </div>
-        </div>
         </div>
     </header>
 
@@ -243,28 +362,24 @@
                 </div>
                 <div class="gantt-legend">
                     <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-djk)"></div>
-                        <span>DJK</span>
+                        <div class="gantt-legend-dot" style="background: var(--col-mtr)"></div>
+                        <span>MTR</span>
                     </div>
                     <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-drp)"></div>
-                        <span>DRP</span>
+                        <div class="gantt-legend-dot" style="background: var(--col-oaa)"></div>
+                        <span>OAA</span>
                     </div>
                     <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-rrc)"></div>
-                        <span>RRC</span>
+                        <div class="gantt-legend-dot" style="background: var(--col-opp)"></div>
+                        <span>OPP</span>
                     </div>
                     <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-fat)"></div>
-                        <span>FAT</span>
+                        <div class="gantt-legend-dot" style="background: var(--col-sov)"></div>
+                        <span>SOV</span>
                     </div>
                     <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-pmb)"></div>
-                        <span>PMB</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-pub)"></div>
-                        <span>PUB</span>
+                        <div class="gantt-legend-dot" style="background: var(--col-ipe)"></div>
+                        <span>IPE</span>
                     </div>
                 </div>
             </div>
@@ -382,39 +497,34 @@
                         <label>🏷️ Módulo:</label>
                         <select id="ra-filter-module" onchange="filterRADashboard('module', this.value)">
                             <option value="all">All</option>
-                            <option value="djk">💻 DJK</option>
-                            <option value="drp">🎨 DRP</option>
-                            <option value="rrc">📐 RRC</option>
-                            <option value="fat">🪚 FAT</option>
-                            <option value="pmb">🧪 PMB</option>
-                            <option value="pub">🏭 PUB</option>
+                            <option value="mtr">🌲 MTR</option>
+                            <option value="oaa">🪑 OAA</option>
+                            <option value="opp">🪚 OPP</option>
+                            <option value="sov">📐 SOV</option>
+                            <option value="ipe">💼 IPE</option>
                         </select>
                     </div>
                 </div>
                 <div class="gantt-legend">
                     <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-djk)"></div>
-                        <span>DJK</span>
+                        <div class="gantt-legend-dot" style="background: var(--col-mtr)"></div>
+                        <span>MTR</span>
                     </div>
                     <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-drp)"></div>
-                        <span>DRP</span>
+                        <div class="gantt-legend-dot" style="background: var(--col-oaa)"></div>
+                        <span>OAA</span>
                     </div>
                     <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-rrc)"></div>
-                        <span>RRC</span>
+                        <div class="gantt-legend-dot" style="background: var(--col-opp)"></div>
+                        <span>OPP</span>
                     </div>
                     <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-fat)"></div>
-                        <span>FAT</span>
+                        <div class="gantt-legend-dot" style="background: var(--col-sov)"></div>
+                        <span>SOV</span>
                     </div>
                     <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-pmb)"></div>
-                        <span>PMB</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-pub)"></div>
-                        <span>PUB</span>
+                        <div class="gantt-legend-dot" style="background: var(--col-ipe)"></div>
+                        <span>IPE</span>
                     </div>
                 </div>
             </div>
@@ -425,44 +535,13 @@
         </div>
 
         <!-- ============ NIVEL 5: DASHBOARD VISUAL DE RA ============ -->
-        <!-- NIVEL 5: OCULTO PARA ALUMNADO (Solo visible en versión docente) -->
-        <div id="view-level-5" class="view-container" style="display:none !important;">
+        <div id="view-level-5" class="view-container" style="display:none;">
             <div class="radar-section-header">
-                <h2>📊 Dashboard de Resultados de Aprendizaje</h2>
-                <p>Visualización del progreso de aprendizaje por competencias</p>
+                <h2>📊 Dashboard de Seguimiento de Entregas</h2>
             </div>
-
             <div class="ra-visual-dashboard" id="ra-visual-dashboard">
-                <!-- Dashboard Visual con gráficos y métricas -->
-                <div class="dashboard-grid">
-                    <div class="dashboard-card progress-overview">
-                        <h3>📈 Progreso Global</h3>
-                        <div class="progress-chart" id="progress-chart">
-                            <!-- Gráfico de progreso -->
-                        </div>
-                    </div>
-
-                    <div class="dashboard-card modules-summary">
-                        <h3>📚 Resumen por Módulos</h3>
-                        <div class="modules-chart" id="modules-chart">
-                            <!-- Gráfico de módulos -->
-                        </div>
-                    </div>
-
-                    <div class="dashboard-card competencies-radar">
-                        <h3>🎯 Competencias Transversales</h3>
-                        <div class="competencies-chart" id="competencies-chart">
-                            <!-- Radar de competencias -->
-                        </div>
-                    </div>
-
-                    <div class="dashboard-card evaluations-timeline">
-                        <h3>📅 Progreso por Evaluaciones</h3>
-                        <div class="evaluations-chart" id="evaluations-chart">
-                            <!-- Timeline de evaluaciones -->
-                        </div>
-                    </div>
-                </div>
+                <!-- Se genera dinámicamente por DashboardRenderer.renderRAVisualDashboard() -->
+                <div class="dashboard-loading">Cargando visualizaciones de progreso...</div>
             </div>
         </div>
 
@@ -484,8 +563,9 @@
     </main>
 
     <!-- ============ FOOTER ============ -->
+    <!-- ============ FOOTER ============ -->
     <footer class="main-footer">
-        <p>📚 Planificación del Proyecto Transversal v2.0 • Vista Alumnado • 1º CFGS Diseño y Amueblamiento • IES Ana
+        <p>📚 Planificación del Proyecto Transversal v2.0 • Vista Alumnado • 1º CFGM Carpintería y Mueble • IES Ana
             Luisa Benítez • <span data-academic-year>2025-2026</span>
         </p>
     </footer>
@@ -510,18 +590,16 @@
     <!-- Sistema de seguimiento de progreso -->
     <script src="js/progress-tracker.js"></script>
 
-    <!-- Sistema de gestión de progreso y tareas -->
+    <!-- Renderizadores Core -->
     <script src="js/progress-manager.js"></script>
-
-    <!-- Renderizador de dashboards -->
     <script src="js/dashboard-renderer.js"></script>
-
-    <!-- Renderizador de Gantt -->
     <script src="js/gantt-renderer.js"></script>
 
     <!-- Sistema de Configuraciones Alumnado -->
     <script src="js/settings-manager.js"></script>
     <script src="js/settings-ui-student.js"></script>
+    <script src="js/notification-manager.js"></script>
+    <script src="js/rubric-manager.js"></script>
 
     <script>
         /**
@@ -532,9 +610,9 @@
             if (el) {
                 el.classList.toggle('collapsed');
                 // Persistencia local
-                const states = JSON.parse(localStorage.getItem('pedagogical_view_states') || '{}');
+                const states = JSON.parse(localStorage.getItem('1cfgm_pedagogical_view_states') || '{}');
                 states[id] = el.classList.contains('collapsed');
-                localStorage.setItem('pedagogical_view_states', JSON.stringify(states));
+                localStorage.setItem('1cfgm_pedagogical_view_states', JSON.stringify(states));
             }
         }
 
@@ -542,7 +620,7 @@
          * Restaurar estados de colapso
          */
         function restorePedagogicalCollapses() {
-            const states = JSON.parse(localStorage.getItem('pedagogical_view_states') || '{}');
+            const states = JSON.parse(localStorage.getItem('1cfgm_pedagogical_view_states') || '{}');
             for (const [id, isCollapsed] of Object.entries(states)) {
                 const el = document.getElementById(id);
                 if (el && isCollapsed) {
@@ -824,6 +902,7 @@
                     break;
                 case 4:
                     renderRADashboard();
+                    updateRAFilterProjectNames();
                     break;
                 case 5:
                     renderVisualDashboard();
@@ -876,7 +955,7 @@
             }
 
             // Guardar preferencia
-            localStorage.setItem('preferred_view_mode', mode);
+            localStorage.setItem('1cfgm_preferred_view_mode', mode);
         }
 
         // ============ GESTIÓN DE FECHAS ============
@@ -1336,13 +1415,13 @@
         }
 
         function saveMonthCalendarState(monthId, isCollapsed) {
-            const states = JSON.parse(localStorage.getItem('radar_month_states') || '{}');
+            const states = JSON.parse(localStorage.getItem('1cfgm_radar_month_states') || '{}');
             states[monthId] = isCollapsed;
-            localStorage.setItem('radar_month_states', JSON.stringify(states));
+            localStorage.setItem('1cfgm_radar_month_states', JSON.stringify(states));
         }
 
         function restoreMonthCalendarStates() {
-            const states = JSON.parse(localStorage.getItem('radar_month_states') || '{}');
+            const states = JSON.parse(localStorage.getItem('1cfgm_radar_month_states') || '{}');
             const today = new Date(currentDate || new Date().toISOString().split('T')[0]);
             const monthNamesIndex = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
             const currentMonthId = `${monthNamesIndex[today.getMonth()]}-${today.getFullYear()}`;
@@ -1564,13 +1643,13 @@
         }
 
         function saveEvalSectionState(evalId, isCollapsed) {
-            const states = JSON.parse(localStorage.getItem('timeline_eval_states') || '{}');
+            const states = JSON.parse(localStorage.getItem('1cfgm_timeline_eval_states') || '{}');
             states[evalId] = isCollapsed;
-            localStorage.setItem('timeline_eval_states', JSON.stringify(states));
+            localStorage.setItem('1cfgm_timeline_eval_states', JSON.stringify(states));
         }
 
         function restoreEvalSectionStates() {
-            const states = JSON.parse(localStorage.getItem('timeline_eval_states') || '{}');
+            const states = JSON.parse(localStorage.getItem('1cfgm_timeline_eval_states') || '{}');
 
             Object.keys(states).forEach(evalId => {
                 if (states[evalId]) {
@@ -1655,6 +1734,9 @@
                     `<div class="flow-step"><span class="flow-dot" style="background:${f.c}"></span>${f.f}: ${f.l}</div>`
                 ).join('<span class="arrow">→</span>');
 
+                // Nuevo: Detalles de Fases
+                const phasesHTML = getPhasesDetailsHTML(ev);
+
                 const modulesHTML = ev.modules.map(m => {
                     const noteKey = `${ev.id}_${m.id}_note`;
                     const savedNote = getModuleNote(noteKey);
@@ -1735,6 +1817,13 @@
                         </div>
                         <div class="eval-body" id="ra-body-${ev.id}">
                             <div class="flow-bar">${flowHTML}</div>
+
+                            <!-- Sección de Hitos Estratégicos -->
+                            <div class="ra-phases-section">
+                                <div class="ra-phases-title">🚩 Hitos Estratégicos y Entregables de Fase</div>
+                                ${phasesHTML}
+                            </div>
+
                             <div class="modules-grid">${modulesHTML}</div>
                         </div>
                     </section>
@@ -1750,6 +1839,58 @@
 
             // Restaurar estado de secciones colapsadas
             restoreRAEvalSectionStates();
+        }
+
+        // ============ NUEVO: LÓGICA DE DETALLES DE FASES EN RA DASHBOARD ============
+        function getPhasesDetailsHTML(ev) {
+            if (!window.MASTER_PLAN || !window.MASTER_PLAN.phases) return '';
+
+            // Extraer IDs de fases únicas del flow
+            const phaseIds = new Set();
+            ev.flow.forEach(f => {
+                const parts = f.f.split('/');
+                parts.forEach(p => {
+                    if (p.trim().startsWith('F')) phaseIds.add(p.trim());
+                });
+            });
+
+            // Si es E1, incluimos F0 (Lanzamiento)
+            if (ev.id === 'e1') phaseIds.add('F0');
+            // Si es E2, aseguramos F2 y F4
+            if (ev.id === 'e2') { phaseIds.add('F2'); phaseIds.add('F4'); }
+            // Si es E3, aseguramos F5
+            if (ev.id === 'e3') { phaseIds.add('F5'); }
+
+            const sortedPhases = Array.from(phaseIds).sort();
+
+            let html = '<div class="ra-phases-grid">';
+            sortedPhases.forEach(pid => {
+                const phase = window.MASTER_PLAN.phases[pid];
+                if (!phase) return;
+
+                html += `
+                    <div class="ra-phase-card">
+                        <div class="ra-phase-header" style="border-left: 4px solid ${phase.color}">
+                            <span class="ra-phase-icon">${phase.icon}</span>
+                            <div class="ra-phase-info">
+                                <span class="ra-phase-id">${pid}</span>
+                                <span class="ra-phase-name">${phase.name}</span>
+                            </div>
+                        </div>
+                        <div class="ra-phase-gate">
+                            <div class="ra-gate-title">${phase.gate.title}</div>
+                            <ul class="ra-gate-conditions">
+                                ${phase.gate.conditions.map(c => `<li>${c}</li>`).join('')}
+                            </ul>
+                            <div class="ra-gate-evidence">
+                                <strong>📦 Mínimo para Gate:</strong> ${phase.gate.minEvidence.join(', ')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            return html;
         }
 
         // ============ COLAPSAR/EXPANDIR EVALUACIONES EN RA DASHBOARD ============
@@ -1776,13 +1917,13 @@
         }
 
         function saveRAEvalSectionState(evalId, isCollapsed) {
-            const states = JSON.parse(localStorage.getItem('ra_eval_states') || '{}');
+            const states = JSON.parse(localStorage.getItem('1cfgm_ra_eval_states') || '{}');
             states[evalId] = isCollapsed;
-            localStorage.setItem('ra_eval_states', JSON.stringify(states));
+            localStorage.setItem('1cfgm_ra_eval_states', JSON.stringify(states));
         }
 
         function restoreRAEvalSectionStates() {
-            const states = JSON.parse(localStorage.getItem('ra_eval_states') || '{}');
+            const states = JSON.parse(localStorage.getItem('1cfgm_ra_eval_states') || '{}');
 
             Object.keys(states).forEach(evalId => {
                 if (states[evalId]) {
@@ -1794,6 +1935,29 @@
                         body.classList.add('collapsed');
                         header?.classList.add('collapsed');
                     }
+                }
+            });
+        }
+
+        // ============ ACTUALIZAR NOMBRES DE PROYECTOS EN FILTRO ============
+        function updateRAFilterProjectNames() {
+            const evalSelect = document.getElementById('ra-filter-eval');
+            if (!evalSelect) return;
+
+            const customNames = window.SettingsManager?.settings?.pedagogical?.customProjectNames || {};
+            const defaultNames = {
+                'E1': window.MASTER_PLAN?.pedagogical_context?.E1?.title || 'Estantería',
+                'E2': window.MASTER_PLAN?.pedagogical_context?.E2?.title || 'Taburete',
+                'E3': window.MASTER_PLAN?.pedagogical_context?.E3?.title || 'Mobiliario'
+            };
+
+            // Actualizar las opciones del selector
+            const options = evalSelect.querySelectorAll('option');
+            options.forEach(option => {
+                const value = option.value.toUpperCase();
+                if (value !== 'ALL') {
+                    const projectName = customNames[value] || defaultNames[value] || option.textContent.split(' - ')[1];
+                    option.textContent = `${value} - ${projectName}`;
                 }
             });
         }
@@ -1824,12 +1988,11 @@
                     let moduleId = '';
 
                     // Extraer el ID del módulo de las clases
-                    if (cardClasses.includes('card-djk')) moduleId = 'djk';
-                    else if (cardClasses.includes('card-drp')) moduleId = 'drp';
-                    else if (cardClasses.includes('card-rrc')) moduleId = 'rrc';
-                    else if (cardClasses.includes('card-fat')) moduleId = 'fat';
-                    else if (cardClasses.includes('card-pmb')) moduleId = 'pmb';
-                    else if (cardClasses.includes('card-pub')) moduleId = 'pub';
+                    if (cardClasses.includes('card-mtr')) moduleId = 'mtr';
+                    else if (cardClasses.includes('card-oaa')) moduleId = 'oaa';
+                    else if (cardClasses.includes('card-opp')) moduleId = 'opp';
+                    else if (cardClasses.includes('card-sov')) moduleId = 'sov';
+                    else if (cardClasses.includes('card-ipe')) moduleId = 'ipe';
 
                     const shouldShowModule = moduleFilter === 'all' || moduleFilter === moduleId;
                     card.style.display = shouldShowModule ? 'block' : 'none';
@@ -1839,192 +2002,9 @@
 
         // ============ RENDER VISUAL DASHBOARD ============
         function renderVisualDashboard() {
-            const container = document.getElementById('ra-visual-dashboard');
-            if (!container || !window.MASTER_PLAN) return;
-
-            // Calcular datos para el dashboard
-            const moduleData = calculateModuleProgress();
-            const evalData = calculateEvaluationProgress();
-
-            container.innerHTML = `
-                <div class="dashboard-grid">
-                    <!-- Progreso Global -->
-                    <div class="dashboard-card progress-overview">
-                        <h3>📈 Progreso Global del Curso</h3>
-                        <div class="global-progress">
-                            <div class="progress-circle">
-                                <svg viewBox="0 0 100 100">
-                                    <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
-                                    <circle class="progress-bar" cx="50" cy="50" r="45" 
-                                            style="stroke-dasharray: ${evalData.globalPercent * 2.83}, 283"></circle>
-                                    <text x="50" y="55" text-anchor="middle" class="progress-text">${evalData.globalPercent}%</text>
-                                </svg>
-                            </div>
-                            <div class="progress-details">
-                                <div class="detail-item">
-                                    <span class="detail-label">RAs Evaluados</span>
-                                    <span class="detail-value">${evalData.totalRA}</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Evidencias Pendientes</span>
-                                    <span class="detail-value">${evalData.pending}</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Evidencias Completadas</span>
-                                    <span class="detail-value">${evalData.completed}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Resumen por Módulos -->
-                    <div class="dashboard-card modules-summary">
-                        <h3>📚 Progreso por Módulos</h3>
-                        <div class="modules-bars">
-                            ${moduleData.map(m => `
-                                <div class="module-progress-row">
-                                    <span class="module-label" style="color: ${m.color}">${m.icon} ${m.name}</span>
-                                    <div class="module-bar-container">
-                                        <div class="module-bar" style="width: ${m.percent}%; background: ${m.color}"></div>
-                                    </div>
-                                    <span class="module-percent">${m.percent}%</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-
-                    <!-- Progreso por Evaluaciones -->
-                    <div class="dashboard-card evaluations-timeline">
-                        <h3>📅 Progreso por Evaluaciones</h3>
-                        <div class="eval-progress-grid">
-                            <div class="eval-card e1">
-                                <div class="eval-header-mini">E1</div>
-                                <div class="eval-title-mini">Estantería</div>
-                                <div class="eval-progress-bar">
-                                    <div class="eval-fill" style="width: ${evalData.e1Percent}%"></div>
-                                </div>
-                                <span class="eval-percent">${evalData.e1Percent}%</span>
-                            </div>
-                            <div class="eval-card e2">
-                                <div class="eval-header-mini">E2</div>
-                                <div class="eval-title-mini">Taburete</div>
-                                <div class="eval-progress-bar">
-                                    <div class="eval-fill" style="width: ${evalData.e2Percent}%"></div>
-                                </div>
-                                <span class="eval-percent">${evalData.e2Percent}%</span>
-                            </div>
-                            <div class="eval-card e3">
-                                <div class="eval-header-mini">E3</div>
-                                <div class="eval-title-mini">Mobiliario</div>
-                                <div class="eval-progress-bar">
-                                    <div class="eval-fill" style="width: ${evalData.e3Percent}%"></div>
-                                </div>
-                                <span class="eval-percent">${evalData.e3Percent}%</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Competencias -->
-                    <div class="dashboard-card competencies-radar">
-                        <h3>🎯 Competencias Clave</h3>
-                        <div class="competencies-list">
-                            <div class="competency-item">
-                                <span class="comp-icon">🔧</span>
-                                <span class="comp-name">Fabricación</span>
-                                <div class="comp-bar"><div class="comp-fill" style="width: 75%"></div></div>
-                            </div>
-                            <div class="competency-item">
-                                <span class="comp-icon">📐</span>
-                                <span class="comp-name">Diseño Técnico</span>
-                                <div class="comp-bar"><div class="comp-fill" style="width: 80%"></div></div>
-                            </div>
-                            <div class="competency-item">
-                                <span class="comp-icon">🛡️</span>
-                                <span class="comp-name">PRL</span>
-                                <div class="comp-bar"><div class="comp-fill" style="width: 65%"></div></div>
-                            </div>
-                            <div class="competency-item">
-                                <span class="comp-icon">📊</span>
-                                <span class="comp-name">Planificación</span>
-                                <div class="comp-bar"><div class="comp-fill" style="width: 70%"></div></div>
-                            </div>
-                            <div class="competency-item">
-                                <span class="comp-icon">💼</span>
-                                <span class="comp-name">Gestión</span>
-                                <div class="comp-bar"><div class="comp-fill" style="width: 60%"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Funciones de cálculo para el dashboard
-        function calculateModuleProgress() {
-            if (!window.MASTER_PLAN || !window.MASTER_PLAN.modules) return [];
-
-            const modulesObj = window.MASTER_PLAN.modules;
-            const raTracking = window.raTracker ? window.raTracker.data.evidences : {};
-
-            return Object.entries(modulesObj).map(([id, m]) => {
-                // Calcular progreso real si es posible
-                let completed = 0;
-                let total = 0;
-
-                // Buscar evidencias asociadas a este módulo en todas las evaluaciones
-                ['e1', 'e2', 'e3'].forEach(evalId => {
-                    const key = `${evalId}_${id.toLowerCase()}_proc`;
-                    total++;
-                    if (raTracking[key] && raTracking[key].completed) {
-                        completed++;
-                    }
-                });
-
-                const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
-
-                return {
-                    id: id,
-                    name: m.name,
-                    icon: m.icon,
-                    color: m.color,
-                    percent: percent
-                };
-            });
-        }
-
-        function calculateEvaluationProgress() {
-            if (!window.raTracker) {
-                return { globalPercent: 0, totalRA: 0, pending: 0, completed: 0, e1Percent: 0, e2Percent: 0, e3Percent: 0 };
+            if (window.DashboardRenderer) {
+                window.DashboardRenderer.renderRAVisualDashboard();
             }
-
-            const stats = window.raTracker.calculateStats();
-
-            // Función auxiliar para obtener progreso por evaluación sin depender del DOM
-            const getEvalStats = (evalId) => {
-                const raTracking = window.raTracker.data.evidences;
-                const modules = window.MASTER_PLAN.modules;
-                let completed = 0;
-                let total = 0;
-
-                Object.keys(modules).forEach(modId => {
-                    const key = `${evalId}_${modId.toLowerCase()}_proc`;
-                    total++;
-                    if (raTracking[key] && raTracking[key].completed) {
-                        completed++;
-                    }
-                });
-                return total > 0 ? Math.round((completed / total) * 100) : 0;
-            };
-
-            return {
-                globalPercent: stats.completionRate,
-                totalRA: stats.totalRAs,
-                pending: stats.totalEvidences - stats.completedEvidences,
-                completed: stats.completedEvidences,
-                e1Percent: getEvalStats('e1'),
-                e2Percent: getEvalStats('e2'),
-                e3Percent: getEvalStats('e3')
-            };
         }
 
         // ============ GESTIÓN DE NOTAS DE MÓDULOS ============
@@ -2032,7 +2012,6 @@
             const area = document.getElementById(`note-area-${noteKey}`);
             if (area) {
                 area.classList.toggle('active');
-                // Focus en el textarea si se abre
                 if (area.classList.contains('active')) {
                     const textarea = document.getElementById(`note-text-${noteKey}`);
                     if (textarea) textarea.focus();
@@ -2058,22 +2037,18 @@
 
             const content = textarea.value.trim();
 
-            // Inicializar objeto de notas si no existe
             if (!window.raTracker.data.moduleNotes) {
                 window.raTracker.data.moduleNotes = {};
             }
 
-            // Guardar nota
             window.raTracker.data.moduleNotes[noteKey] = content;
             window.raTracker.saveData();
 
-            // Actualizar UI
             if (statusEl) {
                 statusEl.textContent = '✓ Guardada ' + new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
                 statusEl.classList.add('saved');
             }
 
-            // Actualizar botón toggle
             if (toggleBtn) {
                 const hasNote = content.length > 0;
                 toggleBtn.classList.toggle('has-note', hasNote);
@@ -2084,7 +2059,6 @@
                 }
             }
 
-            // Notificación
             if (window.raTracker.showNotification) {
                 window.raTracker.showNotification('📝 Nota guardada', 'success');
             }
@@ -2104,7 +2078,6 @@
                 window.raTracker.saveData();
             }
 
-            // Actualizar UI
             if (statusEl) {
                 statusEl.textContent = 'Nota eliminada';
                 statusEl.classList.remove('saved');
@@ -2167,11 +2140,11 @@
             }
 
             // Guardar estado
-            localStorage.setItem('institutional_panel_collapsed', !isCollapsed);
+            localStorage.setItem('1cfgm_institutional_panel_collapsed', !isCollapsed);
         }
 
         function restoreInstitutionalPanelState() {
-            const isCollapsed = localStorage.getItem('institutional_panel_collapsed') === 'true';
+            const isCollapsed = localStorage.getItem('1cfgm_institutional_panel_collapsed') === 'true';
             if (isCollapsed) {
                 const content = document.getElementById('institutional-content');
                 const toggle = document.getElementById('institutional-toggle');
@@ -2277,10 +2250,10 @@
             try {
                 const stats = window.ProgressManager.getStatistics();
 
-                document.getElementById('global-progress').textContent = `${stats.globalProgress}%`;
-                document.getElementById('e1-progress').textContent = `E1: ${stats.evaluations.E1}%`;
-                document.getElementById('e2-progress').textContent = `E2: ${stats.evaluations.E2}%`;
-                document.getElementById('e3-progress').textContent = `E3: ${stats.evaluations.E3}%`;
+                document.getElementById('global-progress').textContent = `${stats.globalProgress}% `;
+                document.getElementById('e1-progress').textContent = `E1: ${stats.evaluations.E1}% `;
+                document.getElementById('e2-progress').textContent = `E2: ${stats.evaluations.E2}% `;
+                document.getElementById('e3-progress').textContent = `E3: ${stats.evaluations.E3}% `;
 
                 const settings = getSettings();
                 const widget = document.getElementById('progress-widget');
@@ -2306,6 +2279,7 @@
             // Actualizar vista actual si depende de estadísticas
             if (currentView === 4) renderRADashboard();
             if (currentView === 1) renderRadar();
+            if (currentView === 5) renderVisualDashboard();
         });
 
         window.addEventListener('settingsApplied', (event) => {
@@ -2319,10 +2293,11 @@
             if (currentView === 3 && window.fichasRenderer) {
                 const currentDate = document.getElementById('selectedDate')?.value;
                 if (currentDate) window.fichasRenderer.renderDailyFicha(currentDate);
-                const currentWeek = document.getElementById('week-selector')?.value;
+                const currentWeek = document.getElementById('weekSelector')?.value;
                 if (currentWeek) window.fichasRenderer.renderWeeklyFicha(currentWeek);
             }
             if (currentView === 4 && typeof renderRADashboard === 'function') renderRADashboard();
+            if (currentView === 5) renderVisualDashboard();
             if (currentView === 6 && window.GanttRenderer) window.GanttRenderer.render();
         });
 
@@ -2406,8 +2381,8 @@
         if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
             window.addEventListener('load', () => {
                 // Añadimos parámetro de versión para forzar actualización del SW
-                navigator.serviceWorker.register('./sw.js?v=2.8')
-                    .then(reg => console.log('✅ Service Worker v2.8 registrado:', reg.scope))
+                navigator.serviceWorker.register('./sw.js?v=14.0')
+                    .then(reg => console.log('✅ Service Worker v14.0 registrado:', reg.scope))
                     .catch(err => console.error('❌ Error al registrar Service Worker:', err));
             });
         }
@@ -2415,7 +2390,32 @@
         if (typeof restorePedagogicalCollapses === 'function') {
             restorePedagogicalCollapses();
         }
+
+        // ============ LÓGICA MODO PRESENTACIÓN ============
+        function togglePresentationMode() {
+            document.body.classList.toggle('presentation-mode');
+            const isModeActive = document.body.classList.contains('presentation-mode');
+
+            if (isModeActive) {
+                // Notificar si es necesario
+                if (window.raTracker && window.raTracker.showNotification) {
+                    window.raTracker.showNotification('📺 Modo Presentación activado', 'info');
+                }
+            }
+        }
+
+        // Escuchar tecla Escape para salir de presentación
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.body.classList.contains('presentation-mode')) {
+                togglePresentationMode();
+            }
+        });
     </script>
+
+    <!-- Botón Flotante para Salir del Modo Presentación -->
+    <button id="exit-presentation-btn" onclick="togglePresentationMode()">
+        <span>❌</span> Salir de Presentación
+    </button>
 
 </body>
 

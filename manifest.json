@@ -1,7 +1,7 @@
 {
   "name": "EduTrack Planificación Transversal",
   "short_name": "EduTrack",
-  "description": "Sistema de planificación y seguimiento de proyectos transversales 1º CFGS",
+  "description": "Sistema de planificación y seguimiento de proyectos transversales 1º CFGM",
   "start_url": "Planificacion-Docente.html",
   "display": "standalone",
   "background_color": "#f4f7f6",

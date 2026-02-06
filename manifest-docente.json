@@ -1,7 +1,7 @@
 {
-    "name": "Docente - EduTrack",
-    "short_name": "Plan Docente",
-    "description": "Panel de Coordinación Docente - Planificación Transversal",
+    "name": "Planificación Docente - 1º CFGM Carpintería y Mueble",
+    "short_name": "Planif Docente 1º",
+    "description": "Panel de coordinación docente - 1º CFGM Carpintería y Mueble",
     "start_url": "./Planificacion-Docente.html",
     "display": "standalone",
     "background_color": "#34495e",

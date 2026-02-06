@@ -1,5 +1,5 @@
 # 📋 GUÍA DE INTEGRACIÓN EN MOODLE
-## Planificación Transversal 1.º CFGS
+## Planificación Transversal 1.º CFGM
 
 ---
 
@@ -8,7 +8,7 @@
 Has configurado con éxito un sistema de planificación dual (Docente/Alumnado) desplegado en GitHub Pages.
 
 **Estado:** ✅ Operativo
-**Repositorio:** https://github.com/German48/Planificacion-Transversal-1.CFGS
+**Repositorio:** https://github.com/German48/Planificacion-Transversal-1.CFGM
 **Rama activa:** PROYECTO-01
 
 ---
@@ -18,7 +18,7 @@ Has configurado con éxito un sistema de planificación dual (Docente/Alumnado) 
 ### 👩‍🎓 ENLACE PARA ALUMNADO (Público - Sin restricciones)
 
 ```
-https://german48.github.io/Planificacion-Transversal-1.CFGS/Planificacion-Alumnado.html
+https://german48.github.io/Planificacion-Transversal-1.CFGM/Planificacion-Alumnado.html
 ```
 
 **Cómo añadirlo en Moodle:**
@@ -34,7 +34,7 @@ https://german48.github.io/Planificacion-Transversal-1.CFGS/Planificacion-Alumna
 ### 🧑‍🏫 ENLACE PARA DOCENTES
 
 ```
-https://german48.github.io/Planificacion-Transversal-1.CFGS/Planificacion-Docente.html
+https://german48.github.io/Planificacion-Transversal-1.CFGM/Planificacion-Docente.html
 ```
 
 **Cómo compartirlo con el equipo docente en Moodle:**

@@ -234,4 +234,4 @@ Funciones que llegarán en futuras versiones:
 
 **🎉 ¡Personaliza tu experiencia y trabaja más cómodo!**
 
-*Hecho con ❤️ para los estudiantes de 1º CFGS - IES Ana Luisa Benítez*
+*Hecho con ❤️ para los estudiantes de 1º CFGM - IES Ana Luisa Benítez*

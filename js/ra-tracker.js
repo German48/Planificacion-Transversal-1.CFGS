@@ -21,7 +21,8 @@ class RATracker {
 
     buildStorageKey(baseKey) {
         const year = this.getCurrentYear();
-        return `${baseKey}_${year}`;
+        const courseId = window.MASTER_PLAN?.config?.course_id || '1cfgm';
+        return `${courseId}_${baseKey}_${year}`;
     }
 
     getLegacyStorageKey(baseKey) {
@@ -583,3 +584,4 @@ document.addEventListener('DOMContentLoaded', function () {
         window.raTracker.init();
     }
 });
+
