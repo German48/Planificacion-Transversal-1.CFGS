@@ -13,12 +13,13 @@
  * - academic: Estructura RA/CE por evaluación
  */
 
-window.MASTER_PLAN = {
+export const MASTER_PLAN = {
 
     // ============================================
     // CONFIGURACIÓN GENERAL
     // ============================================
     config: {
+        course_id: "1cfgs",
         course: "1º CFGS Diseño y Amueblamiento",
         year: "2025-2026",
         academic_year: "2025-2026",
@@ -3085,6 +3086,7 @@ window.MASTER_PLAN = {
         }
     ]
 };
+window.MASTER_PLAN = MASTER_PLAN;
 
 // Funciones helper para acceder a los datos
 // ============ MOTOR DE GENERACIÓN DINÁMICA DE FICHAS ============

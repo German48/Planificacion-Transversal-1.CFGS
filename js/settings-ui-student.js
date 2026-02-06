@@ -3,7 +3,7 @@
  * Interfaz simplificada de configuraciones para estudiantes
  */
 
-const SettingsUIStudent = {
+export const SettingsUIStudent = {
 
     /**
      * Renderizar el modal de configuraciones para alumnado

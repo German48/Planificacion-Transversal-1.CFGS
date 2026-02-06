@@ -1,4 +1,4 @@
-const VERSION = '2.8';
+const VERSION = '14.0';
 console.log(`SW: Cargando versión ${VERSION} (BORRANDO CACHÉS ANTIGUOS)`);
 const CACHE_NAME = `edutrack-cache-v${VERSION}`;
 const ASSETS = [
@@ -10,6 +10,7 @@ const ASSETS = [
     './css/fichas.css',
     './css/dashboard.css',
     './css/gantt.css',
+    './css/academic-year-selector.css',
     './js/ra-tracker.js',
     './js/fichas-renderer.js',
     './js/progress-tracker.js',
@@ -18,6 +19,11 @@ const ASSETS = [
     './js/gantt-renderer.js',
     './js/settings-manager.js',
     './js/settings-ui.js',
+    './js/academic-year-manager.js',
+    './js/academic-year-selector-ui.js',
+    './js/academic-year-generator.js',
+    './js/notification-manager.js',
+    './js/rubric-manager.js',
     './manifest.json',
     'https://cdn.jsdelivr.net/npm/chart.js'
 ];

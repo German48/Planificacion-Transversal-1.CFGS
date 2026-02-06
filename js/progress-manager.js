@@ -4,7 +4,7 @@
  * Gestiona el estado de completitud de tareas, evidencias y hitos
  */
 
-class ProgressManager {
+export class ProgressManager {
     constructor() {
         this.currentSchemaVersion = '1.1';
         this.storageKey = this.buildStorageKey('planificacion_progress');
@@ -21,7 +21,8 @@ class ProgressManager {
 
     buildStorageKey(baseKey) {
         const year = this.getCurrentYear();
-        return `${baseKey}_${year}`;
+        const courseId = window.MASTER_PLAN?.config?.course_id || '1cfgs';
+        return `${courseId}_${baseKey}_${year}`;
     }
 
     getLegacyStorageKey(baseKey) {

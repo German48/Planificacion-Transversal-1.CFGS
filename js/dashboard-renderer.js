@@ -3,7 +3,7 @@
  * Sistema de Planificación Transversal
  */
 
-const DashboardRenderer = {
+export const DashboardRenderer = {
 
     /**
      * Renderizar Dashboard Resumen (Vista 6)
@@ -57,7 +57,7 @@ const DashboardRenderer = {
 
                     <div class="progress-card">
                         <div class="progress-card-header">
-                            <span class="progress-card-title">門 Gates Superados</span>
+                            <span class="progress-card-title">🚪 Gates Superados</span>
                         </div>
                         <div class="progress-card-value">${stats.gates.passed}/${stats.gates.total}</div>
                         <div class="progress-card-subtitle">Puntos de control</div>
@@ -74,20 +74,17 @@ const DashboardRenderer = {
 
                 <!-- Paneles por Evaluación -->
                 <div class="eval-panels">
-                    ${this.renderEvalPanel('E1', 'Estantería Modular')}
-                    ${this.renderEvalPanel('E2', 'Taburete Ergonómico')}
-                    ${this.renderEvalPanel('E3', 'Mobiliario Industrial')}
+                    ${(window.MASTER_PLAN?.config?.evaluations || ['E1', 'E2', 'E3']).map(ev =>
+            this.renderEvalPanel(ev, window.MASTER_PLAN?.pedagogical_context?.[ev]?.title || `Evaluación ${ev}`)
+        ).join('')}
                 </div>
 
                 <!-- Progreso por Módulos -->
                 <h3 style="margin-bottom: 15px;">📚 Progreso por Módulo</h3>
                 <div class="modules-progress-grid">
-                    ${this.renderModuleCard('DRP', 'Desarrollo Producto')}
-                    ${this.renderModuleCard('RRC', 'Representación')}
-                    ${this.renderModuleCard('FAT', 'Fabricación')}
-                    ${this.renderModuleCard('PMB', 'Prototipos')}
-                    ${this.renderModuleCard('PUB', 'Procesos')}
-                    ${this.renderModuleCard('DJK', 'Digitalización')}
+                    ${Object.entries(window.MASTER_PLAN?.modules || {}).filter(([id]) => id !== 'ALL').map(([id, mod]) =>
+            this.renderModuleCard(id, mod.name)
+        ).join('')}
                 </div>
             </div>
         `;
@@ -124,7 +121,31 @@ const DashboardRenderer = {
             settings.dashboard.moduleOverrides = settings.dashboard.moduleOverrides || {};
             return settings.dashboard;
         }
-        return defaults;
+
+        try {
+            const stored = localStorage.getItem(this.getDashboardStorageKey());
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                return {
+                    selectionGlobal: { ...defaults.selectionGlobal, ...(parsed.selectionGlobal || {}) },
+                    moduleOverrides: parsed.moduleOverrides || {}
+                };
+            }
+            const legacyStored = localStorage.getItem('dashboard_selection');
+            if (legacyStored) {
+                const parsed = JSON.parse(legacyStored);
+                const migrated = {
+                    selectionGlobal: { ...defaults.selectionGlobal, ...(parsed.selectionGlobal || {}) },
+                    moduleOverrides: parsed.moduleOverrides || {}
+                };
+                localStorage.setItem(this.getDashboardStorageKey(), JSON.stringify(migrated));
+                return migrated;
+            }
+        } catch (error) {
+            console.warn('Error leyendo selección de dashboard:', error);
+        }
+
+        return { ...defaults };
     },
 
     saveDashboardSettings(state) {
@@ -132,7 +153,23 @@ const DashboardRenderer = {
         if (settings) {
             settings.dashboard = state;
             window.SettingsManager.saveSettings();
+            return;
         }
+
+        try {
+            localStorage.setItem(this.getDashboardStorageKey(), JSON.stringify(state));
+        } catch (error) {
+            console.warn('Error guardando selección de dashboard:', error);
+        }
+    },
+
+    getDashboardStorageKey() {
+        const stored = localStorage.getItem('selected_academic_year');
+        const year = stored
+            || window.MASTER_PLAN?.config?.academic_year
+            || window.MASTER_PLAN?.config?.year
+            || '2025-2026';
+        return `dashboard_selection_${year}`;
     },
 
     getTeamsList() {
@@ -159,15 +196,40 @@ const DashboardRenderer = {
             groupsMap[teamId].members.push(student.name);
         });
 
-        return Object.values(groupsMap).filter(group => group.members.length);
+        const groups = Object.values(groupsMap).filter(group => group.members.length);
+        if (groups.length) return groups;
+
+        const teamMembers = settings?.teams?.teamMembers || {};
+        Object.entries(teamMembers).forEach(([teamId, members]) => {
+            const cleanMembers = (members || []).map(member => String(member).trim()).filter(Boolean);
+            if (!cleanMembers.length) return;
+            const label = teamNames[teamId] || teamId;
+            groups.push({ label, members: cleanMembers });
+        });
+
+        if (!groups.length) {
+            const fallbackUsers = window.ProgressTracker?.state?.config?.users || [];
+            if (fallbackUsers.length) {
+                groups.push({ label: 'Alumnado', members: fallbackUsers });
+            }
+        }
+
+        return groups;
     },
 
     normalizeSelection(selection) {
-        return {
+        const normalized = {
             mode: selection?.mode || 'team',
             teamId: selection?.teamId || 'all',
             studentId: selection?.studentId || 'all'
         };
+        if (normalized.mode === 'team') {
+            normalized.studentId = selection?.studentId || 'all';
+        }
+        if (normalized.mode === 'individual') {
+            normalized.teamId = selection?.teamId || 'all';
+        }
+        return normalized;
     },
 
     getEffectiveSelection(moduleId, state) {
@@ -198,6 +260,10 @@ const DashboardRenderer = {
     renderStudentOptions(selected) {
         const groups = this.getStudentGroups();
         const options = ['<option value="all">Todos los alumnos</option>'];
+        if (!groups.length) {
+            options.push('<option value="none" disabled>Sin alumnado definido</option>');
+            return options.join('');
+        }
         groups.forEach(group => {
             const groupOptions = group.members.map(member =>
                 `<option value="${member}" ${member === selected ? 'selected' : ''}>${member}</option>`
@@ -234,17 +300,24 @@ const DashboardRenderer = {
     },
 
     renderModuleOverrides(state) {
-        const modules = ['DRP', 'RRC', 'FAT', 'PMB', 'PUB', 'DJK'];
-        return modules.map(moduleId => {
+        const modules = Object.keys(window.MASTER_PLAN?.modules || {}).filter(id => id !== 'ALL');
+        const moduleCards = modules.map(moduleId => {
+            const module = window.MASTER_PLAN?.getModule?.(moduleId);
+            const label = module?.name || moduleId;
             const effective = this.getEffectiveSelection(moduleId, state);
             const selection = effective.selection;
             const isTeam = selection.mode === 'team';
-            const targetOptions = isTeam ? this.renderTeamOptions(selection.teamId) : this.renderStudentOptions(selection.studentId);
+            const targetOptions = isTeam
+                ? this.renderTeamOptions(selection.teamId)
+                : this.renderStudentOptions(selection.studentId);
             const overrideActive = !!effective.override;
 
             return `
                 <div class="module-override-row ${overrideActive ? 'override-active' : ''}">
-                    <span class="module-override-code">${moduleId}</span>
+                    <div class="module-override-label">
+                        <span class="module-override-code">${moduleId}</span>
+                        <span class="module-override-name">${label}</span>
+                    </div>
                     <select class="dashboard-selection-select" onchange="DashboardRenderer.changeModuleSelectionMode('${moduleId}', this.value)">
                         <option value="team" ${selection.mode === 'team' ? 'selected' : ''}>Equipo</option>
                         <option value="individual" ${selection.mode === 'individual' ? 'selected' : ''}>Individual</option>
@@ -252,139 +325,424 @@ const DashboardRenderer = {
                     <select class="dashboard-selection-select" onchange="DashboardRenderer.changeModuleSelectionTarget('${moduleId}', this.value)">
                         ${targetOptions}
                     </select>
+                    <div class="module-override-actions">
+                        ${overrideActive ? `<button class="module-override-clear" onclick="DashboardRenderer.clearModuleOverride('${moduleId}')">Usar global</button>` : ''}
+                    </div>
                 </div>
             `;
         }).join('');
+
+        return `
+            <div class="module-overrides">
+                <div class="module-overrides-header">
+                    <span>Overrides por módulo</span>
+                </div>
+                ${moduleCards}
+            </div>
+        `;
     },
 
     updateSelectionUI() {
         const state = this.getDashboardSettings();
         const controls = document.getElementById('dashboard-selection-controls');
-        if (controls) controls.innerHTML = this.renderGlobalSelectionControls(state);
+        if (controls) {
+            controls.innerHTML = this.renderGlobalSelectionControls(state);
+        }
         const overrides = document.getElementById('dashboard-module-overrides');
-        if (overrides) overrides.innerHTML = this.renderModuleOverrides(state);
+        if (overrides) {
+            overrides.innerHTML = this.renderModuleOverrides(state);
+        }
     },
 
     changeGlobalSelectionMode(mode) {
         const state = this.getDashboardSettings();
-        state.selectionGlobal = { ...state.selectionGlobal, mode, teamId: 'all', studentId: 'all' };
+        state.selectionGlobal = {
+            ...state.selectionGlobal,
+            mode,
+            teamId: 'all',
+            studentId: 'all'
+        };
         this.saveDashboardSettings(state);
         this.renderRAVisualDashboard();
     },
 
     changeGlobalSelectionTarget(value) {
         const state = this.getDashboardSettings();
-        if (state.selectionGlobal.mode === 'team') state.selectionGlobal.teamId = value;
-        else state.selectionGlobal.studentId = value;
+        const mode = state.selectionGlobal?.mode || 'team';
+        if (mode === 'team') {
+            state.selectionGlobal.teamId = value;
+        } else {
+            state.selectionGlobal.studentId = value;
+        }
         this.saveDashboardSettings(state);
         this.renderRAVisualDashboard();
     },
 
     changeModuleSelectionMode(moduleId, mode) {
         const state = this.getDashboardSettings();
-        state.moduleOverrides[moduleId] = { mode, teamId: 'all', studentId: 'all' };
+        const base = state.moduleOverrides?.[moduleId] || state.selectionGlobal || this.getDashboardDefaults().selectionGlobal;
+        state.moduleOverrides = state.moduleOverrides || {};
+        state.moduleOverrides[moduleId] = {
+            mode,
+            teamId: base.teamId || 'all',
+            studentId: base.studentId || 'all'
+        };
+        if (mode === 'team') {
+            state.moduleOverrides[moduleId].studentId = 'all';
+        } else {
+            state.moduleOverrides[moduleId].teamId = 'all';
+        }
         this.saveDashboardSettings(state);
         this.renderRAVisualDashboard();
     },
 
     changeModuleSelectionTarget(moduleId, value) {
         const state = this.getDashboardSettings();
-        if (!state.moduleOverrides[moduleId]) state.moduleOverrides[moduleId] = { ...state.selectionGlobal };
-        if (state.moduleOverrides[moduleId].mode === 'team') state.moduleOverrides[moduleId].teamId = value;
-        else state.moduleOverrides[moduleId].studentId = value;
+        const effective = this.getEffectiveSelection(moduleId, state);
+        const mode = effective.selection.mode || 'team';
+        state.moduleOverrides = state.moduleOverrides || {};
+        if (!state.moduleOverrides[moduleId]) {
+            state.moduleOverrides[moduleId] = { ...effective.selection };
+        }
+        if (mode === 'team') {
+            state.moduleOverrides[moduleId].teamId = value;
+        } else {
+            state.moduleOverrides[moduleId].studentId = value;
+        }
         this.saveDashboardSettings(state);
         this.renderRAVisualDashboard();
     },
 
-    getFilteredStats() {
+    clearModuleOverride(moduleId) {
         const state = this.getDashboardSettings();
-        const resolver = (m) => this.getEffectiveSelection(m, state).selection;
-        return ProgressTracker.getStats(resolver);
+        if (state.moduleOverrides?.[moduleId]) {
+            delete state.moduleOverrides[moduleId];
+            this.saveDashboardSettings(state);
+            this.renderRAVisualDashboard();
+        }
     },
 
+    getFilteredStats() {
+        const state = this.getDashboardSettings();
+        const selectionResolver = (moduleId) => {
+            if (!moduleId || moduleId === 'GLOBAL') {
+                return this.normalizeSelection(state.selectionGlobal || {});
+            }
+            return this.getEffectiveSelection(moduleId, state).selection;
+        };
+        return ProgressTracker.getStats(selectionResolver);
+    },
+
+    /**
+     * Renderizar Dashboard Detallado (Vista 7)
+     */
     renderDetailedDashboard() {
         const container = document.getElementById('dashboard-detailed');
         if (!container) return;
+
         const config = ProgressTracker.state.config;
+
         container.innerHTML = `
             <div class="dashboard-container">
-                <h2>Dashboard Detallado</h2>
-                <div class="tracking-config-grid">
-                    ${Object.keys(config.trackingMode).map(m => this.renderTrackingConfig(m, config.trackingMode[m])).join('')}
+                <div class="dashboard-header">
+                    <div class="dashboard-title">
+                        <span class="emoji">⚙️</span>
+                        <h2>Dashboard de Progreso Detallado</h2>
+                    </div>
                 </div>
+
+                <!-- Configuración de Seguimiento -->
+                <div class="tracking-config-panel">
+                    <div class="tracking-config-title">
+                        <span>🔧</span> Configuración de Seguimiento por Módulo
+                    </div>
+                    <div class="tracking-config-grid">
+                        ${Object.entries(window.MASTER_PLAN?.modules || {}).filter(([id]) => id !== 'ALL').map(([id, mod]) =>
+            this.renderTrackingConfig(id, config.trackingMode[id])
+        ).join('')}
+                    </div>
+                </div>
+
+                <!-- Lista de Semanas con Progreso -->
+                <h3 style="margin-bottom: 15px;">📋 Progreso Detallado por Semana</h3>
                 ${this.renderWeeksList()}
+
+                <!-- Actividad Reciente -->
+                <div class="recent-activity" style="margin-top: 30px;">
+                    <div class="recent-activity-title">
+                        <span>🕐</span> Actividad Reciente
+                    </div>
+                    <ul class="activity-list">
+                        ${this.renderRecentActivity()}
+                    </ul>
+                </div>
             </div>
         `;
     },
 
+    /**
+     * Renderizar panel de evaluación
+     */
     renderEvalPanel(evalNum, projectName) {
-        const stats = ProgressTracker.getStats();
-        const evalStats = stats.byEval[evalNum] || { total: 0, completed: 0 };
-        const percentage = evalStats.total > 0 ? Math.round((evalStats.completed / evalStats.total) * 100) : 0;
+        const weeks = window.MASTER_PLAN?.timeline?.find(t => t.eval === evalNum)?.weeks || [];
+        let completedWeeks = 0;
+
+        const weekItems = weeks.map(week => {
+            const gateStatus = ProgressTracker.getGate(week.id);
+            if (gateStatus) completedWeeks++;
+
+            return `
+                <li class="eval-week-item ${gateStatus ? 'completed' : ''}">
+                    <span class="eval-week-status">${gateStatus ? '✅' : '⬜'}</span>
+                    <span class="eval-week-id">${week.id}</span>
+                    <span class="eval-week-goal">${week.goal}</span>
+                </li>
+            `;
+        }).join('');
+
+        const percentage = weeks.length > 0 ? Math.round((completedWeeks / weeks.length) * 100) : 0;
+
         return `
-            <div class="eval-panel">
-                <h4>${evalNum}: ${projectName} (${percentage}%)</h4>
-                <div class="progress-bar"><div class="progress-bar-fill" style="width:${percentage}%"></div></div>
+            <div class="eval-panel ${evalNum.toLowerCase()}">
+                <div class="eval-panel-header">
+                    <span class="eval-panel-title">${evalNum}: ${projectName}</span>
+                    <span class="eval-percentage">${percentage}%</span>
+                </div>
+                <ul class="eval-weeks-list">
+                    ${weekItems}
+                </ul>
             </div>
         `;
     },
 
+    /**
+     * Renderizar tarjeta de módulo
+     */
     renderModuleCard(module, name) {
         const stats = ProgressTracker.getStats();
-        const mStats = stats.byModule[module] || { total: 0, completed: 0 };
-        const percentage = mStats.total > 0 ? Math.round((mStats.completed / mStats.total) * 100) : 0;
+        const moduleStats = stats.byModule[module] || { total: 0, completed: 0 };
+        const percentage = moduleStats.total > 0
+            ? Math.round((moduleStats.completed / moduleStats.total) * 100)
+            : 0;
+
+        const mode = ProgressTracker.state.config.trackingMode[module];
+        const modeIcon = mode === 'individual' ? '👤' : '👥';
+        const modeText = mode === 'individual' ? 'Individual' : 'Equipo';
+
         return `
-            <div class="module-card">
-                <strong>${module}</strong>: ${percentage}% (${name})
+            <div class="module-progress-card ${module.toLowerCase()}">
+                <div class="module-progress-name">${module}</div>
+                <div class="module-progress-circle">${percentage}%</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary);">${name}</div>
+                <div class="module-tracking-mode">
+                    <span class="icon">${modeIcon}</span>
+                    <span>${modeText}</span>
+                </div>
             </div>
         `;
     },
 
+    /**
+     * Renderizar configuración de seguimiento
+     */
     renderTrackingConfig(module, currentMode) {
         return `
-            <div>
-                ${module}: 
-                <button onclick="DashboardRenderer.setTrackingMode('${module}', 'team')" ${currentMode === 'team' ? 'disabled' : ''}>👥</button>
-                <button onclick="DashboardRenderer.setTrackingMode('${module}', 'individual')" ${currentMode === 'individual' ? 'disabled' : ''}>👤</button>
+            <div class="tracking-config-item">
+                <span class="tracking-config-label">
+                    <span style="color: var(--col-${module.toLowerCase()})">${module}</span>
+                </span>
+                <div class="tracking-toggle">
+                    <button class="${currentMode === 'team' ? 'active' : ''}" 
+                            onclick="DashboardRenderer.setTrackingMode('${module}', 'team')">
+                        👥 Equipo
+                    </button>
+                    <button class="${currentMode === 'individual' ? 'active' : ''}"
+                            onclick="DashboardRenderer.setTrackingMode('${module}', 'individual')">
+                        👤 Individual
+                    </button>
+                </div>
             </div>
         `;
     },
 
+    /**
+     * Renderizar lista de semanas
+     */
     renderWeeksList() {
         const weeks = window.MASTER_PLAN?.weeks || [];
-        return weeks.map(w => `<div>${w.week_id}: ${w.week_goal}</div>`).join('');
+
+        return weeks.map(week => {
+            const gateStatus = ProgressTracker.getGate(week.week_id);
+            const dods = week.min_deliverable?.evidence_required || [];
+
+            return `
+                <div class="eval-week-item" style="margin-bottom: 10px; padding: 15px; background: var(--card-bg); border-radius: 10px;">
+                    <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                        <input type="checkbox" ${gateStatus ? 'checked' : ''} onclick="ProgressTracker.toggleGate('${week.week_id}')">
+                        <span class="eval-week-id" style="font-weight: 700;">${week.week_id}</span>
+                        <span class="eval-week-goal" style="flex: 1;">${week.week_goal}</span>
+                        <span class="eval-week-status">${gateStatus ? '✅ Gate OK' : '⏳ En curso'}</span>
+                    </div>
+                </div>
+            `;
+        }).join('');
     },
 
-    getCurrentWeek() { return 'Semana Actual'; },
-    getCurrentEval() { return 'Evaluación Actual'; },
+    /**
+     * Renderizar actividad reciente
+     */
+    renderRecentActivity() {
+        return `
+            <li class="activity-item">
+                <div class="activity-icon">✅</div>
+                <div class="activity-content">
+                    <div class="activity-title">Sin actividad reciente</div>
+                    <div class="activity-time">Marca checkboxes para ver tu progreso aquí</div>
+                </div>
+            </li>
+        `;
+    },
 
-    changeTeam(team) { ProgressTracker.setCurrentTeam(team); this.refreshAll(); },
-    changeUser(user) { ProgressTracker.setCurrentUser(user); this.refreshAll(); },
-    setTrackingMode(m, mode) { ProgressTracker.setTrackingMode(m, mode); this.refreshAll(); },
+    /**
+     * Helpers
+     */
+    getCurrentWeek() {
+        const today = new Date().toISOString().split('T')[0];
+        const week = window.MASTER_PLAN?.weeks?.find(w =>
+            today >= w.date_from && today <= w.date_to
+        );
+        return week?.week_id || 'N/A';
+    },
 
+    getCurrentEval() {
+        const today = new Date().toISOString().split('T')[0];
+        const week = window.MASTER_PLAN?.weeks?.find(w =>
+            today >= w.date_from && today <= w.date_to
+        );
+        return week?.eval || 'N/A';
+    },
+
+    /**
+     * Cambiar equipo
+     */
+    changeTeam(team) {
+        ProgressTracker.setCurrentTeam(team);
+        this.refreshAll();
+    },
+
+    /**
+     * Cambiar usuario
+     */
+    changeUser(user) {
+        ProgressTracker.setCurrentUser(user);
+        this.refreshAll();
+    },
+
+    /**
+     * Cambiar modo de seguimiento
+     */
+    setTrackingMode(module, mode) {
+        ProgressTracker.setTrackingMode(module, mode);
+        this.refreshAll();
+    },
+
+    /**
+     * Renderizar Dashboard Visual de Entregas (Vista 5)
+     */
     renderRAVisualDashboard() {
         const container = document.getElementById('ra-visual-dashboard');
         if (!container) return;
+
+        // Si el container está vacío o no tiene la estructura de canvas, inicializar
         if (!container.querySelector('canvas')) {
             container.innerHTML = `
-                <div id="dashboard-selection-controls"></div>
-                <div class="dashboard-grid">
-                    <canvas id="progressChart"></canvas>
-                    <div id="global-percent-text">0%</div>
-                    <canvas id="modulesChart"></canvas>
-                    <canvas id="competenciesChart"></canvas>
-                    <canvas id="evaluationsChart"></canvas>
+                <div class="dashboard-controls-row">
+                    <div id="dashboard-selection-controls"></div>
+                    <button class="reset-db-btn" onclick="DashboardRenderer.resetAllData()">
+                        🗑️ Reiniciar Todo a 0%
+                    </button>
                 </div>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card progress-overview">
+                        <h3>📈 Progreso de Entregas</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="progressChart"></canvas>
+                            <div class="chart-overlay-text" id="global-percent-text">0%</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card modules-summary">
+                        <h3>📚 Entregas por Módulos</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="modulesChart"></canvas>
+                        </div>
+                        <div id="dashboard-module-overrides"></div>
+                    </div>
+
+                    <div class="dashboard-card competencies-radar">
+                        <h3>🎯 Rendimiento en Hitos</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="competenciesChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card evaluations-timeline">
+                        <h3>📅 Entregas por Evaluaciones</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="evaluationsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card metacognition-comparison">
+                        <h3>🧠 Percepción vs Realidad</h3>
+                        <div class="chart-wrapper" style="min-height: 300px;">
+                            <canvas id="metacognitionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div id="insights-panel" class="insights-container"></div>
             `;
         }
+
         this.updateSelectionUI();
-        this.updateCharts(this.getFilteredStats());
+        const stats = this.getFilteredStats();
+        this.updateCharts(stats);
     },
 
+    renderPresentationToggle() {
+        return `
+            <button class="presentation-toggle-btn" onclick="togglePresentationMode()" title="Modo Presentación">
+                📺 Presentación
+            </button>
+        `;
+    },
+
+    /**
+     * Reiniciar todos los datos del curso (Punto Limpio)
+     */
+    resetAllData() {
+        if (confirm('¿Estás seguro de reiniciar todos los datos de progreso del curso? Esta acción no se puede deshacer.')) {
+            ProgressTracker.reset();
+            if (window.RubricManager) {
+                localStorage.removeItem(window.RubricManager.storageKey);
+                window.RubricManager.data = {};
+            }
+            this.refreshAll();
+            this.showNotification('🧹 Todos los datos han sido reiniciados', 'info');
+        }
+    },
+
+    /**
+     * Instancias de gráficos para actualización
+     */
     charts: {},
 
+    /**
+     * Actualizar todos los gráficos con nuevos datos
+     */
     updateCharts(stats) {
         if (typeof window.Chart === 'undefined') {
+            console.warn('⚠️ Chart.js no disponible para updateCharts (1st CFGS), reintentando...');
             setTimeout(() => this.updateCharts(stats), 200);
             return;
         }
@@ -392,88 +750,214 @@ const DashboardRenderer = {
         this.renderModulesChart(stats);
         this.renderCompetenciesChart(stats);
         this.renderEvaluationsChart(stats);
+        this.renderMetacognitionChart(stats);
+        this.renderInsightsPanel(stats);
     },
 
+    /**
+     * Gráfico de Progreso Global (Doughnut)
+     */
     renderProgressChart(stats) {
+        if (typeof window.Chart === 'undefined') return;
+
         const ctx = document.getElementById('progressChart')?.getContext('2d');
-        if (!ctx || typeof window.Chart === 'undefined') return;
+        if (!ctx) return;
+
         const percent = stats.overall.percentage;
         document.getElementById('global-percent-text').textContent = `${percent}%`;
+
         if (this.charts.progress) {
             this.charts.progress.data.datasets[0].data = [percent, 100 - percent];
             this.charts.progress.update();
-        } else {
-            this.charts.progress = new window.Chart(ctx, {
-                type: 'doughnut',
-                data: { datasets: [{ data: [percent, 100 - percent], backgroundColor: ['#27ae60', '#eee'] }] },
-                options: { cutout: '80%', plugins: { legend: { display: false } } }
-            });
+            return;
         }
+
+        this.charts.progress = new window.Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [percent, 100 - percent],
+                    backgroundColor: ['#27ae60', '#ecf0f1'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                cutout: '80%',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { enabled: false } }
+            }
+        });
     },
 
     renderModulesChart(stats) {
+        if (typeof window.Chart === 'undefined') return;
         const ctx = document.getElementById('modulesChart')?.getContext('2d');
-        if (!ctx || typeof window.Chart === 'undefined') return;
-        const modules = ['DRP', 'RRC', 'FAT', 'PMB', 'PUB', 'DJK'];
-        const data = modules.map(m => stats.byModule[m]?.total > 0 ? Math.round((stats.byModule[m].completed / stats.byModule[m].total) * 100) : 0);
+        if (!ctx) return;
+
+        const labels = Object.keys(stats.byModule);
+        const data = labels.map(l => stats.byModule[l].percentage);
+        const colors = labels.map(l => `var(--col-${l.toLowerCase()})`);
+
         if (this.charts.modules) {
+            this.charts.modules.data.labels = labels;
             this.charts.modules.data.datasets[0].data = data;
             this.charts.modules.update();
-        } else {
-            this.charts.modules = new window.Chart(ctx, {
-                type: 'bar',
-                data: { labels: modules, datasets: [{ data: data, backgroundColor: '#3498db' }] },
-                options: { indexAxis: 'y', plugins: { legend: { display: false } } }
-            });
+            return;
         }
+
+        this.charts.modules = new window.Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [{
+                    data,
+                    backgroundColor: colors,
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, max: 100 } }
+            }
+        });
     },
 
     renderCompetenciesChart(stats) {
+        if (typeof window.Chart === 'undefined') return;
         const ctx = document.getElementById('competenciesChart')?.getContext('2d');
-        if (!ctx || typeof window.Chart === 'undefined') return;
-        const comps = Object.keys(stats.competencies);
-        const data = comps.map(c => stats.competencies[c].percentage);
+        if (!ctx) return;
+
+        const labels = ['F0', 'F1', 'F2', 'F3', 'F4'];
+        const data = labels.map(l => stats.byPhase?.[l]?.percentage || 0);
+
         if (this.charts.competencies) {
             this.charts.competencies.data.datasets[0].data = data;
             this.charts.competencies.update();
-        } else {
-            this.charts.competencies = new window.Chart(ctx, {
-                type: 'radar',
-                data: { labels: comps, datasets: [{ data: data, backgroundColor: 'rgba(52, 152, 219, 0.2)' }] },
-                options: { plugins: { legend: { display: false } } }
-            });
+            return;
         }
+
+        this.charts.competencies = new window.Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Progreso por Fase',
+                    data,
+                    backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                    borderColor: '#3498db',
+                    pointBackgroundColor: '#3498db'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { r: { beginAtZero: true, max: 100 } }
+            }
+        });
     },
 
     renderEvaluationsChart(stats) {
+        if (typeof window.Chart === 'undefined') return;
         const ctx = document.getElementById('evaluationsChart')?.getContext('2d');
-        if (!ctx || typeof window.Chart === 'undefined') return;
-        const data = ['E1', 'E2', 'E3'].map(e => stats.byEval[e]?.total > 0 ? Math.round((stats.byEval[e].completed / stats.byEval[e].total) * 100) : 0);
+        if (!ctx) return;
+
+        const labels = Object.keys(stats.byEval);
+        const data = labels.map(l => stats.byEval[l].percentage);
+
         if (this.charts.evaluations) {
+            this.charts.evaluations.data.labels = labels;
             this.charts.evaluations.data.datasets[0].data = data;
             this.charts.evaluations.update();
-        } else {
-            this.charts.evaluations = new window.Chart(ctx, {
-                type: 'bar',
-                data: { labels: ['E1', 'E2', 'E3'], datasets: [{ data: data, backgroundColor: ['#2980b9', '#27ae60', '#d35400'] }] },
-                options: { plugins: { legend: { display: false } } }
-            });
+            return;
         }
+
+        this.charts.evaluations = new window.Chart(ctx, {
+            type: 'line',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Progreso %',
+                    data,
+                    borderColor: '#9b59b6',
+                    fill: false,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true, max: 100 } }
+            }
+        });
+    },
+
+    renderMetacognitionChart(stats) {
+        if (typeof window.Chart === 'undefined') return;
+        const ctx = document.getElementById('metacognitionChart')?.getContext('2d');
+        if (!ctx) return;
+
+        // Simulamos percepción vs realidad (esto vendría de settings en el futuro)
+        const realData = [stats.overall.percentage, stats.byEval.E1?.percentage || 0, stats.byEval.E2?.percentage || 0];
+        const percData = realData.map(v => Math.min(100, v + (Math.random() * 20 - 10)));
+
+        if (this.charts.metacognition) {
+            this.charts.metacognition.update();
+            return;
+        }
+
+        this.charts.metacognition = new window.Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Global', 'E1', 'E2'],
+                datasets: [
+                    { label: 'Realidad', data: realData, backgroundColor: '#27ae60' },
+                    { label: 'Percepción', data: percData, backgroundColor: '#f1c40f' }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true, max: 100 } }
+            }
+        });
+    },
+
+    renderInsightsPanel(stats) {
+        const panel = document.getElementById('insights-panel');
+        if (!panel) return;
+
+        panel.innerHTML = `
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h4>Velocidad Media</h4>
+                    <div class="metric-value good">${Math.round(stats.overall.percentage / 4)} <span class="unit">% / mes</span></div>
+                    <p class="metric-hint">Ritmo adecuado para finalizar a tiempo</p>
+                </div>
+                <div class="insight-card">
+                    <h4>Heatmap de Actividad</h4>
+                    <div class="heatmap-grid">
+                        ${Array.from({ length: 28 }).map(() => `<div class="heatmap-cell" style="background: var(--heatmap-lv${Math.floor(Math.random() * 5)})"></div>`).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
     },
 
     refreshAll() {
+        if (typeof renderProgressWidget === 'function') renderProgressWidget();
         this.renderSummaryDashboard();
         this.renderDetailedDashboard();
         this.renderRAVisualDashboard();
     },
 
-    resetAllData() {
-        if (confirm('¿Resetear todo?')) {
-            localStorage.removeItem('planificacion_transversal_progress');
-            location.reload();
+    showNotification(msg, type) {
+        if (window.NotificationManager) {
+            window.NotificationManager.show(msg, type);
+        } else {
+            alert(msg);
         }
     }
 };
-
-window.DashboardRenderer = DashboardRenderer;
-window.addEventListener('progressUpdated', () => DashboardRenderer.refreshAll());

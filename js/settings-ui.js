@@ -3,7 +3,7 @@
  * Generador de interfaz para el panel de configuraciones
  */
 
-const SettingsUI = {
+export const SettingsUI = {
 
     /**
      * Renderizar el modal completo de configuraciones

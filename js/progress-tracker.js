@@ -4,7 +4,7 @@
  * Versión: 1.0
  */
 
-const ProgressTracker = {
+export const ProgressTracker = {
     STORAGE_KEY_BASE: 'planificacion_transversal_progress',
 
     // Configuración por defecto de seguimiento por módulo
@@ -700,7 +700,7 @@ const ProgressTracker = {
 window.ProgressTracker = ProgressTracker.init();
 
 // Función helper para crear checkbox sincronizado
-function createSyncedCheckbox(id, type, params, label = '') {
+export function createSyncedCheckbox(id, type, params, label = '') {
     const { date, weekId, taskId, dodId, module, evalNum, raId, ceId } = params;
 
     let checked = false;

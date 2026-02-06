@@ -4,7 +4,7 @@
  * Gestiona preferencias de usuario, configuraciones pedagógicas y opciones avanzadas
  */
 
-class SettingsManager {
+export class SettingsManager {
     constructor() {
         this.currentSchemaVersion = '2.2';
         this.storageKey = this.buildStorageKey('planificacion_settings');
@@ -26,7 +26,8 @@ class SettingsManager {
 
     buildStorageKey(baseKey) {
         const year = this.getCurrentYear();
-        return `${baseKey}_${year}`;
+        const courseId = window.MASTER_PLAN?.config?.course_id || '1cfgs';
+        return `${courseId}_${baseKey}_${year}`;
     }
 
     getLegacyStorageKey(baseKey) {
@@ -70,6 +71,15 @@ class SettingsManager {
                 delayThresholdDays: 3 // Días sin marcar DoDs antes de alerta
             },
 
+            // ============ NOTIFICACIONES ============
+            notifications: {
+                enabled: false, // Por defecto desactivadas (requiere permiso)
+                upcomingDeadlines: true, // Avisar entregas próximas
+                overdueTasks: true, // Avisar tareas retrasadas
+                daysBefore: 2, // Avisar X días antes del vencimiento
+                lastCheck: null // Fecha de última revisión
+            },
+
             // ============ CONFIGURACIONES PEDAGÓGICAS ============
             pedagogical: {
                 allowEditPedagogicalBlocks: false, // Permitir edición de bloques
@@ -78,9 +88,9 @@ class SettingsManager {
                 holidays: [], // Fechas festivas personalizadas ['2025-12-06', ...]
                 showInstitutionalPanel: false, // Mostrar panel institucional
                 projectNames: {
-                    E1: window.MASTER_PLAN?.pedagogical_context?.E1?.title || "Proyecto Estantería",
-                    E2: window.MASTER_PLAN?.pedagogical_context?.E2?.title || "Proyecto Taburete",
-                    E3: window.MASTER_PLAN?.pedagogical_context?.E3?.title || "Proyecto Mobiliario"
+                    E1: window.MASTER_PLAN?.pedagogical_context?.E1?.title || "Proyecto E1",
+                    E2: window.MASTER_PLAN?.pedagogical_context?.E2?.title || "Proyecto E2",
+                    E3: window.MASTER_PLAN?.pedagogical_context?.E3?.title || "Proyecto E3"
                 },
                 customContext: {}, // Overrides de Sentido/Intencionalidad por evaluación
                 fichasOverrides: { // Overrides de fichas diarias/semanales
@@ -578,6 +588,7 @@ class SettingsManager {
         this.applyTeamsConfig();
         this.applyIntegrations();
         this.applyAutoExport();
+        this.applyNotifications();
         this.ensureWebhookListener();
         if (this.settings.general.language) {
             document.documentElement.lang = this.settings.general.language;
@@ -587,6 +598,15 @@ class SettingsManager {
         window.dispatchEvent(new CustomEvent('settingsApplied', {
             detail: this.settings
         }));
+    }
+
+    /**
+     * Aplicar configuraciones de notificaciones
+     */
+    applyNotifications() {
+        if (window.NotificationManager && typeof window.NotificationManager.init === 'function') {
+            window.NotificationManager.init();
+        }
     }
 
     applyAutoExport() {

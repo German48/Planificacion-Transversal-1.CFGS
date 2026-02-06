@@ -3,7 +3,7 @@
  * Funcionalidades: Checklist, Progreso, Búsqueda, Notas, Exportación
  */
 
-class RATracker {
+export class RATracker {
     constructor() {
         this.storageKey = this.buildStorageKey('ra_tracker_data');
         this.data = this.loadData();
@@ -21,7 +21,8 @@ class RATracker {
 
     buildStorageKey(baseKey) {
         const year = this.getCurrentYear();
-        return `${baseKey}_${year}`;
+        const courseId = window.MASTER_PLAN?.config?.course_id || '1cfgs';
+        return `${courseId}_${baseKey}_${year}`;
     }
 
     getLegacyStorageKey(baseKey) {
