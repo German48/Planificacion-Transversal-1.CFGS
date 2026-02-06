@@ -1,7 +1,7 @@
 {
-    "name": "Alumnado - EduTrack",
-    "short_name": "Plan Alumno",
-    "description": "Panel de Seguimiento Alumnado - Planificación Transversal",
+    "name": "Planificación Alumnado - 1º CFGM Carpintería y Mueble",
+    "short_name": "Planif Alumno 1º",
+    "description": "Panel de seguimiento de planificación transversal - 1º CFGM Carpintería y Mueble",
     "start_url": "./Planificacion-Alumnado.html",
     "display": "standalone",
     "background_color": "#27ae60",

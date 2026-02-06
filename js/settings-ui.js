@@ -199,7 +199,7 @@ export const SettingsUI = {
                 <div class="settings-section">
                     <label class="settings-label">Modo de Seguimiento por Módulo</label>
                     <div class="settings-tracking-grid">
-                        ${['DRP', 'RRC', 'FAT', 'PMB', 'PUB', 'DJK'].map(mod => `
+                        ${['MTR', 'OAA', 'OPP', 'SOV', 'IPE'].map(mod => `
                             <div class="settings-tracking-item">
                                 <span class="settings-tracking-label">${mod}</span>
                                 <select class="settings-input-small settings-tracking-select" id="setting-tracking-${mod.toLowerCase()}">
@@ -1027,3 +1027,4 @@ export const SettingsUI = {
 window.SettingsUI = SettingsUI;
 
 console.log('✅ Settings UI Renderer loaded');
+

@@ -1,0 +1,12 @@
+0000000000000000000000000000000000000000 9da24746bfbdb045fab687d079e418766433f384 German Medina Castellano <gmedcas@gmail.com> 1769975489 +0000	commit (initial): Initial commit - Fresh start
+9da24746bfbdb045fab687d079e418766433f384 0000000000000000000000000000000000000000 German Medina Castellano <gmedcas@gmail.com> 1769975490 +0000	Branch: renamed refs/heads/master to refs/heads/PROYECTO-01
+0000000000000000000000000000000000000000 9da24746bfbdb045fab687d079e418766433f384 German Medina Castellano <gmedcas@gmail.com> 1769975490 +0000	Branch: renamed refs/heads/master to refs/heads/PROYECTO-01
+9da24746bfbdb045fab687d079e418766433f384 c021594a7e88dc58492b20f1f1423f0cd31f98a9 German Medina Castellano <gmedcas@gmail.com> 1769976812 +0000	commit: feat: Add teacher access protection and README documentation
+c021594a7e88dc58492b20f1f1423f0cd31f98a9 dc060fe34925ff834b9d906bf0a9d8749610c2f9 German Medina Castellano <gmedcas@gmail.com> 1769976874 +0000	commit: docs: Add Moodle integration guide
+dc060fe34925ff834b9d906bf0a9d8749610c2f9 986db1217c6a1197df28340592b8126e370f7ae4 German Medina Castellano <gmedcas@gmail.com> 1769977341 +0000	commit: refactor: Remove password protection - access control via Moodle
+986db1217c6a1197df28340592b8126e370f7ae4 79f312634973a27d3565ae62034c50b1c5255c13 German Medina Castellano <gmedcas@gmail.com> 1769977710 +0000	commit: fix: Add cache-control headers to force browser refresh
+79f312634973a27d3565ae62034c50b1c5255c13 c0738c04a926b52d66d8e2ec9f01f3b3ba37bfb3 German Medina Castellano <gmedcas@gmail.com> 1770157297 +0000	commit: Fix Service Worker body usage and Chart.js initialization errors
+c0738c04a926b52d66d8e2ec9f01f3b3ba37bfb3 2de34c93aabc16ad9143244fba672be58fcc8c04 German Medina Castellano <gmedcas@gmail.com> 1770209781 +0000	commit: feat: añadir nombres de proyectos personalizados y actualizar sw
+2de34c93aabc16ad9143244fba672be58fcc8c04 0f3eb04c5a845fd8e3634fb119dfd55f5c12dbdc German Medina Castellano <gmedcas@gmail.com> 1770210152 +0000	commit: fix: force service worker update to v2.7 to reflect new project name settings
+0f3eb04c5a845fd8e3634fb119dfd55f5c12dbdc eee098b0d580e79fae25fae0477c2701f2e76869 German Medina Castellano <gmedcas@gmail.com> 1770242953 +0000	commit: feat: implementar copia de seguridad automática en la nube (Google Sheets/Webhook)
+eee098b0d580e79fae25fae0477c2701f2e76869 cdc46aee2b406fec55a36e5c87cbb73195bfef26 German Medina Castellano <gmedcas@gmail.com> 1770243220 +0000	commit: feat: implementar validación de datos e integridad en la importación

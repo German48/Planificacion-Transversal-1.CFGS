@@ -11,14 +11,19 @@
             --e2-color: #27ae60;
             --e3-color: #d35400;
 
-            /* Colores Módulos (Identidad) */
-            --col-drp: #2ecc71;
-            --col-rrc: #e67e22;
-            --col-fat: #c0392b;
-            --col-pmb: #f1c40f;
-            --col-pub: #9b59b6;
-            --col-djk: #3498db;
-            --col-all: #34495e;
+            /* Colores Módulos CFGM - 1º Carpintería y Mueble */
+            --col-mtr: #f1c40f;
+            /* Maderas y Tableros - Amarillo */
+            --col-oaa: #9b59b6;
+            /* Operaciones Básicas de Mobiliario - Morado */
+            --col-opp: #2ecc71;
+            /* Operaciones Básicas de Carpintería - Verde */
+            --col-sov: #e67e22;
+            /* Soluciones Constructivas - Naranja */
+            --col-ipe: #7f8c8d;
+            /* Itinerario Personal Empleabilidad I - Gris */
+            --col-all: #95a5a6;
+            /* Transversal - Gris claro */
         }
 
         /* --- MODO OSCURO --- */

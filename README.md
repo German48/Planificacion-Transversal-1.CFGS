@@ -1,4 +1,4 @@
-# 📐 Planificación Transversal 1.º CFGS Diseño y Amueblamiento
+# 📚 Planificación Transversal 1.º CFGM Carpintería y Mueble
 
 Sistema de planificación y seguimiento de proyectos transversales para el ciclo formativo de grado superior.
 
@@ -7,13 +7,13 @@ Sistema de planificación y seguimiento de proyectos transversales para el ciclo
 ### 👩‍🎓 Para Alumnado (Público)
 **URL para Moodle:**
 ```
-https://german48.github.io/Planificacion-Transversal-1.CFGS/Planificacion-Alumnado.html
+https://german48.github.io/Planificacion-Transversal-1.CFGM/Planificacion-Alumnado.html
 ```
 
 ### 🧑‍🏫 Para Docentes
 **URL para Docentes:**
 ```
-https://german48.github.io/Planificacion-Transversal-1.CFGS/Planificacion-Docente.html
+https://german48.github.io/Planificacion-Transversal-1.CFGM/Planificacion-Docente.html
 ```
 
 > 💡 **Recomendación:** Usa las restricciones de acceso de Moodle (por rol) para que solo los docentes vean este enlace.

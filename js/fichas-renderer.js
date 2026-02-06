@@ -1262,3 +1262,4 @@ export class FichasRenderer {
 window.fichasRenderer = new FichasRenderer();
 
 console.log('✅ FichasRenderer cargado');
+

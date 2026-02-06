@@ -518,3 +518,4 @@ export const SettingsUIStudent = {
 window.SettingsUIStudent = SettingsUIStudent;
 
 console.log('✅ Settings UI Student loaded');
+

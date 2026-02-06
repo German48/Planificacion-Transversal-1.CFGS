@@ -421,29 +421,25 @@ body.dark-mode .gantt-eval-header:hover {
     z-index: 10;
 }
 
-/* Colores de barras por módulo */
-.gantt-bar.drp {
-    background: linear-gradient(135deg, var(--col-drp), #27ae60);
+/* Colores de barras por módulo - 2º CFGS */
+.gantt-bar.ddr {
+    background: linear-gradient(135deg, var(--col-ddr), #2980b9);
 }
 
-.gantt-bar.rrc {
-    background: linear-gradient(135deg, var(--col-rrc), #d35400);
+.gantt-bar.iyo {
+    background: linear-gradient(135deg, var(--col-iyo), #27ae60);
 }
 
-.gantt-bar.fat {
-    background: linear-gradient(135deg, var(--col-fat), #c0392b);
+.gantt-bar.atz {
+    background: linear-gradient(135deg, var(--col-atz), #d35400);
 }
 
-.gantt-bar.pmb {
-    background: linear-gradient(135deg, var(--col-pmb), #f39c12);
+.gantt-bar.gne {
+    background: linear-gradient(135deg, var(--col-gne), #c0392b);
 }
 
-.gantt-bar.pub {
-    background: linear-gradient(135deg, var(--col-pub), #8e44ad);
-}
-
-.gantt-bar.djk {
-    background: linear-gradient(135deg, var(--col-djk), #2980b9);
+.gantt-bar.pim {
+    background: linear-gradient(135deg, var(--col-pim), #f39c12);
 }
 
 .gantt-bar.all {

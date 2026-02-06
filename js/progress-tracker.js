@@ -10,12 +10,13 @@ export const ProgressTracker = {
     // Configuración por defecto de seguimiento por módulo
     defaultConfig: {
         trackingMode: {
-            PMB: 'individual',  // Por defecto individual
-            FAT: 'individual',  // Por defecto individual
-            DRP: 'team',        // Por defecto equipo
-            RRC: 'team',
-            PUB: 'team',
-            DJK: 'team'
+            CDA: 'team',       // Almacén
+            DHI: 'individual', // Digitalización
+            MRN: 'individual', // Materiales
+            OAA: 'team',       // Mobiliario
+            OPP: 'team',       // Carpintería
+            SOV: 'team',       // Soluciones
+            IPE: 'individual'  // Empleabilidad
         },
         currentTeam: 'Equipo_01',
         currentUser: 'Alumno_01',
@@ -378,9 +379,9 @@ export const ProgressTracker = {
             byModule: {},
             byWeek: {},
             competencies: {
-                'Fabricación': { total: 0, completed: 0, percentage: 0, icon: '🔧' },
-                'Diseño Técnico': { total: 0, completed: 0, percentage: 0, icon: '📐' },
-                'PRL': { total: 0, completed: 0, percentage: 0, icon: '🛡️' },
+                'Técnica': { total: 0, completed: 0, percentage: 0, icon: '🔧' },
+                'Digital': { total: 0, completed: 0, percentage: 0, icon: '💻' },
+                'Seguridad': { total: 0, completed: 0, percentage: 0, icon: '🛡️' },
                 'Planificación': { total: 0, completed: 0, percentage: 0, icon: '📊' },
                 'Gestión': { total: 0, completed: 0, percentage: 0, icon: '💼' }
             },
@@ -389,12 +390,13 @@ export const ProgressTracker = {
         };
 
         const compMap = {
-            'FAT': ['Fabricación', 'PRL'],
-            'PMB': ['Fabricación', 'PRL'],
-            'RRC': ['Diseño Técnico'],
-            'DRP': ['Diseño Técnico', 'Planificación'],
-            'PUB': ['Gestión', 'Planificación', 'PRL'],
-            'DJK': ['Gestión', 'Planificación']
+            'CDA': ['Gestión', 'Planificación'],
+            'DHI': ['Digital'],
+            'MRN': ['Técnica', 'Seguridad'],
+            'OAA': ['Técnica', 'Seguridad'],
+            'OPP': ['Técnica', 'Seguridad'],
+            'SOV': ['Técnica', 'Planificación'],
+            'IPE': ['Gestión']
         };
 
         const isAllSelection = (selection) => {
@@ -577,9 +579,9 @@ export const ProgressTracker = {
                     if (ev.completed) stats.byModule[moduleId].completed++;
 
                     let comp = null;
-                    if (moduleId === 'FAT' || moduleId === 'PMB') comp = 'Fabricación';
-                    if (moduleId === 'RRC' || moduleId === 'DRP') comp = 'Diseño Técnico';
-                    if (moduleId === 'PUB' || moduleId === 'DJK') comp = 'Gestión';
+                    if (moduleId === 'MRN' || moduleId === 'OAA' || moduleId === 'OPP' || moduleId === 'SOV') comp = 'Técnica';
+                    if (moduleId === 'DHI') comp = 'Digital';
+                    if (moduleId === 'CDA' || moduleId === 'IPE') comp = 'Gestión';
 
                     if (comp && stats.competencies[comp]) {
                         stats.competencies[comp].total++;
@@ -764,3 +766,4 @@ window.addEventListener('settingsApplied', (event) => {
 
     ProgressTracker.saveToStorage();
 });
+
