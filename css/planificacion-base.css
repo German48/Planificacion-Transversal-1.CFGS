@@ -6,10 +6,10 @@
             --card-bg: #ffffff;
             --border-color: #ddd;
 
-            /* Colores Evaluación */
-            --e1-color: #2980b9;
-            --e2-color: #27ae60;
-            --e3-color: #d35400;
+            /* Colores Evaluación - Vibrantes */
+            --e1-color: #3498db;
+            --e2-color: #2ecc71;
+            --e3-color: #e67e22;
 
             /* Colores Módulos CFGM - 1º Carpintería y Mueble */
             --col-mtr: #f1c40f;
@@ -24,6 +24,20 @@
             /* Itinerario Personal Empleabilidad I - Gris */
             --col-all: #95a5a6;
             /* Transversal - Gris claro */
+
+            /* Colores de Fases (F0-F5) */
+            --f0-color: #e91e63;
+            /* Pink */
+            --f1-color: #3498db;
+            /* Blue */
+            --f2-color: #9b59b6;
+            /* Purple */
+            --f3-color: #f1c40f;
+            /* Yellow */
+            --f4-color: #e67e22;
+            /* Orange */
+            --f5-color: #e74c3c;
+            /* Red */
         }
 
         /* --- MODO OSCURO --- */
@@ -749,37 +763,37 @@
             transform: translateY(0) scale(0.95);
         }
 
-        /* Colores por fase */
+        /* Colores por fase - Estándar Vibrante */
         .day-phase-badge.phase-F0 {
-            background: rgba(155, 89, 182, 0.9);
+            background: #e91e63 !important;
         }
 
-        /* Morado - Lanzamiento */
+        /* Pink */
         .day-phase-badge.phase-F1 {
-            background: rgba(52, 152, 219, 0.9);
+            background: #3498db !important;
         }
 
-        /* Azul - Investigación */
+        /* Blue */
         .day-phase-badge.phase-F2 {
-            background: rgba(46, 204, 113, 0.9);
+            background: #9b59b6 !important;
         }
 
-        /* Verde - Diseño */
+        /* Purple */
         .day-phase-badge.phase-F3 {
-            background: rgba(241, 196, 15, 0.9);
+            background: #f1c40f !important;
         }
 
-        /* Amarillo - Planificación */
+        /* Yellow */
         .day-phase-badge.phase-F4 {
-            background: rgba(230, 126, 34, 0.9);
+            background: #e67e22 !important;
         }
 
-        /* Naranja - Fabricación */
+        /* Orange */
         .day-phase-badge.phase-F5 {
-            background: rgba(231, 76, 60, 0.9);
+            background: #e74c3c !important;
         }
 
-        /* Rojo - Cierre */
+        /* Red */
 
         /* Colores por ubicación - COINCIDEN CON FICHAS */
         .day-location-badge.loc-aula {

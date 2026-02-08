@@ -13,7 +13,7 @@
  * - academic: Estructura RA/CE por evaluación
  */
 
-const MASTER_PLAN = {
+const MASTER_PLAN = window.MASTER_PLAN = {
 
     // ============================================
     // CONFIGURACIÓN GENERAL
@@ -36,40 +36,40 @@ const MASTER_PLAN = {
         E1: {
             title: "Proyecto Inicial",
             sense: {
-                objective: "Familiarización con el taller y herramientas básicas.",
-                product: "Pequeños objetos de madera.",
-                profile: "Seguridad y manejo de herramientas manuales."
+                objective: "Iniciación técnica y familiarización con el entorno de trabajo y herramientas fundamentales.",
+                product: "Elementos técnicos básicos y prototipos iniciales del proyecto.",
+                profile: "Nivel inicial en seguridad y manejo de herramientas y maquinaria básica."
             },
             intent: {
-                ras: "RA básicos de seguridad y mecanizado.",
-                competencies: "Orden, limpieza y seguridad.",
-                risks: "Accidentes por desconocimiento."
+                ras: "RA básicos de seguridad, preparación de materiales y mecanizado inicial.",
+                competencies: "Hábitos de trabajo seguros, orden, limpieza y precisión básica.",
+                risks: "Dificultad en la adaptación al entorno productivo y manejo de herramientas."
             }
         },
         E2: {
             title: "Proyecto Intermedio",
             sense: {
-                objective: "Construcción de estructuras sencillas.",
-                product: "Mobiliario auxiliar.",
-                profile: "Uso de maquinaria portátil."
+                objective: "Desarrollo técnico y ejecución de estructuras y mecanismos de complejidad media.",
+                product: "Componentes funcionales del proyecto con integración de diferentes técnicas.",
+                profile: "Nivel intermedio con autonomía en el uso de maquinaria y herramientas portátiles."
             },
             intent: {
-                ras: "RA de mecanizado y ensamblaje.",
-                competencies: "Precisión y acabado.",
-                risks: "Errores dimensionales."
+                ras: "RA de mecanizado avanzado, ensamblaje y control de procesos.",
+                competencies: "Precisión técnica, interpretación de planos y calidad en los acabados.",
+                risks: "Errores en la secuencia de montaje o ajustes dimensionales."
             }
         },
         E3: {
             title: "Proyecto Final",
             sense: {
-                objective: "Proyecto integral de carpintería.",
-                product: "Mueble completo con acabado.",
-                profile: "Autonomía en el taller."
+                objective: "Ejecución integral, acabado final y validación del proyecto completo.",
+                product: "Producto final terminado con documentación técnica y memoria de ejecución.",
+                profile: "Técnico autónomo capaz de gestionar procesos de fabricación completos."
             },
             intent: {
-                ras: "Integración de todos los módulos.",
-                competencies: "Planificación y ejecución autónoma.",
-                risks: "Gestión del tiempo."
+                ras: "Integración transversal de todos los resultados de aprendizaje del curso.",
+                competencies: "Planificación autónoma, resolución de problemas y acabado profesional.",
+                risks: "Gestión ineficiente del tiempo en las fases críticas de acabado y entrega."
             }
         },
     },
@@ -78,6 +78,7 @@ const MASTER_PLAN = {
     // MÓDULOS CON ICONOS Y COLORES
     // ============================================
     modules: {
+        // Módulos existentes CFGM
         CDA: {
             name: "Control de Almacén",
             short: "CDA",
@@ -151,7 +152,7 @@ const MASTER_PLAN = {
         F0: {
             name: "Lanzamiento",
             icon: "🚀",
-            color: "#3498db",
+            color: "#e91e63", // Pink
             gate: {
                 title: "Hito F0: Requisitos",
                 conditions: [
@@ -166,7 +167,7 @@ const MASTER_PLAN = {
         F1: {
             name: "Investigación",
             icon: "🔍",
-            color: "#9b59b6",
+            color: "#3498db", // Blue
             gate: {
                 title: "Hito F1: Propuesta",
                 conditions: [
@@ -181,7 +182,7 @@ const MASTER_PLAN = {
         F2: {
             name: "Diseño/Representación",
             icon: "📐",
-            color: "#e67e22",
+            color: "#9b59b6", // Purple
             gate: {
                 title: "Hito F2: Documentación",
                 conditions: [
@@ -196,7 +197,7 @@ const MASTER_PLAN = {
         F3: {
             name: "Planificación",
             icon: "📋",
-            color: "#27ae60",
+            color: "#f1c40f", // Yellow
             gate: {
                 title: "Hito F3: Preparación",
                 conditions: [
@@ -211,7 +212,7 @@ const MASTER_PLAN = {
         F4: {
             name: "Fabricación/Prototipo",
             icon: "🔨",
-            color: "#c0392b",
+            color: "#e67e22", // Orange
             gate: {
                 title: "Hito F4: Producción",
                 conditions: [
@@ -226,7 +227,7 @@ const MASTER_PLAN = {
         F5: {
             name: "Cierre/Entrega",
             icon: "🎯",
-            color: "#2c3e50",
+            color: "#e74c3c", // Red
             gate: {
                 title: "Hito F5: Entrega Final",
                 conditions: [
@@ -272,8 +273,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F0", task: "Validación y repositorio", evidence: "Hito superado" }
             },
             modules_focus: {
-                DRP: { focus: "Análisis tendencias y brief", deliverable: "Encargo analizado", enables: "Todos parten de la misma base" },
-                DJK: { focus: "Creación repositorio", deliverable: "Estructura carpetas", enables: "Trazabilidad desde día 1" }
+                OPP: { focus: "Análisis tendencias y brief", deliverable: "Encargo analizado", enables: "Todos parten de la misma base" },
+                DHI: { focus: "Creación repositorio", deliverable: "Estructura carpetas", enables: "Trazabilidad desde día 1" }
             },
             coordination: { agreements: ["Nomenclatura: E1_Equipo??_Archivo"], adjustments: "" },
             risks: ["Encargo no comprendido", "Repositorio mal estructurado"]
@@ -303,8 +304,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F1", task: "Selección y justificación", evidence: "Propuesta final" }
             },
             modules_focus: {
-                DRP: { focus: "Bocetado y selección", deliverable: "3 bocetos + matriz", enables: "RRC puede empezar planos" },
-                RRC: { focus: "Apoyo en proporciones", deliverable: "Correcciones escala", enables: "Bocetos proporcionados" }
+                OPP: { focus: "Bocetado y selección", deliverable: "3 bocetos + matriz", enables: "SOV puede empezar planos" },
+                SOV: { focus: "Apoyo en proporciones", deliverable: "Correcciones escala", enables: "Bocetos proporcionados" }
             },
             coordination: { agreements: ["Bocetos en A4, escaneados"], adjustments: "" },
             risks: ["Bocetos sin escala", "Selección sin criterio técnico"]
@@ -334,8 +335,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F2", task: "Entrega lámina", evidence: "Lámina completa" }
             },
             modules_focus: {
-                RRC: { focus: "Croquizado manual", deliverable: "Lámina vistas", enables: "FAT puede interpretar" },
-                PUB: { focus: "Lista materiales", deliverable: "Lista piezas", enables: "Acopio material" }
+                SOV: { focus: "Croquizado manual", deliverable: "Lámina vistas", enables: "CDA puede interpretar" },
+                OAA: { focus: "Lista materiales", deliverable: "Lista piezas", enables: "Acopio material" }
             },
             coordination: { agreements: ["Escalas: 1:5 o 1:10", "Acotación en mm"], adjustments: "" },
             risks: ["Vistas no coherentes", "Acotación incompleta"]
@@ -365,8 +366,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F3", task: "Verificación avance", evidence: "Check gate" }
             },
             modules_focus: {
-                FAT: { focus: "Trazado y corte", deliverable: "Piezas trazadas", enables: "Mecanizado posterior" },
-                PUB: { focus: "Hoja de proceso", deliverable: "Ruta producción", enables: "Control de tiempos" }
+                CDA: { focus: "Trazado y corte", deliverable: "Piezas trazadas", enables: "Mecanizado posterior" },
+                OAA: { focus: "Hoja de proceso", deliverable: "Ruta producción", enables: "Control de tiempos" }
             },
             coordination: { agreements: ["Verificar defectos material", "Marcar cara/canto"], adjustments: "" },
             risks: ["Material defectuoso", "Trazado incorrecto"]
@@ -396,8 +397,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F4-A", task: "QC y validación", evidence: "Check gate" }
             },
             modules_focus: {
-                FAT: { focus: "Corte y probeta", deliverable: "Piezas + probeta", enables: "Montaje" },
-                PMB: { focus: "Control calidad", deliverable: "Hoja QC", enables: "Validación dimensional" }
+                CDA: { focus: "Corte y probeta", deliverable: "Piezas + probeta", enables: "Montaje" },
+                MRN: { focus: "Control calidad", deliverable: "Hoja QC", enables: "Validación dimensional" }
             },
             coordination: { agreements: ["Tolerancia ±1mm"], adjustments: "" },
             risks: ["Piezas fuera tolerancia", "Unión no encaja"]
@@ -427,8 +428,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F4-B", task: "Validación prototipo", evidence: "Prototipo OK" }
             },
             modules_focus: {
-                FAT: { focus: "Montaje y acabado", deliverable: "Producto terminado", enables: "Entrega" },
-                PMB: { focus: "Evaluación prototipo", deliverable: "Informe evaluación", enables: "Mejoras" }
+                CDA: { focus: "Montaje y acabado", deliverable: "Producto terminado", enables: "Entrega" },
+                MRN: { focus: "Evaluación prototipo", deliverable: "Informe evaluación", enables: "Mejoras" }
             },
             coordination: { agreements: ["Encolado con tiempo de secado"], adjustments: "" },
             risks: ["Escuadra incorrecta", "Acabado deficiente"]
@@ -458,8 +459,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Entrega Final", task: "Presentación + entrega", evidence: "Proyecto entregado" }
             },
             modules_focus: {
-                DJK: { focus: "Dossier digital", deliverable: "PDF estructurado", enables: "Trazabilidad completa" },
-                DRP: { focus: "Memoria técnica", deliverable: "Memoria proyecto", enables: "Justificación decisiones" }
+                DHI: { focus: "Dossier digital", deliverable: "PDF estructurado", enables: "Trazabilidad completa" },
+                OPP: { focus: "Memoria técnica", deliverable: "Memoria proyecto", enables: "Justificación decisiones" }
             },
             coordination: { agreements: ["Fecha límite viernes 12:00"], adjustments: "" },
             risks: ["Dossier incompleto", "Presentación no ensayada"]
@@ -473,7 +474,7 @@ const MASTER_PLAN = {
             phase_common: "F3",
             week_goal: "Fabricar probetas de unión y validar la técnica elegida antes de la producción.",
             gate: {
-                title: "Hito PMB",
+                title: "Hito MRN",
                 description: "Probeta validada",
                 conditions: ["Probeta fabricada", "Resistencia OK", "Ajuste verificado"]
             },
@@ -489,8 +490,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Decisión", task: "Ajustes si procede", evidence: "Decisión documentada" }
             },
             modules_focus: {
-                PMB: { focus: "Prueba de unión", deliverable: "Probeta validada", enables: "Fabricación segura" },
-                FAT: { focus: "Ejecutar probeta", deliverable: "Probeta física", enables: "Validación técnica" }
+                MRN: { focus: "Prueba de unión", deliverable: "Probeta validada", enables: "Fabricación segura" },
+                CDA: { focus: "Ejecutar probeta", deliverable: "Probeta física", enables: "Validación técnica" }
             },
             coordination: { agreements: ["3 de noviembre festivo"], adjustments: "Semana corta por festivo" },
             risks: ["Probeta fallida", "Necesidad de rediseñar unión"]
@@ -520,8 +521,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Avance", task: "Continuar corte", evidence: "Registro fotográfico" }
             },
             modules_focus: {
-                FAT: { focus: "Fabricación y medición", deliverable: "Piezas cortadas", enables: "Montaje" },
-                DJK: { focus: "Evidencias ordenadas", deliverable: "Fotos etiquetadas", enables: "Trazabilidad" }
+                CDA: { focus: "Fabricación y medición", deliverable: "Piezas cortadas", enables: "Montaje" },
+                DHI: { focus: "Evidencias ordenadas", deliverable: "Fotos etiquetadas", enables: "Trazabilidad" }
             },
             coordination: { agreements: ["Fotos con nomenclatura"], adjustments: "" },
             risks: ["Piezas fuera de tolerancia", "Material defectuoso"]
@@ -551,8 +552,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Verificación", task: "Verificar escuadra", evidence: "Checklist montaje" }
             },
             modules_focus: {
-                FAT: { focus: "Montaje y verificación", deliverable: "Producto ensamblado", enables: "QC" },
-                PMB: { focus: "Checklist montaje", deliverable: "Puntos críticos OK", enables: "Validación" }
+                CDA: { focus: "Montaje y verificación", deliverable: "Producto ensamblado", enables: "QC" },
+                MRN: { focus: "Checklist montaje", deliverable: "Puntos críticos OK", enables: "Validación" }
             },
             coordination: { agreements: ["Tiempo de prensado mínimo 2h"], adjustments: "" },
             risks: ["Escuadra incorrecta", "Ajustes necesarios"]
@@ -582,8 +583,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Validación", task: "Validación final", evidence: "QC superado" }
             },
             modules_focus: {
-                FAT: { focus: "QC y correcciones", deliverable: "Producto validado", enables: "Cierre F4" },
-                DRP: { focus: "Validar requisitos", deliverable: "Encargo cumplido", enables: "Entrega" }
+                CDA: { focus: "QC y correcciones", deliverable: "Producto validado", enables: "Cierre F4" },
+                OPP: { focus: "Validar requisitos", deliverable: "Encargo cumplido", enables: "Entrega" }
             },
             coordination: { agreements: ["Tolerancia manual ±2mm"], adjustments: "" },
             risks: ["No conformidades graves", "Retrabajos necesarios"]
@@ -613,8 +614,8 @@ const MASTER_PLAN = {
                 friday: { focus: "FESTIVO", task: "---", evidence: "---" }
             },
             modules_focus: {
-                DJK: { focus: "Dossier digital", deliverable: "PDF estructurado", enables: "Archivo" },
-                DRP: { focus: "Memoria técnica", deliverable: "Justificación decisiones", enables: "Evaluación" }
+                DHI: { focus: "Dossier digital", deliverable: "PDF estructurado", enables: "Archivo" },
+                OPP: { focus: "Memoria técnica", deliverable: "Justificación decisiones", enables: "Evaluación" }
             },
             coordination: { agreements: ["5 de diciembre festivo (Día del Enseñante)"], adjustments: "Viernes festivo" },
             risks: ["Documentación incompleta", "Formato incorrecto"]
@@ -644,8 +645,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Cierre", task: "Entrega + lecciones aprendidas", evidence: "Proyecto entregado" }
             },
             modules_focus: {
-                DJK: { focus: "Archivo definitivo", deliverable: "Repositorio cerrado", enables: "Trazabilidad" },
-                DRP: { focus: "Presentación", deliverable: "Comunicación efectiva", enables: "Evaluación" }
+                DHI: { focus: "Archivo definitivo", deliverable: "Repositorio cerrado", enables: "Trazabilidad" },
+                OPP: { focus: "Presentación", deliverable: "Comunicación efectiva", enables: "Evaluación" }
             },
             coordination: { agreements: ["Entrega viernes 12/12 - 23:59"], adjustments: "" },
             risks: ["Entrega tardía", "Documentación faltante"]
@@ -679,8 +680,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F0", task: "Configurar repositorio", evidence: "Hito superado" }
             },
             modules_focus: {
-                DRP: { focus: "Requisitos ergonómicos", deliverable: "Ficha ergonomía", enables: "Diseño correcto" },
-                DJK: { focus: "Estructura E2", deliverable: "Repositorio configurado", enables: "Trabajo en nube" }
+                OPP: { focus: "Requisitos ergonómicos", deliverable: "Ficha ergonomía", enables: "Diseño correcto" },
+                DHI: { focus: "Estructura E2", deliverable: "Repositorio configurado", enables: "Trabajo en nube" }
             },
             coordination: { agreements: ["Semana corta: priorizar esenciales"], adjustments: "Lunes y martes festivos" },
             risks: ["Requisitos ergonómicos incompletos"]
@@ -710,8 +711,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F1", task: "Selección + matriz", evidence: "Propuesta final" }
             },
             modules_focus: {
-                DRP: { focus: "Diseño y ergonomía", deliverable: "Modelos 3D", enables: "Planos" },
-                RRC: { focus: "Apoyo CAD", deliverable: "Correcciones modelo", enables: "Planos fabricación" }
+                OPP: { focus: "Diseño y ergonomía", deliverable: "Modelos 3D", enables: "Planos" },
+                SOV: { focus: "Apoyo CAD", deliverable: "Correcciones modelo", enables: "Planos fabricación" }
             },
             coordination: { agreements: ["SketchUp/Fusion 360"], adjustments: "" },
             risks: ["Modelo no fabricable", "Ergonomía incorrecta"]
@@ -727,7 +728,7 @@ const MASTER_PLAN = {
             gate: {
                 title: "Hito F2",
                 description: "Cerrar documentación mínima para pasar a planificación",
-                conditions: ["Plano conjunto exportado y publicado", "Lista de piezas coherente con dimensiones del plano", "Decisión de unión técnicamente justificada"]
+                conditions: ["Plano conjunto exportado y OAAlicado", "Lista de piezas coherente con dimensiones del plano", "Decisión de unión técnicamente justificada"]
             },
             min_deliverable: {
                 title: "Paquete F2 Semanal",
@@ -742,17 +743,17 @@ const MASTER_PLAN = {
                 tuesday: { focus: "Producción", task: "Plano conjunto + lista piezas", evidence: "Avance plano" },
                 wednesday: { focus: "Producción", task: "Detalles + decisión técnica", evidence: "Decisión documentada" },
                 thursday: { focus: "Integración", task: "Coherencia plano-lista + ajustes", evidence: "Paquete preliminar" },
-                friday: { focus: "Cierre + Hito", task: "Publicación + validación gate", evidence: "Paquete final publicado" }
+                friday: { focus: "Cierre + Hito", task: "OAAlicación + validación gate", evidence: "Paquete final OAAlicado" }
             },
             modules_focus: {
-                RRC: { focus: "Plano conjunto + acotación", deliverable: "Plano PDF acotado", enables: "FAT puede preparar corte" },
-                DRP: { focus: "Decisión técnica y justificación", deliverable: "Ficha decisión unión", enables: "PMB puede planificar ensayo" },
-                PUB: { focus: "Coherencia piezas/material/proceso inicial", deliverable: "Lista materiales preliminar", enables: "Acopio y tiempos" },
-                DJK: { focus: "Publicación y control documental", deliverable: "Repositorio actualizado", enables: "Trazabilidad completa" }
+                SOV: { focus: "Plano conjunto + acotación", deliverable: "Plano PDF acotado", enables: "CDA puede preparar corte" },
+                OPP: { focus: "Decisión técnica y justificación", deliverable: "Ficha decisión unión", enables: "MRN puede planificar ensayo" },
+                OAA: { focus: "Coherencia piezas/material/proceso inicial", deliverable: "Lista materiales preliminar", enables: "Acopio y tiempos" },
+                DHI: { focus: "OAAlicación y control documental", deliverable: "Repositorio actualizado", enables: "Trazabilidad completa" }
             },
             evaluation: { what: ["Plano conjunto", "Lista piezas", "Decisión técnica"], instrument: "Rúbrica F2 + checklist evidencias", when: "Viernes revisión final", min_condition: "Sin plano+lista no hay proceso evaluable" },
             coordination: { agreements: ["Nomenclatura obligatoria en todos los archivos", "Revisión cruzada jueves antes de cierre"], adjustments: "Miércoles festivo → adelantar decisión técnica a martes" },
-            risks: ["Plano y lista no coinciden (coherencia)", "Decisión técnica sin verificación posible", "Retraso en publicación bloquea gate"]
+            risks: ["Plano y lista no coinciden (coherencia)", "Decisión técnica sin verificación posible", "Retraso en OAAlicación bloquea gate"]
         },
         {
             week_id: "E2-S04",
@@ -779,8 +780,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F3", task: "Validación ruta", evidence: "Hito superado" }
             },
             modules_focus: {
-                PUB: { focus: "Hoja de ruta", deliverable: "Secuencia producción", enables: "Fabricación ordenada" },
-                FAT: { focus: "Preparación herramientas", deliverable: "Taller listo", enables: "Fabricación" }
+                OAA: { focus: "Hoja de ruta", deliverable: "Secuencia producción", enables: "Fabricación ordenada" },
+                CDA: { focus: "Preparación herramientas", deliverable: "Taller listo", enables: "Fabricación" }
             },
             coordination: { agreements: ["Material en taller jueves"], adjustments: "" },
             risks: ["Material no disponible", "Hoja de ruta incompleta"]
@@ -810,8 +811,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Montaje", task: "Ensamblar", evidence: "Taburete montado" }
             },
             modules_focus: {
-                FAT: { focus: "Fabricación completa", deliverable: "Producto terminado", enables: "Acabado" },
-                PMB: { focus: "Control calidad", deliverable: "QC dimensional", enables: "Validación" }
+                CDA: { focus: "Fabricación completa", deliverable: "Producto terminado", enables: "Acabado" },
+                MRN: { focus: "Control calidad", deliverable: "QC dimensional", enables: "Validación" }
             },
             coordination: { agreements: ["Tolerancia ±1mm", "EPIs obligatorios"], adjustments: "" },
             risks: ["Piezas fuera tolerancia", "Accidente taller"]
@@ -841,8 +842,8 @@ const MASTER_PLAN = {
                 friday: { focus: "QC", task: "Verificación final", evidence: "QC completo" }
             },
             modules_focus: {
-                FAT: { focus: "Acabado superficial", deliverable: "Producto terminado", enables: "Entrega" },
-                PUB: { focus: "Control proceso", deliverable: "Informe acabados", enables: "Trazabilidad" }
+                CDA: { focus: "Acabado superficial", deliverable: "Producto terminado", enables: "Entrega" },
+                OAA: { focus: "Control proceso", deliverable: "Informe acabados", enables: "Trazabilidad" }
             },
             coordination: { agreements: ["Secado entre manos: 24h"], adjustments: "" },
             risks: ["Acabado defectuoso", "Tiempo secado insuficiente"]
@@ -872,8 +873,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Entrega", task: "Presentación final", evidence: "Proyecto entregado" }
             },
             modules_focus: {
-                DJK: { focus: "Dossier digital", deliverable: "PDF estructurado", enables: "Trazabilidad" },
-                DRP: { focus: "Memoria técnica", deliverable: "Justificación completa", enables: "Evaluación" }
+                DHI: { focus: "Dossier digital", deliverable: "PDF estructurado", enables: "Trazabilidad" },
+                OPP: { focus: "Memoria técnica", deliverable: "Justificación completa", enables: "Evaluación" }
             },
             coordination: { agreements: ["Entrega viernes 12:00"], adjustments: "" },
             risks: ["Documentación incompleta"]
@@ -903,8 +904,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Preparación", task: "Embalaje/etiquetado", evidence: "Listo entrega" }
             },
             modules_focus: {
-                FAT: { focus: "Verificación final", deliverable: "Producto validado", enables: "Entrega" },
-                PUB: { focus: "Logística", deliverable: "Preparación entrega", enables: "Cierre" }
+                CDA: { focus: "Verificación final", deliverable: "Producto validado", enables: "Entrega" },
+                OAA: { focus: "Logística", deliverable: "Preparación entrega", enables: "Cierre" }
             },
             coordination: { agreements: ["Criterios QC cliente"], adjustments: "" },
             risks: ["No conformidades de última hora"]
@@ -934,8 +935,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Cierre", task: "Dossier completo", evidence: "Dossier PDF" }
             },
             modules_focus: {
-                DJK: { focus: "Repositorio final", deliverable: "Backups y trazabilidad", enables: "Archivo" },
-                RRC: { focus: "Planos finales", deliverable: "Documentación CAD", enables: "Entrega" }
+                DHI: { focus: "Repositorio final", deliverable: "Backups y trazabilidad", enables: "Archivo" },
+                SOV: { focus: "Planos finales", deliverable: "Documentación CAD", enables: "Entrega" }
             },
             coordination: { agreements: ["Nomenclatura final"], adjustments: "" },
             risks: ["Documentación incompleta", "Versiones confusas"]
@@ -965,8 +966,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Cierre", task: "Lecciones aprendidas", evidence: "Proyecto cerrado" }
             },
             modules_focus: {
-                PMB: { focus: "Conclusión prototipo", deliverable: "Evaluación final", enables: "Mejoras" },
-                DJK: { focus: "Cierre documental", deliverable: "Archivo definitivo", enables: "Trazabilidad" }
+                MRN: { focus: "Conclusión prototipo", deliverable: "Evaluación final", enables: "Mejoras" },
+                DHI: { focus: "Cierre documental", deliverable: "Archivo definitivo", enables: "Trazabilidad" }
             },
             coordination: { agreements: ["Entrega viernes 13/03 - 23:59"], adjustments: "" },
             risks: ["Entrega tardía", "Presentación no preparada"]
@@ -1000,8 +1001,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F0", task: "Validación", evidence: "Hito superado" }
             },
             modules_focus: {
-                DJK: { focus: "Infraestructura digital", deliverable: "Cloud configurado", enables: "Trabajo colaborativo" },
-                DRP: { focus: "Análisis requisitos", deliverable: "Encargo completo", enables: "Diseño" }
+                DHI: { focus: "Infraestructura digital", deliverable: "Cloud configurado", enables: "Trabajo colaborativo" },
+                OPP: { focus: "Análisis requisitos", deliverable: "Encargo completo", enables: "Diseño" }
             },
             coordination: { agreements: ["Trabajo en equipos de 4"], adjustments: "" },
             risks: ["Requisitos industriales complejos"]
@@ -1031,8 +1032,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F1", task: "Validación concepto", evidence: "Hito superado" }
             },
             modules_focus: {
-                DRP: { focus: "Diseño industrial", deliverable: "Concepto validado", enables: "Planos" },
-                PUB: { focus: "Análisis proceso", deliverable: "Viabilidad producción", enables: "Planificación" }
+                OPP: { focus: "Diseño industrial", deliverable: "Concepto validado", enables: "Planos" },
+                OAA: { focus: "Análisis proceso", deliverable: "Viabilidad producción", enables: "Planificación" }
             },
             coordination: { agreements: ["Enfoque industria 4.0"], adjustments: "" },
             risks: ["Diseño no escalable"]
@@ -1062,8 +1063,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F2", task: "Validación industrial", evidence: "Hito superado" }
             },
             modules_focus: {
-                RRC: { focus: "Planos industriales", deliverable: "Documentación completa", enables: "Fabricación" },
-                DRP: { focus: "Especificaciones", deliverable: "Ficha técnica", enables: "Control calidad" }
+                SOV: { focus: "Planos industriales", deliverable: "Documentación completa", enables: "Fabricación" },
+                OPP: { focus: "Especificaciones", deliverable: "Ficha técnica", enables: "Control calidad" }
             },
             coordination: { agreements: ["Normas UNE obligatorias"], adjustments: "" },
             risks: ["Tolerancias incorrectas"]
@@ -1093,8 +1094,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F3", task: "Validación proceso", evidence: "Hito superado" }
             },
             modules_focus: {
-                PUB: { focus: "Línea producción", deliverable: "Proceso industrial", enables: "Fabricación" },
-                FAT: { focus: "Preparación maquinaria", deliverable: "Setup máquinas", enables: "Producción" }
+                OAA: { focus: "Línea producción", deliverable: "Proceso industrial", enables: "Fabricación" },
+                CDA: { focus: "Preparación maquinaria", deliverable: "Setup máquinas", enables: "Producción" }
             },
             coordination: { agreements: ["PRL validado por docente"], adjustments: "Semana Santa: ajustar planificación" },
             risks: ["Riesgos no identificados"]
@@ -1124,8 +1125,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F4-A", task: "Validación fabricación", evidence: "Hito superado" }
             },
             modules_focus: {
-                FAT: { focus: "Mecanizado industrial", deliverable: "Piezas precisas", enables: "Montaje" },
-                PMB: { focus: "Metrología", deliverable: "Control avanzado", enables: "Validación" }
+                CDA: { focus: "Mecanizado industrial", deliverable: "Piezas precisas", enables: "Montaje" },
+                MRN: { focus: "Metrología", deliverable: "Control avanzado", enables: "Validación" }
             },
             coordination: { agreements: ["Tolerancia ±0.5mm"], adjustments: "" },
             risks: ["Precisión insuficiente"]
@@ -1155,8 +1156,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F4-B", task: "Verificación acabado", evidence: "Hito superado" }
             },
             modules_focus: {
-                FAT: { focus: "Acabados industriales", deliverable: "Producto terminado", enables: "Entrega" },
-                PUB: { focus: "Control proceso", deliverable: "Informe acabados", enables: "Trazabilidad" }
+                CDA: { focus: "Acabados industriales", deliverable: "Producto terminado", enables: "Entrega" },
+                OAA: { focus: "Control proceso", deliverable: "Informe acabados", enables: "Trazabilidad" }
             },
             coordination: { agreements: ["Ventilación obligatoria"], adjustments: "" },
             risks: ["Acabado defectuoso"]
@@ -1186,8 +1187,8 @@ const MASTER_PLAN = {
                 friday: { focus: "Hito F5-A", task: "Validación normativa", evidence: "Hito superado" }
             },
             modules_focus: {
-                PMB: { focus: "Evaluación normativa", deliverable: "Informe cumplimiento", enables: "Certificación" },
-                DRP: { focus: "Mejoras producto", deliverable: "Propuestas", enables: "Iteración" }
+                MRN: { focus: "Evaluación normativa", deliverable: "Informe cumplimiento", enables: "Certificación" },
+                OPP: { focus: "Mejoras producto", deliverable: "Propuestas", enables: "Iteración" }
             },
             coordination: { agreements: ["Normativa UNE muebles"], adjustments: "Viernes festivo: adelantar gate" },
             risks: ["Incumplimiento normativo"]
@@ -1203,7 +1204,7 @@ const MASTER_PLAN = {
             gate: {
                 title: "Hito Final E3",
                 description: "Proyecto industrial entregado y presentado",
-                conditions: ["Presentación realizada", "Repositorio cerrado", "Proyecto RA6 DJK entregado"]
+                conditions: ["Presentación realizada", "Repositorio cerrado", "Proyecto RA6 DHI entregado"]
             },
             min_deliverable: {
                 title: "Entrega Final E3",
@@ -1217,8 +1218,8 @@ const MASTER_PLAN = {
                 friday: { focus: "---", task: "---", evidence: "---" }
             },
             modules_focus: {
-                DRP: { focus: "Presentación proyecto", deliverable: "Comunicación efectiva", enables: "Evaluación final" },
-                DJK: { focus: "Archivo digital + RA6", deliverable: "Repositorio cerrado + Proyecto THD", enables: "Trazabilidad" }
+                OPP: { focus: "Presentación proyecto", deliverable: "Comunicación efectiva", enables: "Evaluación final" },
+                DHI: { focus: "Archivo digital + RA6", deliverable: "Repositorio cerrado + Proyecto THD", enables: "Trazabilidad" }
             },
             coordination: { agreements: ["Entrega 11/05 - 23:59"], adjustments: "Cierre del curso" },
             risks: ["Presentación no preparada", "Documentación incompleta"]
@@ -1237,8 +1238,8 @@ const MASTER_PLAN = {
             project: "Taburete ergonómico",
             phase_common: "F0",
             day_type: "aula",
-            leader_module: "DRP",
-            modules_active: ["DRP", "DJK"],
+            leader_module: "OPP",
+            modules_active: ["OPP", "DHI"],
             duration: "5 sesiones",
             location: "Aula",
             learning_intent: {
@@ -1280,7 +1281,7 @@ const MASTER_PLAN = {
             ],
             gate_rule: "Sin la comprensión del brief F0, no se pueden realizar los estudios de F1 correctamente.",
             modules_detail: {
-                DRP: {
+                OPP: {
                     micro_goal: "Analizar brief y requisitos ergonómicos",
                     tasks: [
                         "Lectura colectiva del brief",
@@ -1288,10 +1289,10 @@ const MASTER_PLAN = {
                         "Definir el usuario tipo"
                     ],
                     deliverable: "Lista de requisitos",
-                    evidence: ["DRP_requisitos.pdf"],
+                    evidence: ["OPP_requisitos.pdf"],
                     ra_ce: "RA4: Propuestas de diseño"
                 },
-                DJK: {
+                DHI: {
                     micro_goal: "Configurar entorno digital E2",
                     tasks: [
                         "Crear carpeta compartida E2",
@@ -1340,8 +1341,8 @@ const MASTER_PLAN = {
             // Identificación
             phase_common: "F2",
             day_type: "mixta", // Aula / Taller / Mixta / Revisión / Entrega
-            leader_module: "RRC",
-            modules_active: ["RRC", "DRP", "PUB", "DJK"],
+            leader_module: "SOV",
+            modules_active: ["SOV", "OPP", "OAA", "DHI"],
             duration: "5 sesiones",
             location: "Aula CAD + Taller (revisión)",
 
@@ -1383,7 +1384,7 @@ const MASTER_PLAN = {
 
             // D. DEFINITION OF DONE (3 condiciones)
             dod: [
-                "PDF del plano publicado con nomenclatura correcta",
+                "PDF del plano OAAlicado con nomenclatura correcta",
                 "Lista de piezas cargada y coherente con el plano",
                 "Decisión técnica registrada con al menos 1 criterio verificable"
             ],
@@ -1396,15 +1397,15 @@ const MASTER_PLAN = {
                     "Dimensiones generales definidas"
                 ],
                 tomorrow_blocked_if: [
-                    "Sin RRC (plano conjunto) → FAT no puede preparar corte",
-                    "Sin DRP (decisión unión) → PMB no puede planificar ensayo",
-                    "Sin PUB (lista piezas) → no hay ruta de proceso"
+                    "Sin SOV (plano conjunto) → CDA no puede preparar corte",
+                    "Sin OPP (decisión unión) → MRN no puede planificar ensayo",
+                    "Sin OAA (lista piezas) → no hay ruta de proceso"
                 ]
             },
 
             // F. ACTIVIDAD POR MÓDULOS
             modules_detail: {
-                RRC: {
+                SOV: {
                     micro_goal: "Generar plano de conjunto acotado",
                     tasks: [
                         "Dibujar vistas principales en CAD",
@@ -1412,10 +1413,10 @@ const MASTER_PLAN = {
                         "Exportar a PDF con cajetín"
                     ],
                     deliverable: "Plano conjunto PDF",
-                    evidence: ["RRC_plano_conjunto.pdf"],
+                    evidence: ["SOV_plano_conjunto.pdf"],
                     ra_ce: "RA3-4: Documentación gráfica CAD"
                 },
-                DRP: {
+                OPP: {
                     micro_goal: "Documentar decisión técnica de unión",
                     tasks: [
                         "Elegir tipo de unión (espiga/caja, cola milano, tornillo...)",
@@ -1423,10 +1424,10 @@ const MASTER_PLAN = {
                         "Registrar en ficha de decisión"
                     ],
                     deliverable: "Ficha decisión técnica",
-                    evidence: ["DRP_decision_union.pdf"],
+                    evidence: ["OPP_decision_union.pdf"],
                     ra_ce: "RA4-5: Propuestas y especificaciones"
                 },
-                PUB: {
+                OAA: {
                     micro_goal: "Coherencia lista de piezas/material",
                     tasks: [
                         "Crear lista de piezas numerada",
@@ -1434,11 +1435,11 @@ const MASTER_PLAN = {
                         "Identificar material por pieza"
                     ],
                     deliverable: "Lista de piezas",
-                    evidence: ["PUB_lista_piezas.xlsx"],
+                    evidence: ["OAA_lista_piezas.xlsx"],
                     ra_ce: "RA5: Procesos y transformación"
                 },
-                DJK: {
-                    micro_goal: "Publicar y controlar documentación",
+                DHI: {
+                    micro_goal: "OAAlicar y controlar documentación",
                     tasks: [
                         "Subir archivos a repositorio",
                         "Verificar nomenclatura",
@@ -1500,8 +1501,8 @@ const MASTER_PLAN = {
 
             phase_common: "F4",
             day_type: "taller",
-            leader_module: "FAT",
-            modules_active: ["FAT", "PMB", "PUB"],
+            leader_module: "CDA",
+            modules_active: ["CDA", "MRN", "OAA"],
             duration: "5 sesiones",
             location: "Taller de carpintería",
 
@@ -1559,7 +1560,7 @@ const MASTER_PLAN = {
             },
 
             modules_detail: {
-                FAT: {
+                CDA: {
                     micro_goal: "Cortar piezas principales con precisión",
                     tasks: [
                         "Trazar piezas según plano",
@@ -1570,7 +1571,7 @@ const MASTER_PLAN = {
                     evidence: ["Foto piezas", "Check QC"],
                     ra_ce: "RA4-5-6: Mecanizado y montaje"
                 },
-                PMB: {
+                MRN: {
                     micro_goal: "Control de calidad de piezas",
                     tasks: [
                         "Medir dimensiones críticas",
@@ -1581,7 +1582,7 @@ const MASTER_PLAN = {
                     evidence: ["QC_check.pdf"],
                     ra_ce: "RA5: Evaluación prototipos"
                 },
-                PUB: {
+                OAA: {
                     micro_goal: "Seguimiento de proceso",
                     tasks: [
                         "Registrar tiempos de operación",
@@ -1589,7 +1590,7 @@ const MASTER_PLAN = {
                         "Actualizar hoja de ruta"
                     ],
                     deliverable: "Hoja ruta actualizada",
-                    evidence: ["PUB_ruta_actualizada.pdf"],
+                    evidence: ["OAA_ruta_actualizada.pdf"],
                     ra_ce: "RA5: Procesos de transformación"
                 }
             },
@@ -1654,8 +1655,8 @@ const MASTER_PLAN = {
             project: "Taburete ergonómico",
             phase_common: "F2",
             day_type: "aula",
-            leader_module: "DRP",
-            modules_active: ["DRP", "RRC", "DJK"],
+            leader_module: "OPP",
+            modules_active: ["OPP", "SOV", "DHI"],
             duration: "5 sesiones",
             location: "Aula",
 
@@ -1711,7 +1712,7 @@ const MASTER_PLAN = {
             },
 
             modules_detail: {
-                DRP: {
+                OPP: {
                     micro_goal: "Validar propuesta seleccionada y asignar roles",
                     tasks: [
                         "Revisar matriz de decisión de F1",
@@ -1719,10 +1720,10 @@ const MASTER_PLAN = {
                         "Distribuir tareas de documentación"
                     ],
                     deliverable: "Check de arranque",
-                    evidence: ["DRP_check_arranque.pdf"],
+                    evidence: ["OPP_check_arranque.pdf"],
                     ra_ce: "RA4-5: Propuestas y especificaciones"
                 },
-                RRC: {
+                SOV: {
                     micro_goal: "Preparar entorno CAD para plano",
                     tasks: [
                         "Abrir plantilla CAD",
@@ -1730,10 +1731,10 @@ const MASTER_PLAN = {
                         "Crear capas básicas"
                     ],
                     deliverable: "Archivo CAD base",
-                    evidence: ["RRC_base.dwg"],
+                    evidence: ["SOV_base.dwg"],
                     ra_ce: "RA3: Documentación CAD"
                 },
-                DJK: {
+                DHI: {
                     micro_goal: "Crear estructura documental",
                     tasks: [
                         "Crear carpeta F2 en repositorio",
@@ -1785,8 +1786,8 @@ const MASTER_PLAN = {
             project: "Taburete ergonómico",
             phase_common: "F2",
             day_type: "aula",
-            leader_module: "RRC",
-            modules_active: ["RRC", "PUB", "DJK"],
+            leader_module: "SOV",
+            modules_active: ["SOV", "OAA", "DHI"],
             duration: "5 sesiones",
             location: "Aula CAD",
 
@@ -1843,7 +1844,7 @@ const MASTER_PLAN = {
             },
 
             modules_detail: {
-                RRC: {
+                SOV: {
                     micro_goal: "Dibujar vistas principales del conjunto",
                     tasks: [
                         "Dibujar planta del taburete",
@@ -1851,10 +1852,10 @@ const MASTER_PLAN = {
                         "Colocar cotas de altura y anchura"
                     ],
                     deliverable: "Plano CAD en progreso",
-                    evidence: ["RRC_avance_plano.dwg"],
+                    evidence: ["SOV_avance_plano.dwg"],
                     ra_ce: "RA3-4: Documentación CAD"
                 },
-                PUB: {
+                OAA: {
                     micro_goal: "Iniciar lista de piezas",
                     tasks: [
                         "Identificar piezas del boceto",
@@ -1862,10 +1863,10 @@ const MASTER_PLAN = {
                         "Añadir primeras 3 piezas con dimensiones"
                     ],
                     deliverable: "Lista de piezas parcial",
-                    evidence: ["PUB_lista_piezas.xlsx"],
+                    evidence: ["OAA_lista_piezas.xlsx"],
                     ra_ce: "RA5: Procesos"
                 },
-                DJK: {
+                DHI: {
                     micro_goal: "Control de versiones",
                     tasks: [
                         "Subir archivos del día",
@@ -1917,8 +1918,8 @@ const MASTER_PLAN = {
             project: "Taburete ergonómico",
             phase_common: "F2",
             day_type: "mixta",
-            leader_module: "DRP",
-            modules_active: ["DRP", "RRC", "PUB", "DJK"],
+            leader_module: "OPP",
+            modules_active: ["OPP", "SOV", "OAA", "DHI"],
             duration: "5 sesiones",
             location: "Aula + Revisión en taller",
 
@@ -1976,7 +1977,7 @@ const MASTER_PLAN = {
             },
 
             modules_detail: {
-                DRP: {
+                OPP: {
                     micro_goal: "Documentar decisión técnica de unión",
                     tasks: [
                         "Elegir tipo de unión para el taburete",
@@ -1984,10 +1985,10 @@ const MASTER_PLAN = {
                         "Crear ficha de decisión"
                     ],
                     deliverable: "Ficha decisión técnica",
-                    evidence: ["DRP_decision_union.pdf"],
+                    evidence: ["OPP_decision_union.pdf"],
                     ra_ce: "RA4-5: Propuestas"
                 },
-                RRC: {
+                SOV: {
                     micro_goal: "Completar y exportar plano",
                     tasks: [
                         "Añadir cotas faltantes",
@@ -1995,10 +1996,10 @@ const MASTER_PLAN = {
                         "Exportar a PDF"
                     ],
                     deliverable: "Plano conjunto PDF",
-                    evidence: ["RRC_plano_conjunto.pdf"],
+                    evidence: ["SOV_plano_conjunto.pdf"],
                     ra_ce: "RA3-4: Documentación CAD"
                 },
-                PUB: {
+                OAA: {
                     micro_goal: "Verificar coherencia lista-plano",
                     tasks: [
                         "Comparar cada dimensión",
@@ -2006,10 +2007,10 @@ const MASTER_PLAN = {
                         "Completar lista de piezas"
                     ],
                     deliverable: "Lista verificada",
-                    evidence: ["PUB_lista_verificada.xlsx"],
+                    evidence: ["OAA_lista_verificada.xlsx"],
                     ra_ce: "RA5: Procesos"
                 },
-                DJK: {
+                DHI: {
                     micro_goal: "Preparar paquete integrado",
                     tasks: [
                         "Compilar todos los archivos",
@@ -2017,7 +2018,7 @@ const MASTER_PLAN = {
                         "Crear índice del paquete"
                     ],
                     deliverable: "Paquete preliminar",
-                    evidence: ["DJK_indice_paquete.pdf"],
+                    evidence: ["DHI_indice_paquete.pdf"],
                     ra_ce: "RA2-3: Cloud y gestión"
                 }
             },
@@ -2061,15 +2062,15 @@ const MASTER_PLAN = {
             project: "Taburete ergonómico",
             phase_common: "F2",
             day_type: "revision",
-            leader_module: "DJK",
-            modules_active: ["DJK", "DRP", "RRC", "PUB"],
+            leader_module: "DHI",
+            modules_active: ["DHI", "OPP", "SOV", "OAA"],
             duration: "5 sesiones",
             location: "Aula + Revisión docente",
 
             learning_intent: {
-                purpose: "Cerrar la fase F2 validando el Gate: publicar documentación final y verificar que todo está listo para F3.",
+                purpose: "Cerrar la fase F2 validando el Gate: OAAlicar documentación final y verificar que todo está listo para F3.",
                 success_criteria: [
-                    "Paquete F2 final publicado en repositorio",
+                    "Paquete F2 final OAAlicado en repositorio",
                     "Gate F2 superado (plano + lista + decisión)",
                     "Feedback docente registrado"
                 ],
@@ -2079,7 +2080,7 @@ const MASTER_PLAN = {
                     "No comunicar bloqueos para la siguiente semana"
                 ],
                 teacher_prompt: {
-                    question: "¿Está todo listo para que FAT pueda empezar a cortar la semana que viene?",
+                    question: "¿Está todo listo para que CDA pueda empezar a cortar la semana que viene?",
                     check: "Revisar que el paquete tenga los 3 entregables mínimos"
                 }
             },
@@ -2102,7 +2103,7 @@ const MASTER_PLAN = {
             },
 
             dod: [
-                "Paquete F2 publicado en carpeta FINAL",
+                "Paquete F2 OAAlicado en carpeta FINAL",
                 "Gate F2 validado por docente",
                 "Bloqueos (si los hay) comunicados"
             ],
@@ -2114,15 +2115,15 @@ const MASTER_PLAN = {
                     "Correcciones aplicadas"
                 ],
                 tomorrow_blocked_if: [
-                    "Sin plano final → FAT no puede trabajar",
+                    "Sin plano final → CDA no puede trabajar",
                     "Sin lista → no hay acopio de material",
                     "Sin decisión unión → no hay plan de montaje"
                 ]
             },
 
             modules_detail: {
-                DJK: {
-                    micro_goal: "Publicar y validar paquete final",
+                DHI: {
+                    micro_goal: "OAAlicar y validar paquete final",
                     tasks: [
                         "Crear carpeta FINAL",
                         "Mover versiones finales",
@@ -2132,7 +2133,7 @@ const MASTER_PLAN = {
                     evidence: ["Captura carpeta FINAL"],
                     ra_ce: "RA2-3: Cloud y gestión"
                 },
-                DRP: {
+                OPP: {
                     micro_goal: "Revisar coherencia global",
                     tasks: [
                         "Verificar ficha de decisión",
@@ -2140,10 +2141,10 @@ const MASTER_PLAN = {
                         "Firmar check de Gate"
                     ],
                     deliverable: "Check de Gate",
-                    evidence: ["DRP_check_gate.pdf"],
+                    evidence: ["OPP_check_gate.pdf"],
                     ra_ce: "RA4-5: Propuestas"
                 },
-                RRC: {
+                SOV: {
                     micro_goal: "Entregar plano definitivo",
                     tasks: [
                         "Aplicar correcciones finales",
@@ -2151,10 +2152,10 @@ const MASTER_PLAN = {
                         "Archivar en carpeta correcta"
                     ],
                     deliverable: "Plano FINAL",
-                    evidence: ["RRC_plano_FINAL.pdf"],
+                    evidence: ["SOV_plano_FINAL.pdf"],
                     ra_ce: "RA3-4: Documentación CAD"
                 },
-                PUB: {
+                OAA: {
                     micro_goal: "Entregar lista definitiva",
                     tasks: [
                         "Aplicar correcciones finales",
@@ -2162,7 +2163,7 @@ const MASTER_PLAN = {
                         "Verificar formato"
                     ],
                     deliverable: "Lista FINAL",
-                    evidence: ["PUB_lista_FINAL.xlsx"],
+                    evidence: ["OAA_lista_FINAL.xlsx"],
                     ra_ce: "RA5: Procesos"
                 }
             },
@@ -2206,8 +2207,8 @@ const MASTER_PLAN = {
             project: "Taburete ergonómico",
             phase_common: "F4",
             day_type: "mixta",
-            leader_module: "FAT",
-            modules_active: ["FAT", "PMB", "PUB"],
+            leader_module: "CDA",
+            modules_active: ["CDA", "MRN", "OAA"],
             duration: "5 sesiones",
             location: "Taller + Aula (prep)",
 
@@ -2265,7 +2266,7 @@ const MASTER_PLAN = {
             },
 
             modules_detail: {
-                FAT: {
+                CDA: {
                     micro_goal: "Verificar material y trazar primeras piezas",
                     tasks: [
                         "Inspeccionar tableros/madera",
@@ -2276,7 +2277,7 @@ const MASTER_PLAN = {
                     evidence: ["Foto material", "Foto trazado"],
                     ra_ce: "RA2-3: Selección y trazado"
                 },
-                PMB: {
+                MRN: {
                     micro_goal: "Preparar control de calidad",
                     tasks: [
                         "Crear hoja de QC",
@@ -2284,10 +2285,10 @@ const MASTER_PLAN = {
                         "Preparar instrumentos"
                     ],
                     deliverable: "Hoja QC preparada",
-                    evidence: ["PMB_hoja_qc.pdf"],
+                    evidence: ["MRN_hoja_qc.pdf"],
                     ra_ce: "RA5: Evaluación"
                 },
-                PUB: {
+                OAA: {
                     micro_goal: "Revisar y actualizar hoja de ruta",
                     tasks: [
                         "Revisar secuencia de operaciones",
@@ -2295,7 +2296,7 @@ const MASTER_PLAN = {
                         "Identificar cuellos de botella"
                     ],
                     deliverable: "Hoja ruta anotada",
-                    evidence: ["PUB_ruta_dia1.pdf"],
+                    evidence: ["OAA_ruta_dia1.pdf"],
                     ra_ce: "RA5: Procesos"
                 }
             },
@@ -2347,8 +2348,8 @@ const MASTER_PLAN = {
             project: "Taburete ergonómico",
             phase_common: "F4",
             day_type: "taller",
-            leader_module: "FAT",
-            modules_active: ["FAT", "PMB", "PUB"],
+            leader_module: "CDA",
+            modules_active: ["CDA", "MRN", "OAA"],
             duration: "5 sesiones",
             location: "Taller de carpintería",
 
@@ -2406,7 +2407,7 @@ const MASTER_PLAN = {
             },
 
             modules_detail: {
-                FAT: {
+                CDA: {
                     micro_goal: "Cortar primeras piezas con precisión",
                     tasks: [
                         "Configurar sierra/ingletadora",
@@ -2417,7 +2418,7 @@ const MASTER_PLAN = {
                     evidence: ["Foto piezas"],
                     ra_ce: "RA4-5: Mecanizado"
                 },
-                PMB: {
+                MRN: {
                     micro_goal: "Control de calidad continuo",
                     tasks: [
                         "Medir cada pieza cortada",
@@ -2425,10 +2426,10 @@ const MASTER_PLAN = {
                         "Registrar en hoja QC"
                     ],
                     deliverable: "Hoja QC actualizada",
-                    evidence: ["PMB_qc_dia1.pdf"],
+                    evidence: ["MRN_qc_dia1.pdf"],
                     ra_ce: "RA5: Evaluación"
                 },
-                PUB: {
+                OAA: {
                     micro_goal: "Registro de tiempos",
                     tasks: [
                         "Cronometrar operaciones clave",
@@ -2436,7 +2437,7 @@ const MASTER_PLAN = {
                         "Identificar desviaciones"
                     ],
                     deliverable: "Hoja de tiempos",
-                    evidence: ["PUB_tiempos_dia1.pdf"],
+                    evidence: ["OAA_tiempos_dia1.pdf"],
                     ra_ce: "RA5: Procesos"
                 }
             },
@@ -2496,8 +2497,8 @@ const MASTER_PLAN = {
             project: "Taburete ergonómico",
             phase_common: "F4",
             day_type: "taller",
-            leader_module: "FAT",
-            modules_active: ["FAT", "PMB", "PUB"],
+            leader_module: "CDA",
+            modules_active: ["CDA", "MRN", "OAA"],
             duration: "5 sesiones",
             location: "Taller de carpintería",
 
@@ -2554,7 +2555,7 @@ const MASTER_PLAN = {
             },
 
             modules_detail: {
-                FAT: {
+                CDA: {
                     micro_goal: "Completar mecanizado y preparar uniones",
                     tasks: [
                         "Cortar piezas restantes",
@@ -2565,7 +2566,7 @@ const MASTER_PLAN = {
                     evidence: ["Foto piezas", "Foto encaje"],
                     ra_ce: "RA4-5-6: Mecanizado y montaje"
                 },
-                PMB: {
+                MRN: {
                     micro_goal: "Verificar calidad de uniones",
                     tasks: [
                         "Medir tolerancia de holgura",
@@ -2573,10 +2574,10 @@ const MASTER_PLAN = {
                         "Actualizar hoja QC"
                     ],
                     deliverable: "QC de uniones",
-                    evidence: ["PMB_qc_uniones.pdf"],
+                    evidence: ["MRN_qc_uniones.pdf"],
                     ra_ce: "RA5: Evaluación"
                 },
-                PUB: {
+                OAA: {
                     micro_goal: "Actualizar seguimiento de proceso",
                     tasks: [
                         "Registrar avance vs planificado",
@@ -2584,7 +2585,7 @@ const MASTER_PLAN = {
                         "Proponer ajustes si es necesario"
                     ],
                     deliverable: "Informe de avance",
-                    evidence: ["PUB_avance_s05.pdf"],
+                    evidence: ["OAA_avance_s05.pdf"],
                     ra_ce: "RA5: Procesos"
                 }
             },
@@ -2645,8 +2646,8 @@ const MASTER_PLAN = {
             project: "Taburete ergonómico",
             phase_common: "F4",
             day_type: "taller",
-            leader_module: "FAT",
-            modules_active: ["FAT", "PMB", "PUB", "DJK"],
+            leader_module: "CDA",
+            modules_active: ["CDA", "MRN", "OAA", "DHI"],
             duration: "5 sesiones",
             location: "Taller de carpintería",
 
@@ -2706,7 +2707,7 @@ const MASTER_PLAN = {
             },
 
             modules_detail: {
-                FAT: {
+                CDA: {
                     micro_goal: "Ensamblar el taburete completo",
                     tasks: [
                         "Aplicar cola en uniones",
@@ -2717,7 +2718,7 @@ const MASTER_PLAN = {
                     evidence: ["Foto producto final"],
                     ra_ce: "RA6: Conjuntos y tolerancias"
                 },
-                PMB: {
+                MRN: {
                     micro_goal: "Control de calidad final",
                     tasks: [
                         "Verificar escuadra global",
@@ -2725,10 +2726,10 @@ const MASTER_PLAN = {
                         "Completar hoja QC final"
                     ],
                     deliverable: "Hoja QC final",
-                    evidence: ["PMB_qc_final.pdf"],
+                    evidence: ["MRN_qc_final.pdf"],
                     ra_ce: "RA5: Evaluación"
                 },
-                PUB: {
+                OAA: {
                     micro_goal: "Registro final de proceso",
                     tasks: [
                         "Documentar tiempos totales",
@@ -2736,10 +2737,10 @@ const MASTER_PLAN = {
                         "Identificar mejoras"
                     ],
                     deliverable: "Informe de proceso",
-                    evidence: ["PUB_informe_final.pdf"],
+                    evidence: ["OAA_informe_final.pdf"],
                     ra_ce: "RA5: Procesos"
                 },
-                DJK: {
+                DHI: {
                     micro_goal: "Documentación final F4",
                     tasks: [
                         "Organizar todas las evidencias",
@@ -2805,8 +2806,8 @@ const MASTER_PLAN = {
     academic: [
         {
             id: "e1",
-            title: "1.ª Evaluación (Iniciación y Materiales)",
-            project: "Reto 1: Elemento básico ensamblado",
+            title: "1.ª Evaluación (Proyecto Inicial)",
+            project: "Proyecto Inicial",
             flow: [
                 { f: "F1", l: "MRN", c: "var(--col-mrn)" },
                 { f: "F2", l: "SOV", c: "var(--col-sov)" },
@@ -2846,8 +2847,8 @@ const MASTER_PLAN = {
         },
         {
             id: "e2",
-            title: "2.ª Evaluación (Mueble Sencillo)",
-            project: "Reto 2: Mueble pieza a pieza",
+            title: "2.ª Evaluación (Proyecto Intermedio)",
+            project: "Proyecto Intermedio",
             flow: [
                 { f: "F1/F2", l: "SOV", c: "var(--col-sov)" },
                 { f: "F3", l: "CDA", c: "var(--col-cda)" },
@@ -2897,8 +2898,8 @@ const MASTER_PLAN = {
         },
         {
             id: "e3",
-            title: "3.ª Evaluación (Producto Integrador)",
-            project: "Reto 3: Mueble final y DUAL",
+            title: "3.ª Evaluación (Proyecto Final)",
+            project: "Proyecto Final",
             flow: [
                 { f: "F1/F2", l: "SOV", c: "var(--col-sov)" },
                 { f: "F4", l: "OAA", c: "var(--col-oaa)" },
@@ -3049,7 +3050,7 @@ window.MASTER_PLAN.getDay = function (dateStr) {
                 `Garantizar la trazabilidad según Gate ${week.phase_common}`
             ],
             common_mistakes: [
-                "No publicar la evidencia en el repositorio compartido",
+                "No OAAlicar la evidencia en el repositorio compartido",
                 "Falta de coherencia con el objetivo semanal",
                 "Roles del equipo no definidos para la tarea"
             ],
@@ -3115,3 +3116,4 @@ window.MASTER_PLAN.getModule = function (moduleId) {
 };
 
 console.log('✅ MASTER_PLAN cargado con Motor de Fichas Dinámico');
+

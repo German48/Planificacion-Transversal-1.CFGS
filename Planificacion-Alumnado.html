@@ -7,9 +7,9 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>📚 Planificación del Proyecto Transversal - Alumnado 1º CFGM</title>
+    <title>👩‍🎓 Panel de Alumnado - Proyecto Transversal 1º CFGM</title>
     <meta name="description"
-        content="Panel de Coordinación Docente para el Proyecto Transversal de 1º CFGM. Sistema de planificación, seguimiento de evidencias RA-CE y fichas de trabajo coordinado.">
+        content="Panel de Alumnado para el Proyecto Transversal de 1º CFGM. Consulta de planificación, seguimiento de progreso y fichas de trabajo.">
 
     <!-- Estilos externos -->
     <link rel="stylesheet" href="css/ra-tracker.css">
@@ -154,13 +154,13 @@
     </style>
 </head>
 
+
 <body class="mode-alumnado">
     <!-- ============ BANNER DE ALUMNADO ============ -->
-    <div class="coordination-banner" id="coordination-banner"
-        style="background: linear-gradient(135deg, #27ae60, #2ecc71);">
-        <span class="banner-icon">📚</span>
-        <span class="banner-title">PLANIFICACIÓN DEL PROYECTO TRANSVERSAL</span>
-        <span class="banner-subtitle">Vista Alumnado • Consulta de planificación y seguimiento</span>
+    <div class="coordination-banner student-mode" id="coordination-banner">
+        <span class="banner-icon">👩‍🎓</span>
+        <span class="banner-title">VISTA DE ALUMNADO</span>
+        <span class="banner-subtitle">Consulta tus objetivos, evidencias y entregables</span>
     </div>
 
     <!-- Indicador de Conexión -->
@@ -173,8 +173,9 @@
     <header class="main-header">
         <div class="header-content">
             <div class="header-title">
-                <h1>📚 Planificación Transversal 1.º CFGM Carpintería y Mueble</h1>
+                <h1>🎓 Planificación Transversal 1º CFGM - Panel de Alumnado</h1>
             </div>
+
             <!-- Widget de Progreso Compacto (Diseño Premium) -->
             <div class="progress-widget-compact" id="progress-widget">
                 <span class="progress-label">📊</span>
@@ -197,20 +198,29 @@
                 <button class="nav-level-btn" data-view="1" onclick="switchView(1)">
                     <span>📆</span> Mensual
                 </button>
-                <button class="nav-level-btn" data-view="6" onclick="switchView(6)">
-                    <span>📊</span> Gantt
+                <button class="nav-level-btn" data-view="4" onclick="switchView(4)" style="display: none;">
+                    <span>📑</span> RA / Evidencias
                 </button>
                 <button class="nav-level-btn" data-view="5" onclick="switchView(5)">
-                    <span>📈</span> Dashboard
+                    <span>📊</span> Dashboard Entregas
+                </button>
+                <button class="nav-level-btn" data-view="6" onclick="switchView(6)">
+                    <span>📊</span> Gantt
                 </button>
             </nav>
 
             <div class="header-controls">
-                <button class="ctrl-btn" onclick="SettingsUIStudent.open()" title="Mis Preferencias">⚙️</button>
+                <button class="ctrl-btn" onclick="SettingsUIStudent.open()" title="Configuraciones">⚙️</button>
                 <button class="ctrl-btn" onclick="toggleDarkMode()" title="Modo oscuro">🌓</button>
-                <div class="header-actions" style="margin-left: 10px;">
-                    <button class="header-btn reset-btn" onclick="resetAllSystem()" title="REINICIAR MI PROGRESO"
-                        style="background: #e74c3c; color: white; border-color: #c0392b; border-radius: 8px; padding: 5px 10px; border: 1px solid;">
+                <div class="header-actions">
+                    <button class="header-btn export-btn" onclick="exportData()" title="Exportar mis datos">
+                        📥
+                    </button>
+                    <button class="header-btn import-btn" onclick="importData()" title="Importar mis datos">
+                        📤
+                    </button>
+                    <button class="header-btn reset-btn" onclick="resetMyProgress()" title="REINICIAR MI PROGRESO"
+                        style="background: #e74c3c; color: white; border-color: #c0392b;">
                         🗑️
                     </button>
                     <button class="header-btn presentation-btn" onclick="togglePresentationMode()"
@@ -236,8 +246,9 @@
                 </select>
             </div>
 
-            <!-- Sin toggle de modo en versión Alumnado -->
         </div>
+        <!-- Vista fija de Profesorado - sin toggle -->
+    </div>
     </div>
 
     <!-- ============ CONTAINER PRINCIPAL ============ -->
@@ -247,11 +258,19 @@
         <!-- ============ NIVEL 1: RADAR MENSUAL ============ -->
         <div id="view-level-1" class="view-container">
             <div class="radar-section-header">
-                <h2>📆 Radar Mensual de Coordinación</h2>
-                <p>Vista global del curso • Haz clic en cualquier día para ver/editar su ficha</p>
+                <h2>📆 Radar Mensual de Actividad</h2>
+                <p>Vista global del curso • Haz clic en cualquier día para ver tu ficha de trabajo</p>
             </div>
 
-            <!-- Panel Institucional: OCULTO en versión Alumnado -->
+            <!-- Widget de Enfoque para Alumnado -->
+            <div id="student-focus-radar" class="student-focus-radar">
+                <div class="student-focus-title">Hoy solo necesitas mirar:</div>
+                <div id="student-focus-items" class="student-focus-items">
+                    <!-- Se genera dinámicamente -->
+                </div>
+            </div>
+
+            <!-- Panel Institucional: OCULTO -->
             <div class="institutional-panel is-hidden" id="institutional-panel">
                 <div class="institutional-header" onclick="toggleInstitutionalPanel()">
                     <span>📜</span>
@@ -342,9 +361,9 @@
                         <label>📅 Evaluación:</label>
                         <select id="timeline-filter-eval" onchange="filterTimeline('eval', this.value)">
                             <option value="all">Todas</option>
-                            <option value="e1">E1 - Estantería</option>
-                            <option value="e2">E2 - Taburete</option>
-                            <option value="e3">E3 - Mobiliario</option>
+                            <option value="e1">E1 - Proyecto Inicial</option>
+                            <option value="e2">E2 - Proyecto Intermedio</option>
+                            <option value="e3">E3 - Proyecto Final</option>
                         </select>
                     </div>
                     <div class="gantt-filter-group">
@@ -360,29 +379,16 @@
                         </select>
                     </div>
                 </div>
-                <div class="gantt-legend">
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-mtr)"></div>
-                        <span>MTR</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-oaa)"></div>
-                        <span>OAA</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-opp)"></div>
-                        <span>OPP</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-sov)"></div>
-                        <span>SOV</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-ipe)"></div>
-                        <span>IPE</span>
-                    </div>
-                </div>
             </div>
+
+            <!-- Botón de reinicio (solo Docente) -->
+            <button class="gantt-action-btn" onclick="resetWeeklyProgress()"
+                style="background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; margin: 0 15px;">
+                <span>🗑️</span>
+                <span>Reiniciar todo a 0</span>
+            </button>
+
+
 
             <div class="timeline-section" id="timeline-container">
                 <!-- Se genera dinámicamente -->
@@ -419,7 +425,7 @@
                             </div>
                         </div>
 
-                        <!-- Bloque 2: Intencionalidad (Solo Docente) - Oculto en CSS para Alumnado -->
+                        <!-- Bloque 2: Intencionalidad (Solo Docente) -->
                         <div class="pedagogical-block block-intent" id="collapse-intent">
                             <div class="pedagogical-title" onclick="togglePedagogicalCollapse('collapse-intent')">
                                 <span>🧠 Intencionalidad Pedagógica</span>
@@ -461,6 +467,19 @@
                             <div class="student-focus-item">✅ Los DoD de la semana</div>
                         </div>
                     </div>
+
+                    <!-- Mensaje contextual para docentes -->
+                    <div class="teacher-focus-message" id="teacher-focus-radar">
+                        <div class="teacher-focus-header">
+                            <span class="teacher-focus-icon">🧭</span>
+                            <span class="teacher-focus-title">Hoy como docente:</span>
+                        </div>
+                        <div class="teacher-focus-list" id="teacher-focus-items">
+                            <div class="teacher-focus-item">📌 Alinea el foco del día</div>
+                            <div class="teacher-focus-item">👥 Coordina el líder de semana</div>
+                            <div class="teacher-focus-item">🧾 Revisa evidencias clave</div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -474,8 +493,7 @@
             </div>
         </div>
 
-        <!-- NIVEL 4: OCULTO PARA ALUMNADO (Solo visible en versión docente) -->
-        <div id="view-level-4" class="view-container" style="display:none !important;">
+        <div id="view-level-4" class="view-container">
             <div class="radar-section-header">
                 <h2>📑 Resultado Aprendizaje / Evidencias</h2>
                 <p>Resultados de Aprendizaje y evidencias de procedimiento por evaluación y módulo</p>
@@ -488,9 +506,9 @@
                         <label>📅 Evaluación:</label>
                         <select id="ra-filter-eval" onchange="filterRADashboard('eval', this.value)">
                             <option value="all">Todas</option>
-                            <option value="e1">E1 - Estantería</option>
-                            <option value="e2">E2 - Taburete</option>
-                            <option value="e3">E3 - Mobiliario</option>
+                            <option value="e1">E1 - Proyecto Inicial</option>
+                            <option value="e2">E2 - Proyecto Intermedio</option>
+                            <option value="e3">E3 - Proyecto Final</option>
                         </select>
                     </div>
                     <div class="gantt-filter-group">
@@ -505,28 +523,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="gantt-legend">
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-mtr)"></div>
-                        <span>MTR</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-oaa)"></div>
-                        <span>OAA</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-opp)"></div>
-                        <span>OPP</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-sov)"></div>
-                        <span>SOV</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-ipe)"></div>
-                        <span>IPE</span>
-                    </div>
-                </div>
+
             </div>
 
             <div class="ra-dashboard-section" id="ra-dashboard">
@@ -534,16 +531,20 @@
             </div>
         </div>
 
-        <!-- ============ NIVEL 5: DASHBOARD VISUAL DE RA ============ -->
-        <div id="view-level-5" class="view-container" style="display:none;">
+        <!-- ============ NIVEL 5: DASHBOARD DE ENTREGAS ============ -->
+        <div id="view-level-5" class="view-container">
             <div class="radar-section-header">
                 <h2>📊 Dashboard de Seguimiento de Entregas</h2>
+                <p>Visualización del progreso operativo basado en las tareas y DoDs completados en las fichas diarias
+                </p>
             </div>
+
             <div class="ra-visual-dashboard" id="ra-visual-dashboard">
                 <!-- Se genera dinámicamente por DashboardRenderer.renderRAVisualDashboard() -->
                 <div class="dashboard-loading">Cargando visualizaciones de progreso...</div>
             </div>
         </div>
+
 
         <!-- ============ NIVEL 6: DIAGRAMA GANTT ============ -->
         <div id="view-level-6" class="view-container">
@@ -551,6 +552,36 @@
                 <h2>📊 Diagrama Gantt - Seguimiento de Proyectos</h2>
                 <p>Vista temporal de las fases, semanas y progreso por evaluación. Haz clic en cualquier barra para ir
                     al Timeline.</p>
+            </div>
+
+            <!-- Gantt Toolbar -->
+            <div class="gantt-toolbar">
+                <div class="gantt-filters">
+                    <div class="gantt-filter-group">
+                        <label>📅 Evaluación:</label>
+                        <select onchange="window.GanttRenderer.updateFilters({eval: this.value})">
+                            <option value="all">Todas</option>
+                            <option value="E1">E1 - Proyecto Inicial</option>
+                            <option value="E2">E2 - Proyecto Intermedio</option>
+                            <option value="E3">E3 - Proyecto Final</option>
+                        </select>
+                    </div>
+                    <div class="gantt-filter-group">
+                        <label>🏷️ Módulo:</label>
+                        <select onchange="window.GanttRenderer.updateFilters({module: this.value})">
+                            <option value="all">Todos</option>
+                            <option value="MTR">MTR - Maderas y Tableros</option>
+                            <option value="OAA">OAA - Operaciones Mob.</option>
+                            <option value="OPP">OPP - Operaciones Carp.</option>
+                            <option value="SOV">SOV - Soluciones</option>
+                            <option value="IPE">IPE - Itinerario</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+
             </div>
 
             <div id="gantt-container" class="gantt-section">
@@ -563,23 +594,23 @@
     </main>
 
     <!-- ============ FOOTER ============ -->
-    <!-- ============ FOOTER ============ -->
     <footer class="main-footer">
-        <p>📚 Planificación del Proyecto Transversal v2.0 • Vista Alumnado • 1º CFGM Carpintería y Mueble • IES Ana
-            Luisa Benítez • <span data-academic-year>2025-2026</span>
+        <p>🧑‍🏫 Panel de Coordinación Docente v2.0 • Proyecto Transversal 1º CFGM • IES Ana Luisa Benítez • <span
+                data-academic-year>2025-2026</span>
         </p>
     </footer>
 
     <!-- ============ SCRIPTS ============ -->
-    <!-- Dependencias Externas -->
+    <!-- Librería de Gráficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Datos y Configuración -->
+    <!-- Datos del plan -->
     <script src="data/master-plan.js"></script>
 
     <!-- Año académico -->
     <script src="js/academic-year-manager.js"></script>
     <script src="js/academic-year-selector-ui.js"></script>
+    <script src="js/academic-year-generator.js"></script>
 
     <!-- Sistema de tracking -->
     <script src="js/ra-tracker.js"></script>
@@ -595,11 +626,10 @@
     <script src="js/dashboard-renderer.js"></script>
     <script src="js/gantt-renderer.js"></script>
 
-    <!-- Sistema de Configuraciones Alumnado -->
+    <!-- Sistema de Configuraciones -->
     <script src="js/settings-manager.js"></script>
     <script src="js/settings-ui-student.js"></script>
     <script src="js/notification-manager.js"></script>
-    <script src="js/rubric-manager.js"></script>
 
     <script>
         /**
@@ -630,6 +660,33 @@
         }
     </script>
     <script>
+        /**
+         * Alternar visibilidad de bloques pedagógicos
+         */
+        function togglePedagogicalBlock(blockId) {
+            const block = document.getElementById(blockId);
+            if (block) {
+                block.classList.toggle('collapsed');
+                // Guardar estado en localStorage
+                const states = JSON.parse(localStorage.getItem('1cfgm_pedagogical_blocks_state') || '{}');
+                states[blockId] = block.classList.contains('collapsed');
+                localStorage.setItem('1cfgm_pedagogical_blocks_state', JSON.stringify(states));
+            }
+        }
+
+        /**
+         * Restaurar estado de los bloques al cargar
+         */
+        function restorePedagogicalState() {
+            const states = JSON.parse(localStorage.getItem('1cfgm_pedagogical_blocks_state') || '{}');
+            for (const [id, isCollapsed] of Object.entries(states)) {
+                const block = document.getElementById(id);
+                if (block && isCollapsed) {
+                    block.classList.add('collapsed');
+                }
+            }
+        }
+
         function getAcademicYearLabel() {
             return window.MASTER_PLAN?.config?.academic_year || window.MASTER_PLAN?.config?.year || '2025-2026';
         }
@@ -727,14 +784,6 @@
             });
         }
 
-        function applyStudentStudySettings(settings) {
-            const study = settings?.student?.study || {};
-            document.body.classList.toggle('student-focus-mode', !!study.focusMode);
-            document.body.classList.toggle('student-only-my-tasks', !!study.showOnlyMyTasks);
-            document.body.classList.toggle('student-highlight-pending', !!study.highlightPending);
-            document.body.classList.toggle('student-hide-completed', !!study.hideCompleted);
-        }
-
         function applySettingsToUI(settings) {
             if (!settings) return;
             const institutionalPanel = document.getElementById('institutional-panel');
@@ -742,13 +791,13 @@
                 institutionalPanel.classList.toggle('is-hidden', !settings.pedagogical.showInstitutionalPanel);
             }
             applyPedagogicalEditState(settings);
-            applyStudentStudySettings(settings);
         }
 
         function getDefaultViewFromSettings(settings) {
             const defaultView = settings?.general?.defaultView || 'daily';
             if (defaultView === 'daily') return 3;
             if (defaultView === 'timeline') return 2;
+            if (defaultView === 'ra-dashboard') return 4;
             return 1;
         }
 
@@ -757,7 +806,7 @@
             const mode = 'alumnado';
             const key = `planificacion_welcome_seen_${mode}_${getAcademicYearLabel()}`;
             if (localStorage.getItem(key)) return;
-            alert('👋 Bienvenido/a. Revisa la ficha del día, el líder de semana y marca tus DoD conforme avances.');
+            alert('👋 Bienvenido/a a tu Panel de Alumnado. Aquí podrás seguir tus entregas diarias, consultar el calendario del curso y ver tu progreso en tiempo real.');
             localStorage.setItem(key, 'true');
         }
 
@@ -802,6 +851,7 @@
                 <div class="student-focus-item">✅ Evidencia: ${evidenceText}</div>
             `;
         }
+
 
         function syncAcademicYearLabels() {
             const { label } = getAcademicYearBounds();
@@ -976,6 +1026,7 @@
                 window.fichasRenderer.renderDailyFicha(currentDate);
             }
             updateStudentFocusMessage();
+            updateTeacherFocusMessage();
         }
 
         function goToToday() {
@@ -985,6 +1036,7 @@
                 window.fichasRenderer.renderDailyFicha(currentDate);
             }
             updateStudentFocusMessage();
+            updateTeacherFocusMessage();
         }
 
         function onWeekChange(weekId) {
@@ -1256,8 +1308,18 @@
                         }
                     }
 
-                    // En la vista de alumnado no mostramos progreso diario en el radar
+                    // Obtener progreso del día
                     let progressHTML = '';
+                    if (dayData && window.ProgressManager) {
+                        const progress = window.ProgressManager.getDayProgress(dateStr, 5); // Asumiendo 5 tareas por defecto
+                        if (progress > 0) {
+                            progressHTML = window.ProgressManager.generateProgressBar(progress, {
+                                showPercentage: false,
+                                height: '3px',
+                                animated: false
+                            });
+                        }
+                    }
 
                     html += `
                         <div class="${classes}" onclick="goToDay('${dateStr}')" title="${formatDateEuropean(dateStr)}">
@@ -1469,17 +1531,16 @@
                     const module = window.MASTER_PLAN.getModule(week.leader);
 
                     const dodHTML = week.dod.map((item, idx) => {
-                        const taskId = `dod_${idx}`;
-                        const isChecked = window.ProgressManager ? window.ProgressManager.isTaskCompleted(week.date_from, taskId) : false;
                         const dodId = `${ev.eval}_week${week.num}_dod${idx}`;
                         return `
                             <div class="timeline-dod-item">
-                                <input type="checkbox" id="${dodId}" ${isChecked ? 'checked' : ''} onchange="toggleTimelineDod('${dodId}')">
+                                <input type="checkbox" id="${dodId}" onchange="toggleTimelineDod('${dodId}')">
                                 <label for="${dodId}">${item}</label>
                             </div>
                         `;
                     }).join('');
 
+                    // Obtener progreso de la semana
                     let progressHTML = '';
                     if (window.ProgressManager) {
                         const progress = window.ProgressManager.getWeekProgress(week.id);
@@ -1562,26 +1623,25 @@
         function toggleTimelineDod(dodId) {
             if (!window.raTracker) return;
 
-            const checkbox = document.getElementById(dodId);
+            const checkbox = document.querySelector(`#${dodId}`);
             if (!checkbox) return;
 
             if (!window.raTracker.data.timelineDods) {
                 window.raTracker.data.timelineDods = {};
             }
+
             window.raTracker.data.timelineDods[dodId] = checkbox.checked;
             window.raTracker.saveData();
 
-            // Sincronizar con el widget de progreso global
+            // Notificar al ProgressTracker para actualizar widgets y dashboard
             if (window.ProgressTracker && window.ProgressTracker.notifyDashboards) {
                 window.ProgressTracker.notifyDashboards();
             }
 
-            // Actualizar visualmente la barra de la semana si existe
+            // Actualizar la barra de progreso de la card semanal inmediatamente
             const parts = dodId.split('_');
             const weekId = `${parts[0]}-S${parts[1].replace('week', '').padStart(2, '0')}`;
-            if (typeof updateWeekCardProgress === 'function') {
-                updateWeekCardProgress(weekId);
-            }
+            updateWeekCardProgress(weekId);
 
             window.raTracker.showNotification(
                 checkbox.checked ? '✅ DoD completado' : '⬜ DoD desmarcado',
@@ -1998,6 +2058,12 @@
                     card.style.display = shouldShowModule ? 'block' : 'none';
                 });
             });
+
+            // Actualizar capa pedagógica si se filtra por evaluación
+            if (type === 'eval') {
+                const evalId = value === 'all' ? null : value.toUpperCase();
+                window.updatePedagogicalLayer(evalId);
+            }
         }
 
         // ============ RENDER VISUAL DASHBOARD ============
@@ -2007,11 +2073,13 @@
             }
         }
 
+
         // ============ GESTIÓN DE NOTAS DE MÓDULOS ============
         function toggleModuleNote(noteKey) {
             const area = document.getElementById(`note-area-${noteKey}`);
             if (area) {
                 area.classList.toggle('active');
+                // Focus en el textarea si se abre
                 if (area.classList.contains('active')) {
                     const textarea = document.getElementById(`note-text-${noteKey}`);
                     if (textarea) textarea.focus();
@@ -2037,18 +2105,22 @@
 
             const content = textarea.value.trim();
 
+            // Inicializar objeto de notas si no existe
             if (!window.raTracker.data.moduleNotes) {
                 window.raTracker.data.moduleNotes = {};
             }
 
+            // Guardar nota
             window.raTracker.data.moduleNotes[noteKey] = content;
             window.raTracker.saveData();
 
+            // Actualizar UI
             if (statusEl) {
                 statusEl.textContent = '✓ Guardada ' + new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
                 statusEl.classList.add('saved');
             }
 
+            // Actualizar botón toggle
             if (toggleBtn) {
                 const hasNote = content.length > 0;
                 toggleBtn.classList.toggle('has-note', hasNote);
@@ -2059,6 +2131,7 @@
                 }
             }
 
+            // Notificación
             if (window.raTracker.showNotification) {
                 window.raTracker.showNotification('📝 Nota guardada', 'success');
             }
@@ -2078,6 +2151,7 @@
                 window.raTracker.saveData();
             }
 
+            // Actualizar UI
             if (statusEl) {
                 statusEl.textContent = 'Nota eliminada';
                 statusEl.classList.remove('saved');
@@ -2157,43 +2231,55 @@
             }
         }
 
-        // ============ SISTEMA DE RESET ============
-        function resetAllSystem() {
-            if (!confirm('⚠️ ¿ESTÁS SEGURO? Esta acción borrará TODO tu progreso (Entregas, DoD, Evidencias, Notas) y no se puede deshacer.')) {
+
+        // ============ RESET DE PROGRESO SEMANAL ============
+        function resetWeeklyProgress() {
+            if (!confirm('⚠️ ¿Reiniciar todas las casillas semanales a 0?\n\nEsto borrará todas las marcas de los hitos semanales (DoD) pero mantendrá los entregables diarios.')) {
                 return;
             }
 
-            const settings = getSettings();
-            if (settings?.teams?.requirePinForReset) {
-                const pin = prompt('Introduce el PIN de seguridad para continuar:');
-                if (pin !== settings.teams.resetPin) {
-                    alert('❌ PIN incorrecto. Operación cancelada.');
-                    return;
-                }
+            // Limpiar solo los DoDs semanales del raTracker
+            if (window.raTracker && window.raTracker.data) {
+                window.raTracker.data.timelineDods = {};
+                window.raTracker.saveData();
             }
 
-            // 1. Reiniciar ProgressTracker
+            // Notificar cambios
+            if (window.ProgressTracker && window.ProgressTracker.notifyDashboards) {
+                window.ProgressTracker.notifyDashboards();
+            }
+
+            // Actualizar UI
+            updateProgressWidget();
+            if (currentView === 2) {
+                renderTimeline();
+            }
+
+            alert('✅ Progreso semanal reiniciado correctamente.');
+        }
+
+        // ============ SISTEMA DE RESET DE ALUMNADO ============
+        function resetMyProgress() {
+            if (!confirm('⚠️ ¿BORRAR TU PROGRESO? Esta acción eliminará todas tus marcas de tareas completadas y no se puede deshacer.')) {
+                return;
+            }
+
+            // 1. Reiniciar ProgressTracker (Storage local del alumno)
             if (window.ProgressTracker) window.ProgressTracker.reset();
 
             // 2. Reiniciar ProgressManager
             if (window.ProgressManager) window.ProgressManager.resetProgress();
 
-            // 3. Reiniciar RATracker
-            if (window.raTracker) window.raTracker.resetData();
-
-            // 4. Notificar y refrescar UI
+            // 3. Notificar y refrescar UI
             if (window.ProgressTracker && window.ProgressTracker.notifyDashboards) {
                 window.ProgressTracker.notifyDashboards();
             }
 
-            // Forzar recarga o renderizado de vistas críticas
-            renderRadar();
-            if (typeof renderRADashboard === 'function') renderRADashboard();
+            // Refrescar radar
+            if (typeof renderRadar === 'function') renderRadar();
             updateProgressWidget();
 
-            alert('✅ Todo el progreso ha sido borrado correctamente.');
-
-            // Recargar para asegurar estado limpio
+            alert('✅ Tu progreso ha sido borrado correctamente.');
             location.reload();
         }
 
@@ -2215,7 +2301,7 @@
             populateWeekSelector();
             document.body.dataset.view = String(currentView);
 
-            // Forzar modo alumnado (versión Alumnado)
+            // Iniciar modo alumnado (versión Estudiante)
             setViewMode('alumnado');
             if (window.GanttRenderer?.setMode) window.GanttRenderer.setMode('alumnado');
 
@@ -2234,10 +2320,10 @@
             // Actualizar widget de progreso
             updateProgressWidget();
 
-            // Inicializar capa pedagógica
+            // Inicializar capa pedagógica (oculta para alumnos en CSS, pero procesada)
             window.updatePedagogicalLayer();
 
-            console.log('✅ Panel de Coordinación Docente inicializado correctamente');
+            console.log('✅ Panel de Alumnado inicializado correctamente');
         };
 
         // ============ ACTUALIZACIÓN DE WIDGET DE PROGRESO ============
@@ -2250,10 +2336,10 @@
             try {
                 const stats = window.ProgressManager.getStatistics();
 
-                document.getElementById('global-progress').textContent = `${stats.globalProgress}% `;
-                document.getElementById('e1-progress').textContent = `E1: ${stats.evaluations.E1}% `;
-                document.getElementById('e2-progress').textContent = `E2: ${stats.evaluations.E2}% `;
-                document.getElementById('e3-progress').textContent = `E3: ${stats.evaluations.E3}% `;
+                document.getElementById('global-progress').textContent = `${stats.globalProgress}%`;
+                document.getElementById('e1-progress').textContent = `E1: ${stats.evaluations.E1}%`;
+                document.getElementById('e2-progress').textContent = `E2: ${stats.evaluations.E2}%`;
+                document.getElementById('e3-progress').textContent = `E3: ${stats.evaluations.E3}%`;
 
                 const settings = getSettings();
                 const widget = document.getElementById('progress-widget');
@@ -2279,7 +2365,6 @@
             // Actualizar vista actual si depende de estadísticas
             if (currentView === 4) renderRADashboard();
             if (currentView === 1) renderRadar();
-            if (currentView === 5) renderVisualDashboard();
         });
 
         window.addEventListener('settingsApplied', (event) => {
@@ -2293,11 +2378,10 @@
             if (currentView === 3 && window.fichasRenderer) {
                 const currentDate = document.getElementById('selectedDate')?.value;
                 if (currentDate) window.fichasRenderer.renderDailyFicha(currentDate);
-                const currentWeek = document.getElementById('weekSelector')?.value;
+                const currentWeek = document.getElementById('week-selector')?.value;
                 if (currentWeek) window.fichasRenderer.renderWeeklyFicha(currentWeek);
             }
             if (currentView === 4 && typeof renderRADashboard === 'function') renderRADashboard();
-            if (currentView === 5) renderVisualDashboard();
             if (currentView === 6 && window.GanttRenderer) window.GanttRenderer.render();
         });
 
@@ -2308,11 +2392,8 @@
             setTimeout(updateProgressWidget, 100);
         };
 
-        // Hacerlo global para que FichasRenderer pueda llamarlo
-        window.updateProgressWidget = updateProgressWidget;
-
         // ============ SINCRONIZACIÓN EN TIEMPO REAL ============
-        // Detectar cambios en localStorage desde otras pestañas (ej: Docente)
+        // Detectar cambios en localStorage desde otras pestañas (ej: Alumnado)
         window.addEventListener('storage', (e) => {
             // Solo reaccionar a cambios en las claves de datos relevantes
             if (e.key === 'ra_tracker_data' || e.key === 'planificacion_transversal_progress') {
@@ -2381,7 +2462,7 @@
         if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
             window.addEventListener('load', () => {
                 // Añadimos parámetro de versión para forzar actualización del SW
-                navigator.serviceWorker.register('./sw.js?v=14.0')
+                navigator.serviceWorker.register('./sw.js?v=14.1')
                     .then(reg => console.log('✅ Service Worker v14.0 registrado:', reg.scope))
                     .catch(err => console.error('❌ Error al registrar Service Worker:', err));
             });
@@ -2410,6 +2491,42 @@
                 togglePresentationMode();
             }
         });
+
+        // ============ LÓGICA DE NAVEGACIÓN EXTENDIDA (Bridge para Gantt) ============
+        window.UI = window.UI || {};
+        window.UI.showWeekDetail = function (weekId) {
+            console.log('🔗 Navegando a detalle de semana:', weekId);
+            switchView(3);
+            setTimeout(() => {
+                const weekSelector = document.getElementById('weekSelector');
+                if (weekSelector) {
+                    weekSelector.value = weekId;
+                    if (typeof onWeekChange === 'function') {
+                        onWeekChange(weekId);
+                    } else {
+                        const event = new Event('change');
+                        weekSelector.dispatchEvent(event);
+                    }
+                }
+            }, 100);
+        };
+
+        window.UI.showPhaseDetail = function (phaseId) {
+            console.log('🔗 Navegando a detalle de fase:', phaseId);
+            switchView(2);
+            setTimeout(() => {
+                const phaseSelector = document.getElementById('timeline-filter-phase');
+                if (phaseSelector) {
+                    phaseSelector.value = phaseId;
+                    if (typeof filterTimeline === 'function') {
+                        filterTimeline('phase', phaseId);
+                    } else {
+                        const event = new Event('change');
+                        phaseSelector.dispatchEvent(event);
+                    }
+                }
+            }, 100);
+        };
     </script>
 
     <!-- Botón Flotante para Salir del Modo Presentación -->

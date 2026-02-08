@@ -354,9 +354,9 @@
                         <label>📅 Evaluación:</label>
                         <select id="timeline-filter-eval" onchange="filterTimeline('eval', this.value)">
                             <option value="all">Todas</option>
-                            <option value="e1">E1 - Estantería</option>
-                            <option value="e2">E2 - Taburete</option>
-                            <option value="e3">E3 - Mobiliario</option>
+                            <option value="e1">E1 - Proyecto Inicial</option>
+                            <option value="e2">E2 - Proyecto Intermedio</option>
+                            <option value="e3">E3 - Proyecto Final</option>
                         </select>
                     </div>
                     <div class="gantt-filter-group">
@@ -381,28 +381,7 @@
                 <span>Reiniciar todo a 0</span>
             </button>
 
-            <div class="gantt-legend">
-                <div class="gantt-legend-item">
-                    <div class="gantt-legend-dot" style="background: var(--col-mtr)"></div>
-                    <span>MTR</span>
-                </div>
-                <div class="gantt-legend-item">
-                    <div class="gantt-legend-dot" style="background: var(--col-oaa)"></div>
-                    <span>OAA</span>
-                </div>
-                <div class="gantt-legend-item">
-                    <div class="gantt-legend-dot" style="background: var(--col-opp)"></div>
-                    <span>OPP</span>
-                </div>
-                <div class="gantt-legend-item">
-                    <div class="gantt-legend-dot" style="background: var(--col-sov)"></div>
-                    <span>SOV</span>
-                </div>
-                <div class="gantt-legend-item">
-                    <div class="gantt-legend-dot" style="background: var(--col-ipe)"></div>
-                    <span>IPE</span>
-                </div>
-            </div>
+
 
             <div class="timeline-section" id="timeline-container">
                 <!-- Se genera dinámicamente -->
@@ -520,9 +499,9 @@
                         <label>📅 Evaluación:</label>
                         <select id="ra-filter-eval" onchange="filterRADashboard('eval', this.value)">
                             <option value="all">Todas</option>
-                            <option value="e1">E1 - Estantería</option>
-                            <option value="e2">E2 - Taburete</option>
-                            <option value="e3">E3 - Mobiliario</option>
+                            <option value="e1">E1 - Proyecto Inicial</option>
+                            <option value="e2">E2 - Proyecto Intermedio</option>
+                            <option value="e3">E3 - Proyecto Final</option>
                         </select>
                     </div>
                     <div class="gantt-filter-group">
@@ -537,28 +516,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="gantt-legend">
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-mtr)"></div>
-                        <span>MTR</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-oaa)"></div>
-                        <span>OAA</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-opp)"></div>
-                        <span>OPP</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-sov)"></div>
-                        <span>SOV</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-ipe)"></div>
-                        <span>IPE</span>
-                    </div>
-                </div>
+
             </div>
 
             <div class="ra-dashboard-section" id="ra-dashboard">
@@ -575,10 +533,11 @@
             </div>
 
             <div class="ra-visual-dashboard" id="ra-visual-dashboard">
+                <!-- Se genera dinámicamente por DashboardRenderer.renderRAVisualDashboard() -->
+                <div class="dashboard-loading">Cargando visualizaciones de progreso...</div>
             </div>
-            <div id="insights-panel" class="insights-container"></div>
         </div>
-        </div>
+
 
         <!-- ============ NIVEL 6: DIAGRAMA GANTT ============ -->
         <div id="view-level-6" class="view-container">
@@ -586,6 +545,36 @@
                 <h2>📊 Diagrama Gantt - Seguimiento de Proyectos</h2>
                 <p>Vista temporal de las fases, semanas y progreso por evaluación. Haz clic en cualquier barra para ir
                     al Timeline.</p>
+            </div>
+
+            <!-- Gantt Toolbar -->
+            <div class="gantt-toolbar">
+                <div class="gantt-filters">
+                    <div class="gantt-filter-group">
+                        <label>📅 Evaluación:</label>
+                        <select onchange="window.GanttRenderer.updateFilters({eval: this.value})">
+                            <option value="all">Todas</option>
+                            <option value="E1">E1 - Proyecto Inicial</option>
+                            <option value="E2">E2 - Proyecto Intermedio</option>
+                            <option value="E3">E3 - Proyecto Final</option>
+                        </select>
+                    </div>
+                    <div class="gantt-filter-group">
+                        <label>🏷️ Módulo:</label>
+                        <select onchange="window.GanttRenderer.updateFilters({module: this.value})">
+                            <option value="all">Todos</option>
+                            <option value="MTR">MTR - Maderas y Tableros</option>
+                            <option value="OAA">OAA - Operaciones Mob.</option>
+                            <option value="OPP">OPP - Operaciones Carp.</option>
+                            <option value="SOV">SOV - Soluciones</option>
+                            <option value="IPE">IPE - Itinerario</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+
             </div>
 
             <div id="gantt-container" class="gantt-section">
@@ -2526,7 +2515,7 @@
         if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
             window.addEventListener('load', () => {
                 // Añadimos parámetro de versión para forzar actualización del SW
-                navigator.serviceWorker.register('./sw.js?v=14.0')
+                navigator.serviceWorker.register('./sw.js?v=14.1')
                     .then(reg => console.log('✅ Service Worker v14.0 registrado:', reg.scope))
                     .catch(err => console.error('❌ Error al registrar Service Worker:', err));
             });
@@ -2555,6 +2544,48 @@
                 togglePresentationMode();
             }
         });
+        // ============ LÓGICA DE NAVEGACIÓN EXTENDIDA (Bridge para Gantt) ============
+        window.UI = window.UI || {};
+        window.UI.showWeekDetail = function (weekId) {
+            console.log('🔗 Navegando a detalle de semana:', weekId);
+
+            // 1. Cambiar a vista de fichas (Nivel 3)
+            switchView(3);
+
+            // 2. Esperar renderizado y seleccionar semana
+            setTimeout(() => {
+                const weekSelector = document.getElementById('weekSelector');
+                if (weekSelector) {
+                    weekSelector.value = weekId;
+                    // Disparar evento de cambio manualmente
+                    if (typeof onWeekChange === 'function') {
+                        onWeekChange(weekId);
+                    } else {
+                        const event = new Event('change');
+                        weekSelector.dispatchEvent(event);
+                    }
+                }
+            }, 100);
+        };
+
+        window.UI.showPhaseDetail = function (phaseId) {
+            console.log('🔗 Navegando a detalle de fase:', phaseId);
+            // 1. Cambiar a vista de línea de tiempo (Nivel 2)
+            switchView(2);
+            // 2. Filtrar por fase
+            setTimeout(() => {
+                const phaseSelector = document.getElementById('timeline-filter-phase');
+                if (phaseSelector) {
+                    phaseSelector.value = phaseId;
+                    if (typeof filterTimeline === 'function') {
+                        filterTimeline('phase', phaseId);
+                    } else {
+                        const event = new Event('change');
+                        phaseSelector.dispatchEvent(event);
+                    }
+                }
+            }, 100);
+        };
     </script>
 
     <!-- Botón Flotante para Salir del Modo Presentación -->

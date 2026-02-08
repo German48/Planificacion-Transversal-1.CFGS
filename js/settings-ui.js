@@ -199,7 +199,7 @@ const SettingsUI = {
                 <div class="settings-section">
                     <label class="settings-label">Modo de Seguimiento por Módulo</label>
                     <div class="settings-tracking-grid">
-                        ${['MTR', 'OAA', 'OPP', 'SOV', 'IPE'].map(mod => `
+                        ${Object.keys(window.MASTER_PLAN?.modules || {}).filter(m => m !== 'ALL').map(mod => `
                             <div class="settings-tracking-item">
                                 <span class="settings-tracking-label">${mod}</span>
                                 <select class="settings-input-small settings-tracking-select" id="setting-tracking-${mod.toLowerCase()}">
