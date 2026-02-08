@@ -3,7 +3,7 @@
  * Sistema de Autoevaluación y Metacognición para Alumnado
  */
 
-export class RubricManager {
+class RubricManager {
     constructor() {
         this.storageKey = 'edutrack_self_assessments';
         this.data = this.loadData();
@@ -85,5 +85,5 @@ export class RubricManager {
     }
 }
 
-export const rubricManager = new RubricManager();
+const rubricManager = new RubricManager();
 window.RubricManager = rubricManager;

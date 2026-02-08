@@ -514,7 +514,7 @@ if (!document.body || !document.body.classList.contains('mode-alumnado')) {
     };
 }
 
-export const AcademicYearUI = AcademicYearUIInstance;
+const AcademicYearUI = AcademicYearUIInstance;
 window.AcademicYearUI = AcademicYearUI;
 
 // Escuchar cambios de año académico

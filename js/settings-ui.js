@@ -3,7 +3,7 @@
  * Generador de interfaz para el panel de configuraciones
  */
 
-export const SettingsUI = {
+const SettingsUI = window.SettingsUI = {
 
     /**
      * Renderizar el modal completo de configuraciones
@@ -175,19 +175,19 @@ export const SettingsUI = {
                     <label class="settings-label">Ponderación de Evaluaciones</label>
                     <div class="settings-weights-grid">
                         <div class="settings-weight-item">
-                            <label>E1 (Estantería)</label>
+                            <label>E1 (Inicial)</label>
                             <input type="number" class="settings-input-small" id="setting-weight-e1" 
                                    min="0" max="100" value="${evaluation.evaluationWeights.E1}">
                             <span>%</span>
                         </div>
                         <div class="settings-weight-item">
-                            <label>E2 (Taburete)</label>
+                            <label>E2 (Intermedio)</label>
                             <input type="number" class="settings-input-small" id="setting-weight-e2" 
                                    min="0" max="100" value="${evaluation.evaluationWeights.E2}">
                             <span>%</span>
                         </div>
                         <div class="settings-weight-item">
-                            <label>E3 (Mobiliario)</label>
+                            <label>E3 (Final)</label>
                             <input type="number" class="settings-input-small" id="setting-weight-e3" 
                                    min="0" max="100" value="${evaluation.evaluationWeights.E3}">
                             <span>%</span>
@@ -199,7 +199,7 @@ export const SettingsUI = {
                 <div class="settings-section">
                     <label class="settings-label">Modo de Seguimiento por Módulo</label>
                     <div class="settings-tracking-grid">
-                        ${['MTR', 'OAA', 'OPP', 'SOV', 'IPE'].map(mod => `
+                        ${Object.keys(window.MASTER_PLAN?.modules || {}).filter(m => m !== 'ALL').map(mod => `
                             <div class="settings-tracking-item">
                                 <span class="settings-tracking-label">${mod}</span>
                                 <select class="settings-input-small settings-tracking-select" id="setting-tracking-${mod.toLowerCase()}">
@@ -265,15 +265,15 @@ export const SettingsUI = {
                 <div class="settings-section">
                     <label class="settings-label">Nombres de Proyectos Personalizados</label>
                     <div class="settings-subsection">
-                        <label>E1 (Proyecto Estantería):</label>
+                        <label>E1 (Proyecto Inicial):</label>
                         <input type="text" class="settings-input" id="setting-project-e1" value="${pedagogical.projectNames?.E1 || ''}" placeholder="Nombre del proyecto E1">
                     </div>
                     <div class="settings-subsection">
-                        <label>E2 (Proyecto Taburete):</label>
+                        <label>E2 (Proyecto Intermedio):</label>
                         <input type="text" class="settings-input" id="setting-project-e2" value="${pedagogical.projectNames?.E2 || ''}" placeholder="Nombre del proyecto E2">
                     </div>
                     <div class="settings-subsection">
-                        <label>E3 (Proyecto Mobiliario):</label>
+                        <label>E3 (Proyecto Final):</label>
                         <input type="text" class="settings-input" id="setting-project-e3" value="${pedagogical.projectNames?.E3 || ''}" placeholder="Nombre del proyecto E3">
                     </div>
                 </div>
@@ -1027,4 +1027,5 @@ export const SettingsUI = {
 window.SettingsUI = SettingsUI;
 
 console.log('✅ Settings UI Renderer loaded');
+
 

@@ -13,7 +13,7 @@
  * - academic: Estructura RA/CE por evaluación
  */
 
-export const MASTER_PLAN = {
+const MASTER_PLAN = window.MASTER_PLAN = {
 
     // ============================================
     // CONFIGURACIÓN GENERAL
@@ -34,42 +34,42 @@ export const MASTER_PLAN = {
     // ============================================
     pedagogical_context: {
         E1: {
-            title: "Proyecto Estantería",
+            title: "Proyecto Inicial",
             sense: {
-                objective: "Diseñar y fabricar una estantería modular técnica funcional para el taller.",
-                product: "Estantería modular de madera con uniones mecánicas/encoladas.",
-                profile: "Competencia en mecanizado manual y uso de maquinaria básica."
+                objective: "Diseñar y fabricar un prototipo técnico funcional que responda a necesidades operativas reales.",
+                product: "Producto técnico modular con integración de uniones fijas y desmontables.",
+                profile: "Nivel inicial en mecanizado industrial e interpretación avanzada de documentación técnica."
             },
             intent: {
-                ras: "RA1 (Representación), RA4 (Fabricación a medida).",
-                competencies: "Trabajo en equipo, interpretación de planos, precisión técnica.",
-                risks: "Sobrecarga en FAT, falta de coordinación en despiece (RRC-FAT)."
+                ras: "RA1 (Representación), RA4 (Fabricación técnica).",
+                competencies: "Trabajo colaborativo, precisión en el despiece y validación de tolerancias.",
+                risks: "Desajustes en la fase de preparación técnica y falta de coordinación en despiece."
             }
         },
         E2: {
-            title: "Proyecto Taburete",
+            title: "Proyecto Intermedio",
             sense: {
-                objective: "Desarrollar un taburete ergonómico integrando diseño CAD y fabricación industrializable.",
-                product: "Taburete ergonómico con documentación técnica CAD completa.",
-                profile: "Diseño paramétrico y optimización de procesos industriales."
+                objective: "Desarrollar un producto con integración de diseño paramétrico CAD y procesos de fabricación industrializables.",
+                product: "Prototipo avanzado con documentación técnica CAD/BOM completa.",
+                profile: "Técnico en diseño industrial y optimización de flujos de producción."
             },
             intent: {
-                ras: "RA2 (Diseño), RA3 (Procesos), RA4 (Fabricación).",
-                competencies: "Ergonomía, modelado 3D, gestión de rutas de producción.",
-                risks: "Desfase entre modelo digital y realidad física, dependencia del módulo RRC."
+                ras: "RA2 (Diseño), RA3 (Procesos), RA4 (Fabricación Industrial).",
+                competencies: "Diseño centrado en el usuario, modelado 3D y gestión de rutas de producción industrial.",
+                risks: "Discrepancias entre el modelo digital y la viabilidad física del producto."
             }
         },
         E3: {
-            title: "Proyecto Mobiliario",
+            title: "Proyecto Final",
             sense: {
-                objective: "Producción de mobiliario industrial complejo con enfoque en calidad y sostenibilidad.",
-                product: "Mueble de oficina/taller de alta complejidad y acabado premium.",
-                profile: "Gestión de proyectos complejos y control de calidad profesional."
+                objective: "Producción integral de mobiliario industrial complejo con enfoque en sostenibilidad y calidad premium.",
+                product: "Proyecto final de alta complejidad técnica con acabados profesionales y validación de calidad.",
+                profile: "Gestor de proyectos técnicos integrales con control de calidad y estándares internacionales."
             },
             intent: {
-                ras: "Todos los RA del curso (Integración Transversal).",
-                competencies: "Liderazgo, resolución de problemas técnicos complejos.",
-                risks: "Retraso en entrega final, falta de tiempo para acabados, dependencia de materiales externos."
+                ras: "Integración transversal de todos los resultados de aprendizaje del curso.",
+                competencies: "Liderazgo técnico, resolución de problemas complejos y visión global de proyecto.",
+                risks: "Retrasos en la fase de validación final y dependencia crítica de suministros externos."
             }
         }
     },
@@ -143,7 +143,7 @@ export const MASTER_PLAN = {
         F0: {
             name: "Lanzamiento",
             icon: "🚀",
-            color: "#3498db",
+            color: "#e91e63", // Pink
             gate: {
                 title: "Hito F0: Requisitos",
                 conditions: [
@@ -158,7 +158,7 @@ export const MASTER_PLAN = {
         F1: {
             name: "Investigación",
             icon: "🔍",
-            color: "#9b59b6",
+            color: "#3498db", // Blue
             gate: {
                 title: "Hito F1: Propuesta",
                 conditions: [
@@ -173,7 +173,7 @@ export const MASTER_PLAN = {
         F2: {
             name: "Diseño/Representación",
             icon: "📐",
-            color: "#e67e22",
+            color: "#9b59b6", // Purple
             gate: {
                 title: "Hito F2: Documentación",
                 conditions: [
@@ -188,7 +188,7 @@ export const MASTER_PLAN = {
         F3: {
             name: "Planificación",
             icon: "📋",
-            color: "#27ae60",
+            color: "#f1c40f", // Yellow
             gate: {
                 title: "Hito F3: Preparación",
                 conditions: [
@@ -203,7 +203,7 @@ export const MASTER_PLAN = {
         F4: {
             name: "Fabricación/Prototipo",
             icon: "🔨",
-            color: "#c0392b",
+            color: "#e67e22", // Orange
             gate: {
                 title: "Hito F4: Producción",
                 conditions: [
@@ -218,7 +218,7 @@ export const MASTER_PLAN = {
         F5: {
             name: "Cierre/Entrega",
             icon: "🎯",
-            color: "#2c3e50",
+            color: "#e74c3c", // Red
             gate: {
                 title: "Hito F5: Entrega Final",
                 conditions: [
@@ -244,7 +244,7 @@ export const MASTER_PLAN = {
             date_from: "2025-09-15",
             date_to: "2025-09-19",
             eval: "E1",
-            project: "Estantería modular",
+            project: "Proyecto Inicial",
             phase_common: "F0",
             week_goal: "Lanzamiento del proyecto: comprender el brief, crear moodboard y configurar repositorio digital.",
             gate: {
@@ -275,7 +275,7 @@ export const MASTER_PLAN = {
             date_from: "2025-09-22",
             date_to: "2025-09-26",
             eval: "E1",
-            project: "Estantería modular",
+            project: "Proyecto Inicial",
             phase_common: "F1",
             week_goal: "Generar mínimo 3 alternativas de diseño con bocetos a mano y seleccionar la mejor con criterios técnicos.",
             gate: {
@@ -306,7 +306,7 @@ export const MASTER_PLAN = {
             date_from: "2025-09-29",
             date_to: "2025-10-03",
             eval: "E1",
-            project: "Estantería modular",
+            project: "Proyecto Inicial",
             phase_common: "F2",
             week_goal: "Crear planos a mano (croquis acotado) con vistas normalizadas del diseño seleccionado.",
             gate: {
@@ -337,7 +337,7 @@ export const MASTER_PLAN = {
             date_from: "2025-10-06",
             date_to: "2025-10-10",
             eval: "E1",
-            project: "Estantería modular",
+            project: "Proyecto Inicial",
             phase_common: "F3",
             week_goal: "Preparar material, crear hoja de proceso y realizar primeras operaciones de trazado y corte.",
             gate: {
@@ -368,7 +368,7 @@ export const MASTER_PLAN = {
             date_from: "2025-10-13",
             date_to: "2025-10-17",
             eval: "E1",
-            project: "Estantería modular",
+            project: "Proyecto Inicial",
             phase_common: "F4",
             week_goal: "Fabricar piezas principales y realizar probeta de unión para validar la técnica elegida.",
             gate: {
@@ -399,7 +399,7 @@ export const MASTER_PLAN = {
             date_from: "2025-10-20",
             date_to: "2025-10-24",
             eval: "E1",
-            project: "Estantería modular",
+            project: "Proyecto Inicial",
             phase_common: "F4",
             week_goal: "Ensamblar el prototipo/maqueta funcional y verificar estabilidad y acabado.",
             gate: {
@@ -430,7 +430,7 @@ export const MASTER_PLAN = {
             date_from: "2025-10-27",
             date_to: "2025-10-31",
             eval: "E1",
-            project: "Estantería modular",
+            project: "Proyecto Inicial",
             phase_common: "F5",
             week_goal: "Preparar dossier técnico, presentación y entregar proyecto completo.",
             gate: {
@@ -461,7 +461,7 @@ export const MASTER_PLAN = {
             date_from: "2025-11-03",
             date_to: "2025-11-07",
             eval: "E1",
-            project: "Estantería modular",
+            project: "Proyecto Inicial",
             phase_common: "F3",
             week_goal: "Fabricar probetas de unión y validar la técnica elegida antes de la producción.",
             gate: {
@@ -492,7 +492,7 @@ export const MASTER_PLAN = {
             date_from: "2025-11-10",
             date_to: "2025-11-14",
             eval: "E1",
-            project: "Estantería modular",
+            project: "Proyecto Inicial",
             phase_common: "F4",
             week_goal: "Iniciar fabricación real: trazado, corte y preparación de piezas.",
             gate: {
@@ -523,7 +523,7 @@ export const MASTER_PLAN = {
             date_from: "2025-11-17",
             date_to: "2025-11-21",
             eval: "E1",
-            project: "Estantería modular",
+            project: "Proyecto Inicial",
             phase_common: "F4",
             week_goal: "Completar fabricación de piezas y realizar montaje del producto.",
             gate: {
@@ -554,7 +554,7 @@ export const MASTER_PLAN = {
             date_from: "2025-11-24",
             date_to: "2025-11-28",
             eval: "E1",
-            project: "Estantería modular",
+            project: "Proyecto Inicial",
             phase_common: "F4",
             week_goal: "Control de calidad final: verificar dimensiones, estabilidad y acabado.",
             gate: {
@@ -585,7 +585,7 @@ export const MASTER_PLAN = {
             date_from: "2025-12-01",
             date_to: "2025-12-04",
             eval: "E1",
-            project: "Estantería modular",
+            project: "Proyecto Inicial",
             phase_common: "F5",
             week_goal: "Preparar dossier final: memoria, planos, proceso, QC y conclusiones.",
             gate: {
@@ -616,7 +616,7 @@ export const MASTER_PLAN = {
             date_from: "2025-12-08",
             date_to: "2025-12-12",
             eval: "E1",
-            project: "Estantería modular",
+            project: "Proyecto Inicial",
             phase_common: "F5",
             week_goal: "Entrega final y cierre administrativo del proyecto E1.",
             gate: {
@@ -1488,7 +1488,7 @@ export const MASTER_PLAN = {
             is_lective: true,
             eval: "E2",
             week_id: "E2-S05",
-            project: "Taburete ergonómico",
+            project: "Proyecto Intermedio",
 
             phase_common: "F4",
             day_type: "taller",
@@ -1643,7 +1643,7 @@ export const MASTER_PLAN = {
             is_lective: true,
             eval: "E2",
             week_id: "E2-S03",
-            project: "Taburete ergonómico",
+            project: "Proyecto Intermedio",
             phase_common: "F2",
             day_type: "aula",
             leader_module: "DRP",
@@ -1774,7 +1774,7 @@ export const MASTER_PLAN = {
             is_lective: true,
             eval: "E2",
             week_id: "E2-S03",
-            project: "Taburete ergonómico",
+            project: "Proyecto Intermedio",
             phase_common: "F2",
             day_type: "aula",
             leader_module: "RRC",
@@ -1906,7 +1906,7 @@ export const MASTER_PLAN = {
             is_lective: true,
             eval: "E2",
             week_id: "E2-S03",
-            project: "Taburete ergonómico",
+            project: "Proyecto Intermedio",
             phase_common: "F2",
             day_type: "mixta",
             leader_module: "DRP",
@@ -2050,7 +2050,7 @@ export const MASTER_PLAN = {
             is_lective: true,
             eval: "E2",
             week_id: "E2-S03",
-            project: "Taburete ergonómico",
+            project: "Proyecto Intermedio",
             phase_common: "F2",
             day_type: "revision",
             leader_module: "DJK",
@@ -2195,7 +2195,7 @@ export const MASTER_PLAN = {
             is_lective: true,
             eval: "E2",
             week_id: "E2-S05",
-            project: "Taburete ergonómico",
+            project: "Proyecto Intermedio",
             phase_common: "F4",
             day_type: "mixta",
             leader_module: "FAT",
@@ -2336,7 +2336,7 @@ export const MASTER_PLAN = {
             is_lective: true,
             eval: "E2",
             week_id: "E2-S05",
-            project: "Taburete ergonómico",
+            project: "Proyecto Intermedio",
             phase_common: "F4",
             day_type: "taller",
             leader_module: "FAT",
@@ -2485,7 +2485,7 @@ export const MASTER_PLAN = {
             is_lective: true,
             eval: "E2",
             week_id: "E2-S05",
-            project: "Taburete ergonómico",
+            project: "Proyecto Intermedio",
             phase_common: "F4",
             day_type: "taller",
             leader_module: "FAT",
@@ -2634,7 +2634,7 @@ export const MASTER_PLAN = {
             is_lective: true,
             eval: "E2",
             week_id: "E2-S05",
-            project: "Taburete ergonómico",
+            project: "Proyecto Intermedio",
             phase_common: "F4",
             day_type: "taller",
             leader_module: "FAT",
@@ -2797,8 +2797,8 @@ export const MASTER_PLAN = {
     academic: [
         {
             id: "e1",
-            title: "1.ª Evaluación (Proyecto Básico: Estantería)",
-            project: "Estantería modular",
+            title: "1.ª Evaluación (Proyecto Inicial)",
+            project: "Proyecto Inicial",
             flow: [
                 { f: "F0/F1", l: "DRP", c: "var(--col-drp)" },
                 { f: "F2", l: "RRC", c: "var(--col-rrc)" },
@@ -2862,8 +2862,8 @@ export const MASTER_PLAN = {
         },
         {
             id: "e2",
-            title: "2.ª Evaluación (Proyecto Intermedio: Taburete)",
-            project: "Taburete ergonómico",
+            title: "2.ª Evaluación (Proyecto Intermedio)",
+            project: "Proyecto Intermedio",
             flow: [
                 { f: "F0/F1", l: "DRP", c: "var(--col-drp)" },
                 { f: "F2", l: "RRC", c: "var(--col-rrc)" },
@@ -2925,8 +2925,8 @@ export const MASTER_PLAN = {
         },
         {
             id: "e3",
-            title: "3.ª Evaluación (Proyecto Avanzado: Mobiliario Industrial)",
-            project: "Mobiliario industrial",
+            title: "3.ª Evaluación (Proyecto Final)",
+            project: "Proyecto Final",
             flow: [
                 { f: "F0", l: "DJK", c: "var(--col-djk)" },
                 { f: "F2", l: "RRC", c: "var(--col-rrc)" },
@@ -2993,7 +2993,7 @@ export const MASTER_PLAN = {
     // ============================================
     timeline: [
         {
-            eval: "E1", title: "Proyecto Básico: Estantería", weeks: [
+            eval: "E1", title: "Proyecto Inicial", weeks: [
                 { num: 1, id: "E1-S01", dates: "15-19 Sep", goal: "F0: Encargo + PRL", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Encargo firmado", "PRL APTO", "Repositorio creado"] },
                 { num: 2, id: "E1-S02", dates: "22-26 Sep", goal: "F1: Investigación y alternativas", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["2-3 alternativas", "Matriz decisión", "Elección razonada"] },
                 { num: 3, id: "E1-S03", dates: "29 Sep-03 Oct", goal: "F1 cierre: Propuesta final", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Design Freeze", "Medidas definitivas", "Punto crítico"] },
@@ -3010,7 +3010,7 @@ export const MASTER_PLAN = {
             ]
         },
         {
-            eval: "E2", title: "Proyecto Intermedio: Taburete", weeks: [
+            eval: "E2", title: "Proyecto Intermedio", weeks: [
                 { num: 1, id: "E2-S01", dates: "08-09 Ene", goal: "F0: Arranque encargo", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Encargo ergonomía", "Checklist PRL", "Repositorio E2"] },
                 { num: 2, id: "E2-S02", dates: "12-16 Ene", goal: "F1: Investigación y alternativas", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["2-3 alternativas", "Matriz decisión", "Propuesta seleccionada"] },
                 { num: 3, id: "E2-S03", dates: "19-23 Ene", goal: "F2: CAD y documentación", leader: "RRC", leaderColor: "var(--col-rrc)", dod: ["Planos CAD", "Despiece+BOM", "Paquete fabricación"] },
@@ -3024,7 +3024,7 @@ export const MASTER_PLAN = {
             ]
         },
         {
-            eval: "E3", title: "Proyecto Avanzado: Mobiliario Industrial", weeks: [
+            eval: "E3", title: "Proyecto Final", weeks: [
                 { num: 1, id: "E3-S01", dates: "16-20 Mar", goal: "F0: Lanzamiento + PRL", leader: "DJK", leaderColor: "var(--col-djk)", dod: ["Requisitos cerrados", "PRL maquinaria fija", "IT/OT mapa"] },
                 { num: 2, id: "E3-S02", dates: "23-27 Mar", goal: "F1: Investigación y propuestas", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Alternativas", "Decisión razonada", "Propuesta final"] },
                 { num: 3, id: "E3-S03", dates: "06-10 Abr", goal: "F2-F3: Proceso Cerrado", leader: "RRC", leaderColor: "var(--col-rrc)", dod: ["Planos definitivos", "Hoja proceso", "Plan QC"] },
@@ -3042,7 +3042,7 @@ export const MASTER_PLAN = {
     // ============================================
     timeline: [
         {
-            eval: "E1", title: "Proyecto Básico: Estantería", weeks: [
+            eval: "E1", title: "Proyecto Inicial", weeks: [
                 { num: 1, id: "E1-S01", dates: "15-19 Sep", goal: "F0: Encargo + PRL", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Encargo firmado", "PRL APTO", "Repositorio creado"] },
                 { num: 2, id: "E1-S02", dates: "22-26 Sep", goal: "F1: Investigación y alternativas", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["2-3 alternativas", "Matriz decisión", "Elección razonada"] },
                 { num: 3, id: "E1-S03", dates: "29 Sep-03 Oct", goal: "F1 cierre: Propuesta final", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Design Freeze", "Medidas definitivas", "Punto crítico"] },
@@ -3059,7 +3059,7 @@ export const MASTER_PLAN = {
             ]
         },
         {
-            eval: "E2", title: "Proyecto Intermedio: Taburete", weeks: [
+            eval: "E2", title: "Proyecto Intermedio", weeks: [
                 { num: 1, id: "E2-S01", dates: "08-09 Ene", goal: "F0: Arranque encargo", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Encargo ergonomía", "Checklist PRL", "Repositorio E2"] },
                 { num: 2, id: "E2-S02", dates: "12-16 Ene", goal: "F1: Investigación y alternativas", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["2-3 alternativas", "Matriz decisión", "Propuesta seleccionada"] },
                 { num: 3, id: "E2-S03", dates: "19-23 Ene", goal: "F2: CAD y documentación", leader: "RRC", leaderColor: "var(--col-rrc)", dod: ["Planos CAD", "Despiece+BOM", "Paquete fabricación"] },
@@ -3073,7 +3073,7 @@ export const MASTER_PLAN = {
             ]
         },
         {
-            eval: "E3", title: "Proyecto Avanzado: Mobiliario Industrial", weeks: [
+            eval: "E3", title: "Proyecto Final", weeks: [
                 { num: 1, id: "E3-S01", dates: "16-20 Mar", goal: "F0: Lanzamiento + PRL", leader: "DJK", leaderColor: "var(--col-djk)", dod: ["Requisitos cerrados", "PRL maquinaria fija", "IT/OT mapa"] },
                 { num: 2, id: "E3-S02", dates: "23-27 Mar", goal: "F1: Investigación y propuestas", leader: "DRP", leaderColor: "var(--col-drp)", dod: ["Alternativas", "Decisión razonada", "Propuesta final"] },
                 { num: 3, id: "E3-S03", dates: "06-10 Abr", goal: "F2-F3: Proceso Cerrado", leader: "RRC", leaderColor: "var(--col-rrc)", dod: ["Planos definitivos", "Hoja proceso", "Plan QC"] },

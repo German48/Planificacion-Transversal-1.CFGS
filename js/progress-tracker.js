@@ -4,19 +4,19 @@
  * Versión: 1.0
  */
 
-export const ProgressTracker = {
+const ProgressTracker = {
     STORAGE_KEY_BASE: 'planificacion_transversal_progress',
 
     // Configuración por defecto de seguimiento por módulo
     defaultConfig: {
         trackingMode: {
-            CDA: 'team',       // Almacén
-            DHI: 'individual', // Digitalización
-            MRN: 'individual', // Materiales
-            OAA: 'team',       // Mobiliario
-            OPP: 'team',       // Carpintería
-            SOV: 'team',       // Soluciones
-            IPE: 'individual'  // Empleabilidad
+            DJK: 'individual', // Digitalización
+            DRP: 'team',       // Desarrollo de Producto
+            RRC: 'individual', // Representación
+            FAT: 'team',       // Fabricación
+            PMB: 'team',       // Prototipos
+            PUB: 'team',       // Procesos
+            IPE: 'individual'  // Empleabilidad (si existe)
         },
         currentTeam: 'Equipo_01',
         currentUser: 'Alumno_01',
@@ -390,13 +390,13 @@ export const ProgressTracker = {
         };
 
         const compMap = {
-            'CDA': ['Gestión', 'Planificación'],
-            'DHI': ['Digital'],
-            'MRN': ['Técnica', 'Seguridad'],
-            'OAA': ['Técnica', 'Seguridad'],
-            'OPP': ['Técnica', 'Seguridad'],
-            'SOV': ['Técnica', 'Planificación'],
-            'IPE': ['Gestión']
+            'DJK': ['Digital'],
+            'DRP': ['Planificación', 'Gestión'],
+            'RRC': ['Técnica', 'Digital'],
+            'FAT': ['Técnica', 'Seguridad'],
+            'PMB': ['Técnica', 'Seguridad'],
+            'PUB': ['Gestión', 'Planificación'],
+            'ALL': ['Planificación', 'Gestión', 'Técnica']
         };
 
         const isAllSelection = (selection) => {
@@ -578,23 +578,31 @@ export const ProgressTracker = {
                     stats.byModule[moduleId].total++;
                     if (ev.completed) stats.byModule[moduleId].completed++;
 
-                    let comp = null;
-                    if (moduleId === 'MRN' || moduleId === 'OAA' || moduleId === 'OPP' || moduleId === 'SOV') comp = 'Técnica';
-                    if (moduleId === 'DHI') comp = 'Digital';
-                    if (moduleId === 'CDA' || moduleId === 'IPE') comp = 'Gestión';
-
-                    if (comp && stats.competencies[comp]) {
-                        stats.competencies[comp].total++;
-                        if (ev.completed) stats.competencies[comp].completed++;
-                    }
+                    const comps = compMap[moduleId] || [];
+                    comps.forEach(comp => {
+                        if (stats.competencies[comp]) {
+                            stats.competencies[comp].total++;
+                            if (ev.completed) stats.competencies[comp].completed++;
+                        }
+                    });
                 }
             });
         }
 
-        // Calcular porcentajes de competencias (re-calcular después de RA)
+        // Calcular porcentajes finales
         Object.keys(stats.competencies).forEach(comp => {
             const c = stats.competencies[comp];
             c.percentage = c.total > 0 ? Math.round((c.completed / c.total) * 100) : 0;
+        });
+
+        Object.keys(stats.byEval).forEach(ev => {
+            const e = stats.byEval[ev];
+            e.percentage = e.total > 0 ? Math.round((e.completed / e.total) * 100) : 0;
+        });
+
+        Object.keys(stats.byModule).forEach(mod => {
+            const m = stats.byModule[mod];
+            m.percentage = m.total > 0 ? Math.round((m.completed / m.total) * 100) : 0;
         });
 
         // Contar gates
@@ -702,7 +710,7 @@ export const ProgressTracker = {
 window.ProgressTracker = ProgressTracker.init();
 
 // Función helper para crear checkbox sincronizado
-export function createSyncedCheckbox(id, type, params, label = '') {
+function createSyncedCheckbox(id, type, params, label = '') {
     const { date, weekId, taskId, dodId, module, evalNum, raId, ceId } = params;
 
     let checked = false;

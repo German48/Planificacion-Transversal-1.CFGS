@@ -39,6 +39,47 @@
     <link rel="stylesheet" href="css/settings-modal.css">
 
     <link rel="stylesheet" href="css/premium-mobile.css">
+    <style>
+        /* Widget de Enfoque para Radar */
+        .teacher-focus-radar,
+        .student-focus-radar {
+            margin: 20px 0;
+            background: var(--bg-card, #fff);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color, #eee);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .teacher-focus-title,
+        .student-focus-title {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--col-all, #34495e);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .teacher-focus-items,
+        .student-focus-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .teacher-focus-item,
+        .student-focus-item {
+            background: var(--bg-body, #f8f9fa);
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            border-left: 4px solid var(--col-all, #34495e);
+        }
+    </style>
 </head>
 
 
@@ -150,6 +191,14 @@
                 <p>Vista global del curso • Haz clic en cualquier día para ver/editar su ficha</p>
             </div>
 
+            <!-- Widget de Enfoque para Profesorado -->
+            <div id="teacher-focus-radar" class="teacher-focus-radar">
+                <div class="teacher-focus-title">Hoy como docente:</div>
+                <div id="teacher-focus-items" class="teacher-focus-items">
+                    <!-- Se genera dinámicamente -->
+                </div>
+            </div>
+
             <!-- Panel Institucional: OCULTO -->
             <div class="institutional-panel is-hidden" id="institutional-panel">
                 <div class="institutional-header" onclick="toggleInstitutionalPanel()">
@@ -241,9 +290,9 @@
                         <label>📅 Evaluación:</label>
                         <select id="timeline-filter-eval" onchange="filterTimeline('eval', this.value)">
                             <option value="all">Todas</option>
-                            <option value="e1">E1 - Estantería</option>
-                            <option value="e2">E2 - Taburete</option>
-                            <option value="e3">E3 - Mobiliario</option>
+                            <option value="e1">E1 - Proyecto Inicial</option>
+                            <option value="e2">E2 - Proyecto Intermedio</option>
+                            <option value="e3">E3 - Proyecto Final</option>
                         </select>
                     </div>
                     <div class="gantt-filter-group">
@@ -268,32 +317,7 @@
                 <span>Reiniciar todo a 0</span>
             </button>
 
-            <div class="gantt-legend">
-                <div class="gantt-legend-item">
-                    <div class="gantt-legend-dot" style="background: var(--col-djk)"></div>
-                    <span>DJK</span>
-                </div>
-                <div class="gantt-legend-item">
-                    <div class="gantt-legend-dot" style="background: var(--col-drp)"></div>
-                    <span>DRP</span>
-                </div>
-                <div class="gantt-legend-item">
-                    <div class="gantt-legend-dot" style="background: var(--col-rrc)"></div>
-                    <span>RRC</span>
-                </div>
-                <div class="gantt-legend-item">
-                    <div class="gantt-legend-dot" style="background: var(--col-fat)"></div>
-                    <span>FAT</span>
-                </div>
-                <div class="gantt-legend-item">
-                    <div class="gantt-legend-dot" style="background: var(--col-pmb)"></div>
-                    <span>PMB</span>
-                </div>
-                <div class="gantt-legend-item">
-                    <div class="gantt-legend-dot" style="background: var(--col-pub)"></div>
-                    <span>PUB</span>
-                </div>
-            </div>
+
 
             <div class="timeline-section" id="timeline-container">
                 <!-- Se genera dinámicamente -->
@@ -411,9 +435,9 @@
                         <label>📅 Evaluación:</label>
                         <select id="ra-filter-eval" onchange="filterRADashboard('eval', this.value)">
                             <option value="all">Todas</option>
-                            <option value="e1">E1 - Estantería</option>
-                            <option value="e2">E2 - Taburete</option>
-                            <option value="e3">E3 - Mobiliario</option>
+                            <option value="e1">E1 - Proyecto Inicial</option>
+                            <option value="e2">E2 - Proyecto Intermedio</option>
+                            <option value="e3">E3 - Proyecto Final</option>
                         </select>
                     </div>
                     <div class="gantt-filter-group">
@@ -429,32 +453,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="gantt-legend">
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-djk)"></div>
-                        <span>DJK</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-drp)"></div>
-                        <span>DRP</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-rrc)"></div>
-                        <span>RRC</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-fat)"></div>
-                        <span>FAT</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-pmb)"></div>
-                        <span>PMB</span>
-                    </div>
-                    <div class="gantt-legend-item">
-                        <div class="gantt-legend-dot" style="background: var(--col-pub)"></div>
-                        <span>PUB</span>
-                    </div>
-                </div>
+
             </div>
 
             <div class="ra-dashboard-section" id="ra-dashboard">
@@ -484,6 +483,37 @@
                     al Timeline.</p>
             </div>
 
+            <!-- Toolbar del Gantt -->
+            <div class="gantt-toolbar" style="margin-bottom: 25px;">
+                <div class="gantt-filters">
+                    <div class="gantt-filter-group">
+                        <label>Evaluación:</label>
+                        <select id="gantt-filter-eval"
+                            onchange="window.GanttRenderer.updateFilters({eval: this.value})">
+                            <option value="all">Todas</option>
+                            <option value="E1">E1 - Proyecto Inicial</option>
+                            <option value="E2">E2 - Proyecto Intermedio</option>
+                            <option value="E3">E3 - Proyecto Final</option>
+                        </select>
+                    </div>
+                    <div class="gantt-filter-group">
+                        <label>Módulo:</label>
+                        <select id="gantt-filter-module"
+                            onchange="window.GanttRenderer.updateFilters({module: this.value})">
+                            <option value="all">Todos</option>
+                            <option value="DJK">DJK</option>
+                            <option value="DRP">DRP</option>
+                            <option value="RRC">RRC</option>
+                            <option value="FAT">FAT</option>
+                            <option value="PMB">PMB</option>
+                            <option value="PUB">PUB</option>
+                        </select>
+                    </div>
+                </div>
+
+
+            </div>
+
             <div id="gantt-container" class="gantt-section">
                 <!-- Renderizado dinámico por GanttRenderer -->
             </div>
@@ -505,31 +535,31 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Datos del plan -->
-    <script type="module" src="data/master-plan.js"></script>
+    <script src="data/master-plan.js"></script>
 
     <!-- Año académico -->
-    <script type="module" src="js/academic-year-manager.js"></script>
-    <script type="module" src="js/academic-year-selector-ui.js"></script>
-    <script type="module" src="js/academic-year-generator.js"></script>
+    <script src="js/academic-year-manager.js"></script>
+    <script src="js/academic-year-selector-ui.js"></script>
+    <script src="js/academic-year-generator.js"></script>
 
     <!-- Sistema de tracking -->
-    <script type="module" src="js/ra-tracker.js"></script>
+    <script src="js/ra-tracker.js"></script>
 
     <!-- Renderizador de fichas -->
-    <script type="module" src="js/fichas-renderer.js"></script>
+    <script src="js/fichas-renderer.js"></script>
 
     <!-- Sistema de seguimiento de progreso -->
-    <script type="module" src="js/progress-tracker.js"></script>
+    <script src="js/progress-tracker.js"></script>
 
     <!-- Renderizadores Core -->
-    <script type="module" src="js/progress-manager.js"></script>
-    <script type="module" src="js/dashboard-renderer.js"></script>
-    <script type="module" src="js/gantt-renderer.js"></script>
+    <script src="js/progress-manager.js"></script>
+    <script src="js/dashboard-renderer.js"></script>
+    <script src="js/gantt-renderer.js"></script>
 
     <!-- Sistema de Configuraciones -->
-    <script type="module" src="js/settings-manager.js"></script>
-    <script type="module" src="js/settings-ui.js"></script>
-    <script type="module" src="js/notification-manager.js"></script>
+    <script src="js/settings-manager.js"></script>
+    <script src="js/settings-ui.js"></script>
+    <script src="js/notification-manager.js"></script>
 
     <script>
         /**
@@ -1499,16 +1529,23 @@
                         ? formatDateRangeEuropean(weekDetails.date_from, weekDetails.date_to)
                         : week.dates;
 
+                    const phase = window.MASTER_PLAN?.phases?.[weekDetails?.phase_common];
+
                     html += `
-                        <div class="timeline-week-card" data-week-id="${week.id}">
+                        <div class="timeline-week-card ${weekDetails?.phase_common ? 'phase-' + weekDetails.phase_common : ''}" data-week-id="${week.id}">
                             <div class="timeline-week-label">
                                 <div class="timeline-week-num">S${week.num}</div>
                                 <div class="timeline-week-dates">${weekDateLabel}</div>
+                                ${weekDetails?.phase_common ? `
+                                    <div class="timeline-week-phase phase-${weekDetails.phase_common}" style="background: ${phase?.color || '#95a5a6'};">
+                                        ${phase?.icon || '📌'} ${weekDetails.phase_common}
+                                    </div>
+                                ` : ''}
                             </div>
                             <div class="timeline-week-content">
-                                <div class="timeline-week-header" style="border-left-color: ${week.leaderColor};">
+                                <div class="timeline-week-header" style="border-left-color: ${week.leaderColor || module?.color || '#95a5a6'};">
                                     <span class="timeline-goal">${week.goal}</span>
-                                    <div class="timeline-leader" style="background: ${week.leaderColor}; color: white;">
+                                    <div class="timeline-leader" style="background: ${week.leaderColor || module?.color || '#95a5a6'}; color: white;">
                                         <span>${module?.icon || '📋'}</span>
                                         <span>Líder: ${week.leader}</span>
                                     </div>
@@ -1888,7 +1925,7 @@
             const evalSections = document.querySelectorAll('.eval-section');
 
             evalSections.forEach(section => {
-                const evalId = section.id; // e1, e2, e3
+                const evalId = section.id.toLowerCase(); // e1, e2, e3
                 const shouldShowEval = evalFilter === 'all' || evalFilter === evalId;
 
                 if (!shouldShowEval) {
@@ -1901,10 +1938,10 @@
                 // Filtrar módulos dentro de la evaluación
                 const moduleCards = section.querySelectorAll('.module-card');
                 moduleCards.forEach(card => {
-                    const cardClasses = card.className;
+                    const cardClasses = card.className.toLowerCase();
                     let moduleId = '';
 
-                    // Extraer el ID del módulo de las clases
+                    // Extraer el ID del módulo de las clases (1º CFGS) - Case Insensitive
                     if (cardClasses.includes('card-djk')) moduleId = 'djk';
                     else if (cardClasses.includes('card-drp')) moduleId = 'drp';
                     else if (cardClasses.includes('card-rrc')) moduleId = 'rrc';
@@ -2366,6 +2403,46 @@
                 togglePresentationMode();
             }
         });
+        // ============ LÓGICA DE NAVEGACIÓN EXTENDIDA (Bridge para Gantt) ============
+        window.UI = window.UI || {};
+        window.UI.showWeekDetail = function (weekId) {
+            console.log('🔗 Navegando a detalle de semana:', weekId);
+
+            // 1. Cambiar a vista de fichas (Nivel 3)
+            switchView(3);
+
+            // 2. Esperar renderizado y seleccionar semana
+            setTimeout(() => {
+                const weekSelector = document.getElementById('weekSelector');
+                if (weekSelector) {
+                    weekSelector.value = weekId;
+                    // Disparar evento de cambio manualmente
+                    if (typeof onWeekChange === 'function') {
+                        onWeekChange(weekId);
+                    } else {
+                        const event = new Event('change');
+                        weekSelector.dispatchEvent(event);
+                    }
+                }
+            }, 100);
+        };
+
+        window.UI.showPhaseDetail = function (phaseId) {
+            console.log('🔗 Navegando a detalle de fase:', phaseId);
+            switchView(2);
+            setTimeout(() => {
+                const phaseSelector = document.getElementById('timeline-filter-phase');
+                if (phaseSelector) {
+                    phaseSelector.value = phaseId;
+                    if (typeof filterTimeline === 'function') {
+                        filterTimeline('phase', phaseId);
+                    } else {
+                        const event = new Event('change');
+                        phaseSelector.dispatchEvent(event);
+                    }
+                }
+            }, 100);
+        };
     </script>
 
     <!-- Botón Flotante para Salir del Modo Presentación -->

@@ -430,7 +430,7 @@ function initialize() {
 // API PÚBLICA
 // ============================================
 
-export const AcademicYearManager = {
+const AcademicYearManager = {
     getCurrentYear: getCurrentAcademicYear,
     setYear: setAcademicYear,
     getAvailableYears: getAvailableYears,

@@ -296,7 +296,7 @@ function generateYearCLI() {
 // API PÚBLICA
 // ============================================
 
-export const AcademicYearGenerator = {
+const AcademicYearGenerator = {
     /**
      * Genera un nuevo año académico
      */

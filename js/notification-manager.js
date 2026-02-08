@@ -3,7 +3,7 @@
  * Sistema de notificaciones locales para el seguimiento de entregas (DoD)
  */
 
-export class NotificationManager {
+class NotificationManager {
     constructor() {
         this.permissionRequested = false;
         this.checkInterval = 1000 * 60 * 60; // 1 hora de intervalo para chequeos si la app está abierta
@@ -156,7 +156,7 @@ export class NotificationManager {
 }
 
 // Singleton para acceso global
-export const notificationManager = new NotificationManager();
+const notificationManager = new NotificationManager();
 window.NotificationManager = notificationManager;
 
 // Inicialización automática al cargar el módulo

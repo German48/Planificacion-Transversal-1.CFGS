@@ -3,7 +3,7 @@
  * Funcionalidades: Checklist, Progreso, Búsqueda, Notas, Exportación
  */
 
-export class RATracker {
+class RATracker {
     constructor() {
         this.storageKey = this.buildStorageKey('ra_tracker_data');
         this.data = this.loadData();

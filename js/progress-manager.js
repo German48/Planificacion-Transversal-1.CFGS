@@ -4,7 +4,7 @@
  * Gestiona el estado de completitud de tareas, evidencias y hitos
  */
 
-export class ProgressManager {
+class ProgressManager {
     constructor() {
         this.currentSchemaVersion = '1.1';
         this.storageKey = this.buildStorageKey('planificacion_progress');
